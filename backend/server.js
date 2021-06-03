@@ -102,25 +102,48 @@ app.post('/register', async (req, res) => {
   try {
     const salt = bcrypt.genSaltSync()
 
-    const savedArtist = await new Artist({ 
+    const newArtist = await new Artist({ 
       artistName,
       password: bcrypt.hashSync(password, salt)
     }).save()
     res.status(400).json({ 
       success: true, 
-      artistID: savedArtist._id,
-      artistName: savedArtist.artistName,
-      accessToken: savedArtist.accessToken
+      artistID: newArtist._id,
+      artistName: newArtist.artistName,
+      accessToken: newArtist.accessToken
     })
   } catch (error) {
-    // if error code is === XXX, return error message that name is not unique
+    if (error.code === 11000) {
+      // should I also add a status code here? see lecture
+      res.json({ message: 'Name is not unique' })
+    } else {
     res.status(400).json({ success: false, message: 'Invalid request', error })
+    }
+    
   }
 })
 
 // endpoint to log in as an artist
-////////
-////////
+app.post('/signin', async (req, res) => {
+  const { artistName, password } = req.body
+
+  try {
+    const artist = await Artist.findOne({ artistName })
+
+    if (artist && bcrypt.compareSync(password, artist.password)) {
+      res.json({
+        success: true,
+        artistID: artist._id,
+        artistName: artist.artistName,
+        accessToken: artist.accessToken
+      })
+    } else {
+      res.status(404).json({ success: false, message: 'User not found' })
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid request', error });
+  }
+})
 
 // endpoint to get products
 app.get('/products', async (req, res) => {
