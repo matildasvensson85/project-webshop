@@ -8,37 +8,39 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/artistsWebshop"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.Promise = Promise
 
-
 // MODELS
 
 const Artist = mongoose.model('Artist', {
   artistName: {
     type: String,
     required: true,
-    unique: true
-  },
-});
+    unique: true,
+  }
+})
 
 const Product = mongoose.model('Product', {
   productName: {
     type: String,
-    required: true,
+    required: true
   },
   price: {
-    type: Number,
+    type: Number
   },
   description: {
-    type: String,
+    type: String
   },
-  byArtist: {
-    type: String,
-  },
+  // byArtist: {
+  //   type: String
+  // }
+    byArtist: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Artist'
+  }
 });
 
 // endpoint for users later on?
 
-
-// AUTHENTICATE USER?
+// AUTHENTICATE USER later on?
 
 const port = process.env.PORT || 8080
 const app = express()
@@ -53,8 +55,22 @@ app.get('/', (req, res) => {
 
 // endpoint to get artists
 app.get('/artists', async (req, res) => {
-  const artists = await Artist.find();
-  res.json({ success: true, artists });
+  // get one artist by name
+  const { name } = req.query
+  if (name) {
+    const artistByName = await Artist.findOne({ artistName: name})
+    res.json({ success: true, artistByName })
+  } else {
+    const artists = await Artist.find();
+    res.json({ success: true, artists });
+  }
+})
+
+// endpoint to get one artist by id
+app.get('/artists/:id', async (req, res) => {
+  const { id } = req.params
+  const artistById = await Artist.findOne({_id: id })
+  res.json(artistById)
 })
 
 // endpoint to post artists
@@ -68,7 +84,7 @@ app.post('/artists', async (req, res) => {
       success: true, 
       artistID: savedArtist._id,
       artistName: savedArtist.artistName
-    });
+    })
   } catch (error) {
     res.status(400).json({ message: 'Could not save artist', error: err.errors })
   }
@@ -78,6 +94,13 @@ app.post('/artists', async (req, res) => {
 app.get('/products', async (req, res) => {
   const products = await Product.find()
   res.json({ success: true, products });
+})
+
+// endpoint to get one product by id
+app.get('/products/:id', async (req, res) => {
+  const { id } = req.params
+  const productById = await Product.findOne({_id: id })
+  res.json(productById)
 })
 
 // endpoint to post products
@@ -95,8 +118,10 @@ app.post('/products', async (req, res) => {
     res.status(400).json({ 
       success: true,
       productID: savedProduct._id,
+      productName: savedProduct.productName,
       description: savedProduct.description,
-      byArtist: savedProduct.byArtist,
+      // byArtist: savedProduct.byArtist,
+      // byArtist: find the object id of artist
       price: savedProduct.price,
     })
   } catch (error) {
