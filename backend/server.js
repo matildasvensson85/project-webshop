@@ -3,6 +3,9 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import listEndpoints from 'express-list-endpoints'
+import crypto from 'crypto'
+import bcrypt from 'bcrypt'
+import { nextTick } from 'process'
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/artistsWebshop"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -14,7 +17,15 @@ const Artist = mongoose.model('Artist', {
   artistName: {
     type: String,
     required: true,
-    unique: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  accessToken: {
+    type: String,
+    default: () => crypto.randomBytes(128).toString('hex')
   }
 })
 
@@ -29,18 +40,32 @@ const Product = mongoose.model('Product', {
   description: {
     type: String
   },
-  // byArtist: {
-  //   type: String
-  // }
-    byArtist: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Artist'
+  byArtist: {
+    type: String
   }
+  //   byArtist: {
+  //     type: mongoose.Schema.Types.ObjectId,
+  //     ref: 'Artist'
+  // }
 });
 
 // endpoint for users later on?
 
-// AUTHENTICATE USER later on?
+// AUTHENTICATE USER 
+const authenticateArtist = async (req, res, next) => {
+  const accessToken = req.header('Authorization')
+  console.log(req.body)
+  try {
+    const artist = await Artist.findOne({ accessToken })
+    if (artist) {
+      next()
+    } else {
+      res.status(401).json({ success: false, message: 'Not authorized'})
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, message: 'Invalid request', error})
+  }
+}
 
 const port = process.env.PORT || 8080
 const app = express()
@@ -73,22 +98,31 @@ app.get('/artists/:id', async (req, res) => {
   res.json(artistById)
 })
 
-// endpoint to post artists
-app.post('/artists', async (req, res) => {
-  const { artistName } = req.body
-  console.log(req.body)
+// endpoint to registrate artists
+app.post('/registration', async (req, res) => {
+  const { artistName, password } = req.body
 
   try {
-    const savedArtist = await new Artist({ artistName }).save()
+    const salt = bcrypt.genSaltSync()
+
+    const savedArtist = await new Artist({ 
+      artistName,
+      password: bcrypt.hashSync(password, salt)
+    }).save()
     res.status(400).json({ 
       success: true, 
       artistID: savedArtist._id,
-      artistName: savedArtist.artistName
+      artistName: savedArtist.artistName,
+      accessToken: savedArtist.accessToken
     })
   } catch (error) {
-    res.status(400).json({ message: 'Could not save artist', error: err.errors })
+    res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
+
+// endpoint to log in as an artist
+////////
+////////
 
 // endpoint to get products
 app.get('/products', async (req, res) => {
@@ -104,6 +138,7 @@ app.get('/products/:id', async (req, res) => {
 })
 
 // endpoint to post products
+app.post('/products', authenticateArtist)
 app.post('/products', async (req, res) => {
   const { productName, price, description, byArtist } = req.body
   console.log(req.body)
@@ -120,7 +155,7 @@ app.post('/products', async (req, res) => {
       productID: savedProduct._id,
       productName: savedProduct.productName,
       description: savedProduct.description,
-      // byArtist: savedProduct.byArtist,
+      byArtist: savedProduct.byArtist,
       // byArtist: find the object id of artist
       price: savedProduct.price,
     })
