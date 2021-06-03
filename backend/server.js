@@ -40,13 +40,10 @@ const Product = mongoose.model('Product', {
   description: {
     type: String
   },
-  byArtist: {
-    type: String
+    byArtist: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Artist'
   }
-  //   byArtist: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: 'Artist'
-  // }
 });
 
 // endpoint for users later on?
@@ -99,7 +96,7 @@ app.get('/artists/:id', async (req, res) => {
 })
 
 // endpoint to registrate artists
-app.post('/registration', async (req, res) => {
+app.post('/register', async (req, res) => {
   const { artistName, password } = req.body
 
   try {
@@ -116,6 +113,7 @@ app.post('/registration', async (req, res) => {
       accessToken: savedArtist.accessToken
     })
   } catch (error) {
+    // if error code is === XXX, return error message that name is not unique
     res.status(400).json({ success: false, message: 'Invalid request', error })
   }
 })
@@ -140,24 +138,24 @@ app.get('/products/:id', async (req, res) => {
 // endpoint to post products
 app.post('/products', authenticateArtist)
 app.post('/products', async (req, res) => {
-  const { productName, price, description, byArtist } = req.body
+  const { productName, price, description, artistID } = req.body
   console.log(req.body)
 
   try {
+    const artist = await Artist.findById(artistID)
     const savedProduct = await new Product({
       productName,
       price,
       description,
-      byArtist
+      byArtist: artist
     }).save()
     res.status(400).json({ 
       success: true,
       productID: savedProduct._id,
       productName: savedProduct.productName,
-      description: savedProduct.description,
-      byArtist: savedProduct.byArtist,
-      // byArtist: find the object id of artist
       price: savedProduct.price,
+      description: savedProduct.description,
+      artistID: savedProduct.byArtist,
     })
   } catch (error) {
     res.status(400).json({ 
