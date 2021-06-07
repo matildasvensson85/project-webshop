@@ -34,7 +34,7 @@ export const App = () => {
           <StyledHeader>
             <Header />
           </StyledHeader>
-          <StyledPage>
+          <StyledMain>
           {/* <Switch> */}
             {/* <Start />
             <Products />
@@ -46,7 +46,7 @@ export const App = () => {
             {/* <Route path='/registration' component={RegistrationForm} />
             <Route exact path='/thoughts' component={Thoughts} />  */}
           {/* </Switch> */}
-          </StyledPage>
+          </StyledMain>
           <StyledFooter>
             <Footer />
           </StyledFooter>
@@ -59,25 +59,33 @@ export const App = () => {
 
 const StyledWrapper = styled.div`
   background-color: grey;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 `
 const StyledHeader = styled.header`
   background-color: brown;
-  height: 80px;
+  height: 60px;
   width: 100%;
-  position: fixed;
+  max-width: 1300px;
+  /* position: fixed; */
   top: 0;
 `
-const StyledPage = styled.div`
+const StyledMain = styled.div`
   background-color: pink;
-  padding-top: 80px;
-  padding-bottom: 80px;
-  min-height: 100vh;
+  /* margin-top: 60px; */
+  /* min-height: 96vh; */
+  /* padding-top: 80px;
+  padding-bottom: 80px; */
+  /* min-height: 100vh; */
 `
 const StyledFooter= styled.footer`
-  background-color: brown;
-  height: 80px;
+  /* background-color: #243560; */
+  background-color: #D6D4C5;
+  height: 60px;
   width: 100%;
-  position: fixed;
-  bottom: 0;
+  /* position: fixed; */
+  /* bottom: 0; */
+  margin-top: auto;
+
 `
