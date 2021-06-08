@@ -53,7 +53,7 @@ const StyledPage = styled.section`
   flex-direction: column;
   align-items: center;
   padding-top: 50px;
-  background-color: #F4ECE6;
+  background-color: white;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -73,11 +73,12 @@ const StyledTitle = styled.h2`
   @media (min-width: 768px) {
     font-size: 40px;
     margin: 0 0 20px 0;
+  }
 `
 const StyledFrame = styled.div`
 
   @media (min-width: 768px) {
-    - gör offert pocket shop
+
   }
   @media (min-width: 1200px) {
   }
@@ -143,7 +144,7 @@ const StyledButton = styled.button`
   height: 45px;
   border: none;
   margin: 25px 0 10px 0;
-  font-size: 17px;
+  font-size: 16px;
   margin: 0 0 20px 0;
   cursor: pointer;
   :hover {
@@ -151,7 +152,7 @@ const StyledButton = styled.button`
   }
 `
 const StyledText = styled.p`
-font-size: 13px;
+font-size: 14px;
 margin: 0;
 line-height: 19px;
 `
