@@ -61,13 +61,15 @@ const StyledWrapper = styled.div`
   background-color: grey;
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
   min-height: 100vh;
 `
 const StyledHeader = styled.header`
-  background-color: brown;
+  /* background-color: brown; */
   height: 60px;
   width: 100%;
-  max-width: 1300px;
+  /* max-width: 1300px; */
+  display: flex;
   /* position: fixed; */
   top: 0;
 `

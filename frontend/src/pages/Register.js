@@ -11,7 +11,7 @@ export const Register = () => {
 
   return (
     <>
-      <StyledPage>
+      <StyledWrapper>
         <StyledTitle tabIndex='0'>Register to sell your art</StyledTitle>
         <StyledFrame>
           <StyledForm>
@@ -42,12 +42,12 @@ export const Register = () => {
             </StyledForm>
            </StyledFrame>
 
-      </StyledPage>
+      </StyledWrapper>
     </>
   ) 
 }
 
-const StyledPage = styled.section`
+const StyledWrapper = styled.section`
   min-height: 90vh;
   display: flex;
   flex-direction: column;
