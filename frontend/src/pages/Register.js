@@ -11,94 +11,83 @@ export const Register = () => {
 
   return (
     <>
-      <StyledWrapper>
-        <StyledTitle tabIndex='0'>Register to sell your art</StyledTitle>
-        <StyledFrame>
-          <StyledForm>
-                <StyledLabel tabIndex='0' aria-label='enter your name'>Name</StyledLabel>
-                <StyledInput 
-                  type='text'
-                  // value={}
-                  // onChange  
-                />
-                <StyledLabel tabIndex='0' aria-label='enter your e-mail'>E-mail</StyledLabel>
-                <StyledInput 
-                  type='email'
-                  // value={}
-                  // onChange  
-                />
-                <StyledLabel tabIndex='0' aria-label='enter your password'>Password</StyledLabel>
-                <StyledInput 
-                  type='password'
-                  // value={}
-                  // onChange  
-                />
-                {/* <StyledCheckbox type='checkbox'/>
-                <StyledLabel> I agree with the Terms and Conditions</StyledLabel> */}
-                <StyledButton type='submit'>Register</StyledButton>
-                <StyledText tabIndex='0'>Already have an account?</StyledText>
-                <StyledLinkText tabIndex='0'>Sign In</StyledLinkText>
+      <PageWrapper>
+          <Title tabIndex='0'>Register to sell your art</Title>
+          {/* <StyledFrame> */}
+            <StyledForm>
+                  <StyledLabel tabIndex='0' aria-label='enter your name'>Name</StyledLabel>
+                  <StyledInput 
+                    type='text'
+                    // value={}
+                    // onChange  
+                  />
+                  <StyledLabel tabIndex='0' aria-label='enter your e-mail'>E-mail</StyledLabel>
+                  <StyledInput 
+                    type='email'
+                    // value={}
+                    // onChange  
+                  />
+                  <StyledLabel tabIndex='0' aria-label='enter your password'>Password</StyledLabel>
+                  <StyledInput 
+                    type='password'
+                    // value={}
+                    // onChange  
+                  />
+                  {/* <StyledCheckbox type='checkbox'/>
+                  <StyledLabel> I agree with the Terms and Conditions</StyledLabel> */}
+                  <StyledButton type='submit'>Register</StyledButton>
+                  <StyledText tabIndex='0'>Already have an account?</StyledText>
+                  <StyledLinkText tabIndex='0'>Sign In</StyledLinkText>
 
-            </StyledForm>
-           </StyledFrame>
-
-      </StyledWrapper>
+              </StyledForm>
+            {/* </StyledFrame> */}
+      </PageWrapper>
     </>
   ) 
 }
 
-const StyledWrapper = styled.section`
-  min-height: 90vh;
+const PageWrapper = styled.section`
+  background-color: #F7D5DF;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
-  background-color: white;
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  padding: 50px 20px 20px 20px;
+  min-height: 90vh;
 
   @media (min-width: 768px) {
-    justify-content: center;
-    padding-top: 0;
+    padding-top: 90px;
     background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2)), url('https://images.unsplash.com/photo-1602172694659-d6a5fb605c07?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
-  }
-  @media (min-width: 1200px) {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 `
-const StyledTitle = styled.h2`
+const Title = styled.h2`
   color: black;
   font-size: 25px;
-  margin: 0 0 50px 0;
+  margin: 0 20px 50px 20px;
+  text-align: center;
   @media (min-width: 768px) {
-    font-size: 40px;
-    margin: 0 0 20px 0;
+    font-size: 35px;
   }
 `
 const StyledFrame = styled.div`
-
   @media (min-width: 768px) {
-
   }
-  @media (min-width: 1200px) {
+  @media (min-width: 1024px) {
   }
 `
-
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0;
-  width: 90vw;
-  
+  width: 100%;
+  max-width: 450px;
   @media (min-width: 768px) {
-    margin: 10vw;
     background-color: white;
     padding: 30px;
-    width: 330px;
+    width: 450px;
     height: 365px;
-  }
-  @media (min-width: 1200px) {
   }
 `
 const StyledLabel = styled.label`
@@ -106,12 +95,6 @@ const StyledLabel = styled.label`
   width: 100%;
   font-size: 14px;
   margin-bottom: 7px;
-
-  @media (min-width: 768px) {
-  }
-  @media (min-width: 1200px) {
-
-  }
 `
 const StyledInput = styled.input`
   outline: none;
@@ -123,7 +106,6 @@ const StyledInput = styled.input`
   margin-bottom: 30px;
   font-size: 16px; 
   background-color: transparent;
-  /* color: #AA4D24; */
   padding: 7px 1px 7px 1px;
   cursor: pointer;
   :focus {
@@ -131,10 +113,6 @@ const StyledInput = styled.input`
     background-color: peachpuff;
     color: #3F3327;
   }
-  @media (min-width: 768px) {
-    }
-  @media (min-width: 1200px) {
-    }
 `
 const StyledButton = styled.button`
   color: white;

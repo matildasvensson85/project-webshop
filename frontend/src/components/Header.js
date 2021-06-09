@@ -13,14 +13,14 @@ export const Header = () => {
       <HeaderWrapper>
         <NavWrapper>
           <LogoWrapper>
-            <Link to='/'>
+            {/* <Link to='/'> */}
               <Logo>Artist's Collection</Logo>
-            </Link>
+            {/* </Link> */}
           </LogoWrapper>
           <MenuWrapper>
-            <Link to='/cart'>
+            {/* <Link to='/cart'> */}
               <Cart>C</Cart>
-            </Link>
+            {/* </Link> */}
             <Hamburger>H</Hamburger>
             <DesktopNav>
               {/* <Link to='/products'> */}
@@ -42,62 +42,47 @@ export const Header = () => {
 }
 
 const HeaderWrapper = styled.header`
-background-color: papayawhip;
-  margin: 10px 20px 10px 20px;
   display: flex;
   justify-content: center;
+  margin: 10px 20px 10px 20px;
   width: 100%;
-
-  /* justify-content: space-between; */
-  align-items: center;
-  /* max-width: 1300px; */
-
-  @media (min-width: 768px) {
-  }
-  @media (min-width: 1024px) {
-  }
 `
 const NavWrapper = styled.nav`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1300px;
 `
 const LogoWrapper = styled.div`
-  background-color: pink;
 `
 const Logo = styled.h4`
   margin: 0;
-
   @media (min-width: 768px) {
     font-size: 25px;
   }
 `
 const MenuWrapper = styled.nav`
-  background-color: red;
   display: flex;
   flex-direction: row;
-  align-items: center;
 `
 const Cart = styled.h4`
-  margin-right: 15px;
+  margin: 0;
 `
 const Hamburger = styled.h4`
+  margin: 0 0 0 15px;
   @media (min-width: 1024px) {
     display: none;
   }
 `
 const DesktopNav = styled.div`
-  color: red;
-  display: flex;
-  /* display: none; */
-  /* @media (min-width: 1024px) {
-    display: inline;
-  } */
+  display: none;
+  @media (min-width: 1024px) {
+    display: flex;
+  }
 `
 const MenuItem = styled.p`
   font-size: 16px;
-  color: green;
-  @media (min-width: 1024px) {
-    /* display: none; */
-  }
+  margin: 0 0 0 15px;
 `
 

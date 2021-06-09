@@ -65,10 +65,9 @@ const StyledWrapper = styled.div`
   min-height: 100vh;
 `
 const StyledHeader = styled.header`
-  /* background-color: brown; */
+  background-color: white;
   height: 60px;
   width: 100%;
-  /* max-width: 1300px; */
   display: flex;
   /* position: fixed; */
   top: 0;
