@@ -13,9 +13,9 @@ export const Header = () => {
       <HeaderWrapper>
         <NavWrapper>
           <LogoWrapper>
-            {/* <Link to='/'> */}
+            <Link to='/'>
               <Logo>Artist's Collection</Logo>
-            {/* </Link> */}
+            </Link>
           </LogoWrapper>
           <MenuWrapper>
             {/* <Link to='/cart'> */}
@@ -58,21 +58,25 @@ const LogoWrapper = styled.div`
 `
 const Logo = styled.h4`
   margin: 0;
+  cursor: pointer;
   @media (min-width: 768px) {
     font-size: 25px;
   }
 `
-const MenuWrapper = styled.nav`
+const MenuWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `
 const Cart = styled.h4`
   margin: 0;
+  cursor: pointer;
 `
 const Hamburger = styled.h4`
   margin: 0 0 0 15px;
+  cursor: pointer;
   @media (min-width: 1024px) {
     display: none;
+    
   }
 `
 const DesktopNav = styled.div`
@@ -84,5 +88,6 @@ const DesktopNav = styled.div`
 const MenuItem = styled.p`
   font-size: 16px;
   margin: 0 0 0 15px;
+  cursor: pointer;
 `
 

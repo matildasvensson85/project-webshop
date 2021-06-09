@@ -14,32 +14,31 @@ export const Register = () => {
       <PageWrapper>
           <Title tabIndex='0'>Register to sell your art</Title>
           {/* <StyledFrame> */}
-            <StyledForm>
-                  <StyledLabel tabIndex='0' aria-label='enter your name'>Name</StyledLabel>
-                  <StyledInput 
+            <Form>
+                  <Label tabIndex='0' aria-label='enter your name'>Name</Label>
+                  <Input 
                     type='text'
                     // value={}
                     // onChange  
                   />
-                  <StyledLabel tabIndex='0' aria-label='enter your e-mail'>E-mail</StyledLabel>
-                  <StyledInput 
+                  <Label tabIndex='0' aria-label='enter your e-mail'>E-mail</Label>
+                  <Input 
                     type='email'
                     // value={}
                     // onChange  
                   />
-                  <StyledLabel tabIndex='0' aria-label='enter your password'>Password</StyledLabel>
-                  <StyledInput 
+                  <Label tabIndex='0' aria-label='enter your password'>Password</Label>
+                  <Input 
                     type='password'
                     // value={}
                     // onChange  
                   />
                   {/* <StyledCheckbox type='checkbox'/>
                   <StyledLabel> I agree with the Terms and Conditions</StyledLabel> */}
-                  <StyledButton type='submit'>Register</StyledButton>
-                  <StyledText tabIndex='0'>Already have an account?</StyledText>
-                  <StyledLinkText tabIndex='0'>Sign In</StyledLinkText>
-
-              </StyledForm>
+                  <RegisterButton type='submit'>Register</RegisterButton>
+                  <Text tabIndex='0'>Already have an account?</Text>
+                  <LinkText tabIndex='0'>Sign In</LinkText>
+              </Form>
             {/* </StyledFrame> */}
       </PageWrapper>
     </>
@@ -71,13 +70,13 @@ const Title = styled.h2`
     font-size: 35px;
   }
 `
-const StyledFrame = styled.div`
-  @media (min-width: 768px) {
-  }
-  @media (min-width: 1024px) {
-  }
-`
-const StyledForm = styled.form`
+// const StyledFrame = styled.div`
+//   @media (min-width: 768px) {
+//   }
+//   @media (min-width: 1024px) {
+//   }
+// `
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,13 +89,13 @@ const StyledForm = styled.form`
     height: 365px;
   }
 `
-const StyledLabel = styled.label`
+const Label = styled.label`
   color: #4F4F4F;
   width: 100%;
   font-size: 14px;
   margin-bottom: 7px;
 `
-const StyledInput = styled.input`
+const Input = styled.input`
   outline: none;
   border-top: none;
   border-left: none;
@@ -114,7 +113,7 @@ const StyledInput = styled.input`
     color: #3F3327;
   }
 `
-const StyledButton = styled.button`
+const RegisterButton = styled.button`
   color: white;
   background-color: #1D47B2;
   border-radius: 25px;
@@ -129,13 +128,13 @@ const StyledButton = styled.button`
     background-color: #B72C72;
   }
 `
-const StyledText = styled.p`
+const Text = styled.p`
 font-size: 14px;
 margin: 0;
 line-height: 19px;
 `
 
-const StyledLinkText = styled(StyledText)`
+const LinkText = styled(Text)`
   font-weight: 600;
   color: black;
   margin: 0;

@@ -83,10 +83,11 @@ const StyledMain = styled.div`
 const StyledFooter= styled.footer`
   /* background-color: #243560; */
   background-color: #D6D4C5;
-  height: 60px;
+  /* height: 60px; */
   width: 100%;
   /* position: fixed; */
   /* bottom: 0; */
   margin-top: auto;
+  /* padding: 20px; */
 
 `
