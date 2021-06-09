@@ -42,6 +42,7 @@ export const Header = () => {
 }
 
 const HeaderWrapper = styled.header`
+  /* background-color: red; */
   display: flex;
   justify-content: center;
   margin: 10px 20px 10px 20px;

@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
@@ -35,17 +35,21 @@ export const App = () => {
             <Header />
           </StyledHeader>
           <StyledMain>
-          {/* <Switch> */}
-            {/* <Start />
-            <Products />
-            <Artist />
+          <Switch>
+            {/* <Start /> */}
+            <Route path="/products">
+              <Products />
+            </Route>
+            {/* <Artist />
             <Basket />
             <SingleProduct /> */}
-            <Register />
+            <Route path="/register">
+              <Register />
+            </Route>
             {/* <SignIn /> */}
             {/* <Route path='/registration' component={RegistrationForm} />
             <Route exact path='/thoughts' component={Thoughts} />  */}
-          {/* </Switch> */}
+          </Switch>
           </StyledMain>
           <StyledFooter>
             <Footer />
