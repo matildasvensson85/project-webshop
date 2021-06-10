@@ -77,7 +77,7 @@ const StyledHeader = styled.header`
   top: 0;
 `
 const StyledMain = styled.div`
-  background-color: pink;
+  background-color: blue;
   /* margin-top: 60px; */
   /* min-height: 96vh; */
   /* padding-top: 80px;
