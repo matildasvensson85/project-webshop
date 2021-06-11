@@ -5,11 +5,11 @@ import { useHistory, Link } from 'react-router-dom';
 // import {user} from '../reducers/user';
 // import styled from 'styled-components';
 
-export const Artist = () => {
+export const SingleArtist = () => {
 
   return (
     <>
-      <h2>Artist page</h2>
+      <h2>Single artist page</h2>
     </>
   )
 

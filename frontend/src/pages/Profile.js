@@ -5,23 +5,22 @@ import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { InputLine } from 'components/InputLine'
+import { InputForm } from 'components/InputForm'
 import { Button} from 'components/Button'
 
-export const Register = () => {
+
+export const Profile = () => {
 
   return (
     <>
       <PageWrapper>
-        <Title tabIndex='0'>Register to sell your art</Title>
-        <InputLine
-            id='Username' />
+          <Title tabIndex='0'>Welcome to Artist's Collection.</Title>
+          <BodyText>Edit your profile here</BodyText>
           <InputLine
-            id='E-mail' />
-          <InputLine
-            id='Password' />
-        <Button buttonText='Register' />
-        <SmallText tabIndex='0'>Already have an account?</SmallText>
-        <LinkText tabIndex='0'>Sign In</LinkText>
+            id='Name' />
+          <InputForm
+            id='Description' />
+          <Button buttonText='Save' />
       </PageWrapper>
     </>
   ) 
@@ -46,17 +45,24 @@ const PageWrapper = styled.section`
 const Title = styled.h2`
   color: black;
   font-size: 25px;
-  margin: 0 20px 50px 20px;
+  margin: 0 20px 20px 20px;
   text-align: center;
   @media (min-width: 768px) {
     font-size: 35px;
   }
 `
+const BodyText = styled.p`
+font-size: 16px;
+margin: 0 0 50px 0;
+line-height: 19px;
+`
+
 const SmallText = styled.p`
 font-size: 14px;
 margin: 0;
 line-height: 19px;
 `
+
 const LinkText = styled(SmallText)`
   font-weight: 600;
   color: black;

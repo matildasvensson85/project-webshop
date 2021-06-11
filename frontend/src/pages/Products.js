@@ -30,6 +30,7 @@ export const Products = () => {
             <ProductUnit />
             <ProductUnit />
             <ProductUnit />
+            <ProductUnit />
           </InnerWrapper>
         </ProductsWrapper>
       </PageWrapper>

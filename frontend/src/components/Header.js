@@ -18,20 +18,23 @@ export const Header = () => {
             </Link>
           </LogoWrapper>
           <MenuWrapper>
-            {/* <Link to='/cart'> */}
+            <Link to='/cart'>
               <Cart>C</Cart>
-            {/* </Link> */}
+            </Link>
             <Hamburger>H</Hamburger>
             <DesktopNav>
-              {/* <Link to='/products'> */}
+              <Link to='/products'>
                 <MenuItem>Products</MenuItem>
-              {/* </Link> */}
-              {/* <Link to='/register'> */}
+              </Link>
+              <Link to='/artists'>
+                <MenuItem>Artists</MenuItem>
+              </Link>
+              <Link to='/register'>
                 <MenuItem>Register</MenuItem>
-              {/* </Link> */}
-              {/* <Link to='/login'> */}
+              </Link>
+              <Link to='/login'>
                 <MenuItem>Log in</MenuItem>
-              {/* </Link> */}
+              </Link>
             </DesktopNav>
           </MenuWrapper>
         </NavWrapper>

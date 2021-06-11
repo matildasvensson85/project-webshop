@@ -15,10 +15,10 @@ export const ProductUnit = () => {
         {/* <ProductImage src='assets/tom-crew-NLcLjLNUJbY-unsplash.jpg' alt='Ceramics bowls and bottle'/> */}
         {/* <ProductImage src='https://images.unsplash.com/photo-1525974160448-038dacadcc71?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80' alt='Ceramics bowls and bottle'/> */}
         <ProductTextWrapper>
-          <Title>Oil painting</Title>
+          <Title tabIndex='0'>Oil painting</Title>
           <SmallTextWrapper>
-            <Text>215 €</Text>
-            <Text>Alexander Lindberg</Text>
+            <Text tabIndex='0'>215 €</Text>
+            <Text tabIndex='0'>Alexander Lindberg</Text>
           </SmallTextWrapper>
         </ProductTextWrapper>
       </ProductCard>
@@ -35,7 +35,7 @@ const ProductCard = styled.section`
   /* height: auto; */
   /* height: 100%; */
   /* background-color: gray; */
-  outline: 1px solid blue;
+  /* outline: 1px solid blue; */
   /* margin: 20px 20px 0 0; */
   margin-bottom: 20px;
   @media (min-width: 768px) {
@@ -62,14 +62,24 @@ const ProductImage = styled.img`
   object-position: 50% 50%;
 `
 const ProductTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 const SmallTextWrapper = styled.div`
-  /* display: flex;
-  justify-content: space-between; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `
 const Title = styled.h3`
+  margin: 5px 0 0 0;
+  font-size: 18px;
+  line-height: 150%;
 `
 const Text = styled.p`
+  margin: 0;
+  font-size: 16px;
+  line-height: 150%;
 `
 
 

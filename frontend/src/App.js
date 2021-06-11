@@ -10,11 +10,15 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import { Start } from 'pages/Start'
 import { Products } from 'pages/Products'
-import { Artist } from 'pages/Artist'
-import { Basket } from 'pages/Basket'
 import { SingleProduct } from 'pages/SingleProduct'
+import { Artists } from 'pages/Artists'
+import { SingleArtist } from 'pages/Artists'
 import { Register } from 'pages/Register'
 import { SignIn } from 'pages/SignIn'
+import { Basket } from 'pages/Basket'
+import { Profile } from 'pages/Profile'
+import { Sell } from 'pages/Sell'
+
 import { Header } from 'components/Header'
 import { Footer } from 'components/Footer'
 
@@ -29,39 +33,67 @@ export const App = () => {
   return (
     <>
       <BrowserRouter>
-        <StyledWrapper>
+        <Wrapper>
         {/* <Provider store={store}> */}
           <StyledHeader>
             <Header />
           </StyledHeader>
-          <StyledMain>
-          <Switch>
-            {/* <Start /> */}
-            <Route path="/products">
-              <Products />
-            </Route>
-            {/* <Artist />
-            <Basket />
-            <SingleProduct /> */}
-            <Route path="/register">
-              <Register />
-            </Route>
-            {/* <SignIn /> */}
-            {/* <Route path='/registration' component={RegistrationForm} />
-            <Route exact path='/thoughts' component={Thoughts} />  */}
-          </Switch>
-          </StyledMain>
+          <Main>
+            <Switch>
+
+              <Route path="/" exact>
+                <Start />
+              </Route>
+
+              <Route path="/products">
+                <Products />
+              </Route>
+
+              <Route path="/products/:productId">
+                <SingleProduct />
+              </Route>
+
+              <Route path="/artists">
+                <Artists />
+              </Route>
+
+              <Route path="/artists/:artistId">
+                <SingleArtist />
+              </Route>
+
+              <Route path="/register">
+                <Register />
+              </Route>
+
+              <Route path="/signin">
+                <SignIn />
+              </Route>
+
+              <Route path="/basket">
+                <Basket />
+              </Route>
+
+              <Route path="/profile">
+                <Profile />
+              </Route>
+
+              <Route path="/sell">
+                <Sell />
+              </Route>
+
+            </Switch>
+          </Main>
           <StyledFooter>
             <Footer />
           </StyledFooter>
         {/* </Provider> */}
-        </StyledWrapper>
+        </Wrapper>
       </BrowserRouter>
     </>
   )
 }
 
-const StyledWrapper = styled.div`
+const Wrapper = styled.div`
   background-color: grey;
   display: flex;
   flex-direction: column;
@@ -76,7 +108,7 @@ const StyledHeader = styled.header`
   /* position: fixed; */
   top: 0;
 `
-const StyledMain = styled.div`
+const Main = styled.div`
   background-color: blue;
   /* margin-top: 60px; */
   /* min-height: 96vh; */
