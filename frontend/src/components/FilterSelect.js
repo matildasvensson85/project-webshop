@@ -4,10 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-// import {user} from '../reducers/user';
-
-
-export const DropDown = ({ id, value, name, onChange, optionOne, optionTwo, optionThree }) => {
+export const FilterSelect = ({ id, value, name, onChange, optionOne, optionTwo, optionThree }) => {
 
   return (
     <>
@@ -17,6 +14,7 @@ export const DropDown = ({ id, value, name, onChange, optionOne, optionTwo, opti
           value={value}
           name={id}
           onChange={onChange}
+
           >
           <option disabled selected>{id}</option>
           <option>{optionOne}</option>

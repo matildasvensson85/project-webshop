@@ -11,12 +11,13 @@ export const InputLine = ({
   placeholder,
   onChange,
   type,
+  label
 }) => {
 
   return (
     <>
       <Form>
-        <Label htmlFor={id} tabIndex='0' aria-label={`Enter your ${id}`}>{id}</Label>
+        <Label htmlFor={id} tabIndex='0' aria-label={`Enter your ${id}`}>{label}</Label>
         <Input 
           type={type}
           id={id}
@@ -24,11 +25,13 @@ export const InputLine = ({
           name={id}
           placeholder={placeholder}
           onChange={onChange}
+          label={label}
         />
-       </Form>
+      </Form>
     </>
   ) 
 }
+
 
 const Form = styled.form`
   display: flex;
@@ -37,10 +40,10 @@ const Form = styled.form`
   width: 100%;
   max-width: 450px;
   @media (min-width: 768px) {
-    background-color: white;
-    padding: 30px;
+    /* background-color: white; */
+    /* padding: 30px; */
     width: 450px;
-    height: 365px;
+    /* height: 365px; */
   }
 `
 const Label = styled.label`

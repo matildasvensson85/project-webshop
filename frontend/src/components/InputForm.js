@@ -11,12 +11,13 @@ export const InputForm = ({
   placeholder,
   onChange,
   type,
+  label
 }) => {
 
   return (
     <>
       <Form>
-        <Label htmlFor={id} tabIndex='0' aria-label={`Enter your ${id}`}>{id}</Label>
+        <Label htmlFor={id} tabIndex='0' aria-label={`Enter your ${id}`}>{label}</Label>
         <Input 
           type={type}
           id={id}
@@ -24,8 +25,9 @@ export const InputForm = ({
           name={id}
           placeholder={placeholder}
           onChange={onChange}
+          label={label}
         />
-       </Form>
+      </Form>
     </>
   ) 
 }
@@ -54,23 +56,16 @@ const Label = styled.label`
   font-size: 14px;
   margin-bottom: 7px;
 `
-const Input = styled.input`
-  /* margin: 15px 0px 15px 0px;
-  padding: 10px 10px 40px 10px;
-  border: solid 1px darkgrey;
-  margin: 20px; */
-
-  /* outline: black; */
-  border: solid 1px black;
-  /* border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px solid #1D47B2; */
+const Input = styled.textarea`
+  border: solid 1px #1D47B2;
+  box-sizing: border-box;
   width: 100%;
-  margin-bottom: 30px;
+  height: 200px;
+  margin: 10px 0 30px 0;
+  padding: 10px;
   font-size: 16px; 
   background-color: transparent;
-  padding: 7px 1px 7px 1px;
+  font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;
   :focus {
     border: none;

@@ -13,15 +13,19 @@ export const Register = () => {
     <>
       <PageWrapper>
         <Title tabIndex='0'>Register to sell your art</Title>
-        <InputLine
-            id='Username' />
+        <FormWrapper>
           <InputLine
-            id='E-mail' />
-          <InputLine
-            id='Password' />
-        <Button buttonText='Register' />
-        <SmallText tabIndex='0'>Already have an account?</SmallText>
-        <LinkText tabIndex='0'>Sign In</LinkText>
+              label='Username' />
+            <InputLine
+              label='E-mail' />
+            <InputLine
+              label='Password' />
+            <BottomWrapper>
+              <Button buttonText='Register' />
+              <SmallText tabIndex='0'>Already have an account?</SmallText>
+              <LinkText tabIndex='0'>Sign In</LinkText>
+            </BottomWrapper>
+        </FormWrapper>
       </PageWrapper>
     </>
   ) 
@@ -52,6 +56,20 @@ const Title = styled.h2`
     font-size: 35px;
   }
 `
+const FormWrapper = styled.div`
+  @media (min-width: 1024px) {
+    background-color: white;
+    padding: 30px;
+  }
+`
+
+const BottomWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+
 const SmallText = styled.p`
 font-size: 14px;
 margin: 0;

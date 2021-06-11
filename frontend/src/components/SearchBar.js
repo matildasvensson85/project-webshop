@@ -4,7 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import { DropDown } from 'components/DropDown'
+import { FilterSelect } from 'components/FilterSelect'
 
 export const SearchBar = () => {
 
@@ -15,38 +15,38 @@ export const SearchBar = () => {
             <FilterWrapper>
               <Filter>Filter</Filter>
               <DesktopFilter>
-                <DropDown 
+                <FilterSelect 
                   id='Type'
                   value='Type'
                   name='Type'
                   optionOne='blue'
                   optionTwo='green'
                   >
-                </DropDown>
-                <DropDown 
+                </FilterSelect>
+                <FilterSelect 
                   id='Artist'
                   value='Artist'
                   name='Artist'
                   optionOne='blue'
                   optionTwo='green'
                   >
-                </DropDown>
-                <DropDown 
+                </FilterSelect>
+                <FilterSelect
                   id='Price'
                   value='Price'
                   name='Price'
                   optionOne='blue'
                   optionTwo='green'
                   >
-                </DropDown>
-                <DropDown 
+                </FilterSelect>
+                <FilterSelect 
                   id='Material'
                   value='Material'
                   name='Material'
                   optionOne='blue'
                   optionTwo='green'
                   >
-                </DropDown>
+                </FilterSelect>
               </DesktopFilter>
             </FilterWrapper>
           </SearchWrapper>
@@ -56,13 +56,11 @@ export const SearchBar = () => {
 
 
 const SearchWrapper = styled.div`
-  /* background-color: palevioletred; */
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 10px 20px 10px 20px;
   width: 100%;
-  
   max-width: 1300px;
   @media (min-width: 768px) {
     justify-content: left;
@@ -79,9 +77,7 @@ const SearchInput = styled.input`
   }
 `
 const FilterWrapper = styled.div`
-  /* margin: 5px; */
 `
-
 const Filter = styled.p`
   margin: 0;
   font-size: 16px;

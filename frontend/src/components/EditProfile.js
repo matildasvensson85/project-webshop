@@ -9,29 +9,18 @@ import { InputForm } from 'components/InputForm'
 import { Button } from 'components/Button'
 import { Accordion } from 'components/Accordion'
 import { Sell } from 'components/Sell'
-import { EditProfile } from 'components/EditProfile'
-import { UploadProducts } from 'components/UploadProducts'
 
 
-export const Profile = () => {
+export const EditProfile = () => {
 
   return (
     <>
       <PageWrapper>
-
-        <Title tabIndex='0'>Welcome to Artist's Collection.</Title>
-        <BodyText>Edit your profile here, and upload your art to the market.</BodyText>
-
-        <Accordion 
-          title='Edit profile'
-          content={<EditProfile />}
-          />
-
-        <Accordion 
-          title='Add products'
-          content={ <UploadProducts/> }
-          />
-          
+        <InputLine
+          label='Name' />
+        <InputForm
+          label='Description' />
+        <Button buttonText='Save' />
       </PageWrapper>
     </>
   ) 
@@ -42,7 +31,7 @@ const PageWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 20px 20px 20px;
+  padding: 20px 20px 20px 20px;
   min-height: 90vh;
 
   @media (min-width: 768px) {
@@ -64,8 +53,22 @@ const Title = styled.h2`
 `
 const BodyText = styled.p`
   font-size: 16px;
-  margin: 0 0 30px 0;
+  margin: 0 0 50px 0;
   line-height: 130%;
   text-align: center;
   max-width: 300px;
+`
+const SmallText = styled.p`
+font-size: 14px;
+margin: 0;
+line-height: 19px;
+`
+const LinkText = styled(SmallText)`
+  font-weight: 600;
+  color: black;
+  margin: 0;
+  cursor: pointer;
+  :hover {
+    color: #1D47B2;
+  }
 `

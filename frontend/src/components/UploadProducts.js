@@ -9,40 +9,52 @@ import { InputForm } from 'components/InputForm'
 import { Button } from 'components/Button'
 import { Accordion } from 'components/Accordion'
 import { Sell } from 'components/Sell'
-import { EditProfile } from 'components/EditProfile'
-import { UploadProducts } from 'components/UploadProducts'
+import { UploadSelect } from 'components/UploadSelect'
 
-
-export const Profile = () => {
+export const UploadProducts = () => {
 
   return (
     <>
       <PageWrapper>
+          <InputLine
+            label='Product name'/>
 
-        <Title tabIndex='0'>Welcome to Artist's Collection.</Title>
-        <BodyText>Edit your profile here, and upload your art to the market.</BodyText>
+          <InputLine
+            label='Price €' />
 
-        <Accordion 
-          title='Edit profile'
-          content={<EditProfile />}
-          />
+          <SelectWrapper>
 
-        <Accordion 
-          title='Add products'
-          content={ <UploadProducts/> }
-          />
-          
+            <UploadSelect
+              id={'category'}
+              label='Category'
+              optionOne='Painting'
+              optionTwo='Sculpture'>
+            </UploadSelect>
+
+            <UploadSelect
+              id={'color'}
+              label='Color'
+              optionOne='Beige'
+              optionTwo='Sculpture'>
+            </UploadSelect>
+
+          </SelectWrapper>
+
+          <InputForm
+            label='Description' />
+
+          <Button buttonText='Upload product' />
       </PageWrapper>
     </>
   ) 
 }
 
 const PageWrapper = styled.section`
-  background-color: #F7D5DF;
+  /* background-color: #F7D5DF; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 20px 20px 20px;
+  padding: 20px 20px 20px 20px;
   min-height: 90vh;
 
   @media (min-width: 768px) {
@@ -53,19 +65,7 @@ const PageWrapper = styled.section`
     background-repeat: no-repeat;
   }
 `
-const Title = styled.h2`
-  color: black;
-  font-size: 25px;
-  margin: 0 20px 20px 20px;
-  text-align: center;
-  @media (min-width: 768px) {
-    font-size: 35px;
-  }
-`
-const BodyText = styled.p`
-  font-size: 16px;
-  margin: 0 0 30px 0;
-  line-height: 130%;
-  text-align: center;
-  max-width: 300px;
+const SelectWrapper = styled.div`
+  display: flex;
+  
 `

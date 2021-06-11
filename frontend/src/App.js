@@ -17,7 +17,7 @@ import { Register } from 'pages/Register'
 import { SignIn } from 'pages/SignIn'
 import { Basket } from 'pages/Basket'
 import { Profile } from 'pages/Profile'
-import { Sell } from 'pages/Sell'
+import { Sell } from 'components/Sell'
 
 import { Header } from 'components/Header'
 import { Footer } from 'components/Footer'
