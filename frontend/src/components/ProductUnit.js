@@ -1,6 +1,7 @@
-import { useSelector, useDispatch, batch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+// import { useSelector, useDispatch, batch } from 'react-redux';
+// import React, { useState, useEffect } from 'react';
+// import { useHistory, Link } from 'react-router-dom';
+import React from 'react';
 
 import styled from 'styled-components';
 import CeramicsImage from 'assets/tom-crew-NLcLjLNUJbY-unsplash.jpg'

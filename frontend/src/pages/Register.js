@@ -1,31 +1,88 @@
-import { useSelector, useDispatch, batch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useSelector, useDispatch, batch } from 'react-redux'
+import React, { useState } from 'react';
+// import { useHistory, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
+import { artists } from 'reducers/artists'
+
 import { InputLine } from 'components/InputLine'
-import { Button} from 'components/Button'
+import { Button } from 'components/Button'
 
 export const Register = () => {
+
+  const [artistName, setArtistName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  // const [mode, setMode] = useState(null);
+
+  const dispatch = useDispatch()
+  const accessToken = useSelector(store => store.artists.accessToken);
+  console.log(`accesstoken is ${accessToken}`)
+
+  const onFormSubmit = (event) => {
+    event.preventDefault()
+    console.log(`Name is ${artistName}, e-mail is ${email}, password is ${password} `)
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ artistName, email, password })
+    }
+    fetch('http://localhost:8080/register', options)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+          batch(() => {
+            dispatch(artists.actions.setArtistName(data.artistName))
+            // dispatch(artists.actions.setEmail(data.email))
+            dispatch(artists.actions.setAccessToken(data.accessToken))
+            dispatch(artists.actions.setErrors(null));
+          })
+        } else {
+          dispatch(artists.actions.setErrors(data));
+          console.log('failure')
+        }
+      })
+      .catch()
+  }
+
+
 
   return (
     <>
       <PageWrapper>
         <Title tabIndex='0'>Register to sell your art</Title>
-        <FormWrapper>
-          <InputLine
-              label='Username' />
+        <RegisterWrapper>
+          <Form onSubmit={onFormSubmit}>
             <InputLine
-              label='E-mail' />
-            <InputLine
-              label='Password' />
+                type='text'
+                label='Name' 
+                value={artistName}
+                onChange={event => setArtistName(event.target.value)} 
+                />
+              <InputLine
+                type='text'
+                label='E-mail' 
+                value={email}
+                onChange={event => setEmail(event.target.value)} 
+                />
+              <InputLine
+                type='password'
+                label='Password' 
+                value={password}
+                onChange={event => setPassword(event.target.value)} 
+                />
+                <Button buttonText='Register' />
+              </Form>
             <BottomWrapper>
-              <Button buttonText='Register' />
               <SmallText tabIndex='0'>Already have an account?</SmallText>
               <LinkText tabIndex='0'>Sign In</LinkText>
             </BottomWrapper>
-        </FormWrapper>
+        </RegisterWrapper>
       </PageWrapper>
     </>
   ) 
@@ -56,20 +113,24 @@ const Title = styled.h2`
     font-size: 35px;
   }
 `
-const FormWrapper = styled.div`
-  @media (min-width: 1024px) {
+const RegisterWrapper = styled.div`
+  width: 100%;
+  max-width: 450px;
+  @media (min-width: 768px) {
     background-color: white;
     padding: 30px;
   }
 `
-
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
-
-
 const SmallText = styled.p`
 font-size: 14px;
 margin: 0;

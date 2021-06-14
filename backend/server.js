@@ -26,6 +26,12 @@ const Artist = mongoose.model('Artist', {
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
+  },
+  description: {
+    type: String
+  },
+  photo: {
+    type: String
   }
 })
 
@@ -37,7 +43,16 @@ const Product = mongoose.model('Product', {
   price: {
     type: Number
   },
+  cagtegory: {
+    type: String
+  },
+  color: {
+    type: String
+  },
   description: {
+    type: String
+  },
+  photo: {
     type: String
   },
     byArtist: {
@@ -95,7 +110,7 @@ app.get('/artists/:id', async (req, res) => {
   res.json(artistById)
 })
 
-// endpoint to registrate artists
+// endpoint to register artists
 app.post('/register', async (req, res) => {
   const { artistName, password } = req.body
 
@@ -106,7 +121,7 @@ app.post('/register', async (req, res) => {
       artistName,
       password: bcrypt.hashSync(password, salt)
     }).save()
-    res.status(400).json({ 
+    res.json({ 
       success: true, 
       artistID: newArtist._id,
       artistName: newArtist.artistName,
