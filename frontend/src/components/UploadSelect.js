@@ -16,8 +16,10 @@ export const UploadSelect = ({ id, value, name, onChange, optionOne, optionTwo, 
           value={value}
           name={label}
           onChange={onChange}
-          label={label}>
-          <option disabled selected>{label}</option>
+          label={label}
+          // defaultValue={label}
+          >
+          {/* <option disabled selected>{label}</option> */}
           <option>{optionOne}</option>
           <option>{optionTwo}</option>
           <option>{optionThree}</option>

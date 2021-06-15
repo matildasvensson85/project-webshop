@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 // import { useSelector, useDispatch, batch } from 'react-redux';
 // import React, { useState, useEffect } from 'react';
 import React from 'react';
@@ -13,14 +14,15 @@ import { Accordion } from 'components/Accordion'
 import { EditProfile } from 'components/EditProfile'
 import { UploadProducts } from 'components/UploadProducts'
 
-
 export const Profile = () => {
+
+  const artistName = useSelector(store => store.artists.artistName);
 
   return (
     <>
       <PageWrapper>
 
-        <Title tabIndex='0'>Welcome to Artist's Collection.</Title>
+        <Title tabIndex='0'>Welcome {artistName} to Artist's Collection.</Title>
         <BodyText>Edit your profile here, and upload your art to the market.</BodyText>
 
         <Accordion 

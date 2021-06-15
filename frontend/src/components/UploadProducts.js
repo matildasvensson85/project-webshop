@@ -6,7 +6,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { InputLine } from 'components/InputLine'
-import { InputForm } from 'components/InputForm'
+import { InputTextArea } from 'components/InputTextArea'
 import { Button } from 'components/Button'
 // import { Accordion } from 'components/Accordion'
 // import { Sell } from 'components/Sell'
@@ -41,7 +41,7 @@ export const UploadProducts = () => {
 
           </SelectWrapper>
 
-          <InputForm
+          <InputTextArea
             label='Description' />
 
           <Button buttonText='Upload product' />

@@ -6,7 +6,7 @@ export const artists = createSlice({
         artistName: null,
         email: null,
         accessToken: null,
-        description: '',
+        presentation: '',
         photo: '',
         errors: null
     },
@@ -20,8 +20,8 @@ export const artists = createSlice({
         setAccessToken: (store, action) => {
             store.accessToken = action.payload
         },
-        setDescription: (store, action) => {
-            store.description = action.payload
+        setPresentation: (store, action) => {
+            store.presentation = action.payload
         },
         setPhoto: (store, action) => {
             store.photo = action.payload

@@ -6,7 +6,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 
-export const InputForm = ({
+export const InputTextArea = ({
   id,
   value,
   placeholder,
