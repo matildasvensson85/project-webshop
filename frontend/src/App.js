@@ -3,7 +3,8 @@ import styled from 'styled-components'
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+// import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, createStore } from '@reduxjs/toolkit';
 
 import { artists } from 'reducers/artists'
 // import { products } from 'reducers/products'
@@ -27,7 +28,26 @@ const reducer = combineReducers ({
   // products: products.reducer,
 })
 
-const store = configureStore({ reducer })
+// const store = configureStore({ reducer })
+
+// To keep user signeed in after refreshing the page
+const persistedStateJSON = localStorage.getItem('reduxState');
+let persistedState = {};
+
+if (persistedStateJSON) {
+	persistedState = JSON.parse(persistedStateJSON);
+}
+
+const store = createStore(
+	reducer,
+	persistedState,
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+store.subscribe(() => {
+	localStorage.setItem('reduxState', JSON.stringify(store.getState()));
+});
+
 
 export const App = () => {
   return (

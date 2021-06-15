@@ -29,12 +29,13 @@ export const artists = createSlice({
         setErrors: (store, action) => {
             store.errors = action.payload
         },
-        // setLogOut: () => {
-        //     return {
-        //         username: null,
-        //         accessToken: null,
-        //         errors: null
-        //     };
+        setLogOut: () => {
+            return {
+                artistName: null,
+                accessToken: null,
+                errors: null
+            }
+        }
     },
       
 })

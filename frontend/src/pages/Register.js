@@ -1,13 +1,13 @@
 import { useSelector, useDispatch, batch } from 'react-redux'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useHistory, Link } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { artists } from 'reducers/artists'
-
 import { InputLine } from 'components/InputLine'
 import { Button } from 'components/Button'
+
 
 export const Register = () => {
 
@@ -17,8 +17,18 @@ export const Register = () => {
   // const [mode, setMode] = useState(null);
 
   const dispatch = useDispatch()
+  const history = useHistory()
   const accessToken = useSelector(store => store.artists.accessToken);
   console.log(`accesstoken is ${accessToken}`)
+ 
+
+  // Move to profile page when logged in
+  useEffect(() => {
+    if (accessToken) {
+      history.push('/profile')
+    }
+  }, [accessToken, history])
+
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -38,7 +48,7 @@ export const Register = () => {
         if (data.success) {
           batch(() => {
             dispatch(artists.actions.setArtistName(data.artistName))
-            // dispatch(artists.actions.setEmail(data.email))
+            dispatch(artists.actions.setEmail(data.email))
             dispatch(artists.actions.setAccessToken(data.accessToken))
             dispatch(artists.actions.setErrors(null));
           })
@@ -49,7 +59,6 @@ export const Register = () => {
       })
       .catch()
   }
-
 
 
   return (

@@ -1,10 +1,13 @@
-// import { useSelector, useDispatch, batch } from 'react-redux';
+import { useSelector, useDispatch, batch } from 'react-redux';
 // import React, { useState, useEffect } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { artists } from 'reducers/artists'
 
 export const Header = () => {
+
+  const dispatch = useDispatch()
 
   return (
     <>
@@ -32,6 +35,9 @@ export const Header = () => {
               </Link>
               <Link to='/login'>
                 <MenuItem>Log in</MenuItem>
+              </Link>
+              <Link to='/register'>
+                <MenuItem onClick={()=> dispatch(artists.actions.setLogOut())}>Log out</MenuItem>
               </Link>
             </DesktopNav>
           </MenuWrapper>
