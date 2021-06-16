@@ -6,6 +6,12 @@ import listEndpoints from 'express-list-endpoints'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import { nextTick } from 'process'
+import dotenv from 'dotenv'
+import cloudinaryFramework from 'cloudinary'
+import multer from 'multer'
+import cloudinaryStorage from 'multer-storage-cloudinary'
+
+dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/artistsWebshop"
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -34,7 +40,8 @@ const Artist = mongoose.model('Artist', {
     type: String
   },
   photo: {
-    type: String
+    name: String,
+    imageUrl: String
   }
 })
 
@@ -64,6 +71,15 @@ const Product = mongoose.model('Product', {
   }
 });
 
+const ProfilePic = mongoose.model('ProfilePic', {
+  name: String,
+  imageUrl: String,
+  ofArtist: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Artist'
+  }
+})
+
 // endpoint for users later on?
 
 // AUTHENTICATE USER 
@@ -81,6 +97,27 @@ const authenticateArtist = async (req, res, next) => {
     res.status(400).json({ success: false, message: 'Invalid request', error})
   }
 }
+
+// Cloudinary
+const cloudinary = cloudinaryFramework.v2; 
+cloudinary.config({
+  cloud_name: 'dx0ku6mdm', // this needs to be whatever you get from cloudinary
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+})
+
+const storage = cloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: 'profilepic',
+    allowedFormats: ['jpg', 'png'],
+    transformation: [{ width: 500, height: 500, crop: 'limit' }],
+  },
+})
+const parser = multer({ storage })
+
+
+
 
 const port = process.env.PORT || 8080
 const app = express()
@@ -193,6 +230,23 @@ app.patch('/profile/:id', async (req, res) => {
   //   return res.status(400).json({ message: 'Invalid request', error })
   // }
 // })
+
+// endpoint to upload profile picture
+app.post('/profilepic', parser.single('image'), async (req, res) => {
+	// res.json({ imageUrl: req.file.path, imageId: req.file.filename})
+  try {
+    const profilePic = await new ProfilePic({ name: req.body.filename, imageUrl: req.file.path }).save()
+    res.json(profilePic)
+  } catch (err) {
+    res.status(400).json({ errors: err.errors })
+  }
+})
+
+// endpoint to get profile pictures
+app.get('/profilepic', async (req, res) => {
+  const profilePics = await ProfilePic.find()
+  res.json({ success: true, profilePics });
+})
 
 // endpoint to get products
 app.get('/products', async (req, res) => {

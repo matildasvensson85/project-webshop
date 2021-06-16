@@ -1,5 +1,5 @@
 import { useSelector, useDispatch, batch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 // import { useHistory, Link } from 'react-router-dom';
 
@@ -23,34 +23,49 @@ export const EditProfile = () => {
   const artistPresentation = useSelector(store => store.artists.presentation);
   const artistsname = useSelector(store => store.artists.artistName);
   
+  const fileInput = useRef()
+  const [name, setName] = useState('')
   const dispatch = useDispatch()
 
   const onFormSubmit = (event) => {
     event.preventDefault()
 
-    const options = {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ presentation, artistID })
-    }
-    fetch(`http://localhost:8080/profile/${artistID}`, options)
-    // fetch(ARTIST_URL(mode), options)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        if (data.success) {
-          batch(() => {
-            dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
-            dispatch(artists.actions.setErrors(null));
-          })
-        } else {
-          dispatch(artists.actions.setErrors(data));
-          console.log('failure')
-        }
-      })
-      .catch()
+    const formData = new FormData()
+      formData.append('image', fileInput.current.files[0])
+      formData.append('name', name)
+
+      fetch('http://localhost:8080/profilepic', { method: 'POST', body: formData})
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          dispatch(artists.actions.setPhoto(data.imageURL))
+          dispatch(artists.actions.setPhotoID(data._id))
+        })
+    
+
+    // const options = {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({ presentation, artistID })
+    // }
+    // fetch(`http://localhost:8080/profile/${artistID}`, options)
+    // // fetch(ARTIST_URL(mode), options)
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data)
+    //     if (data.success) {
+    //       batch(() => {
+    //         dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
+    //         dispatch(artists.actions.setErrors(null));
+    //       })
+    //     } else {
+    //       dispatch(artists.actions.setErrors(data));
+    //       console.log('failure')
+    //     }
+    //   })
+    //   .catch()
 
   }
 
@@ -63,6 +78,18 @@ export const EditProfile = () => {
             placeholder='Write a a few lines about yourself and your art.'
             value={presentation}
             onChange={event => setPresentation(event.target.value)}  />
+
+          <label>
+            Profile picture
+            <input type='file' ref={fileInput} />
+          </label>
+
+          <label>
+            Photo name
+            <input type='text' value={name} onChange={(event) => setName(event.target.value)} />
+          </label>
+
+
           <Button 
             buttonText='Publish'
             // OnClick={() => setMode(artistID)}

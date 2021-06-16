@@ -10,6 +10,7 @@ export const artists = createSlice({
         accessToken: null,
         presentation: null,
         photo: '',
+        photoID: '',
         errors: null
     },
     reducers: {
@@ -29,6 +30,9 @@ export const artists = createSlice({
             store.presentation = action.payload
         },
         setPhoto: (store, action) => {
+            store.photo = action.payload
+        },
+        setPhotoID: (store, action) => {
             store.photo = action.payload
         },
         setErrors: (store, action) => {
