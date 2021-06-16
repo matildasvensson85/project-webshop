@@ -4,6 +4,7 @@ export const artists = createSlice({
     name: 'artists',
     initialState: {
         artistName: null,
+        artistID: null,
         email: null,
         accessToken: null,
         presentation: '',
@@ -14,9 +15,12 @@ export const artists = createSlice({
         setArtistName: (store, action) => {
             store.artistName = action.payload
         },
-        setEmail: (store, action) => {
-            store.email = action.payload
+        setArtistID: (store, action) => {
+            store.artistID = action.payload
         },
+        // setEmail: (store, action) => {
+        //     store.email = action.payload
+        // },
         setAccessToken: (store, action) => {
             store.accessToken = action.payload
         },
@@ -32,6 +36,7 @@ export const artists = createSlice({
         setLogOut: () => {
             return {
                 artistName: null,
+                artistID: null,
                 accessToken: null,
                 errors: null
             }

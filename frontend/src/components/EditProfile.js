@@ -17,33 +17,36 @@ export const EditProfile = () => {
 
   const [presentation, setPresentation] = useState('')
   console.log(presentation)
+  const artistID = useSelector(store => store.artists.artistID);
+  console.log(artistID)
 
   const dispatch = useDispatch()
 
   const onFormSubmit = (event) => {
     event.preventDefault()
     console.log(`presentation ${presentation}`)
+    console.log(`artistid ${artistID}`)
 
     const options = {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ presentation })
+      body: JSON.stringify({ presentation, artistID })
     }
-    fetch('http://localhost:8080/register', options)
+    fetch('http://localhost:8080/profile/60c9b9db77adff7b0593296f', options)
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        if (data.success) {
+        // if (data.success) {
           batch(() => {
             dispatch(artists.actions.setPresentation(data.presentation))
             dispatch(artists.actions.setErrors(null));
           })
-        } else {
-          dispatch(artists.actions.setErrors(data));
-          console.log('failure')
-        }
+        // } else {
+        //   dispatch(artists.actions.setErrors(data));
+        //   console.log('failure')
+        // }
       })
       .catch()
 

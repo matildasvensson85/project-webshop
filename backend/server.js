@@ -19,6 +19,9 @@ const Artist = mongoose.model('Artist', {
     required: true,
     unique: true
   },
+  artistID: {
+    type: String,
+  },
   password: {
     type: String,
     required: true
@@ -159,27 +162,12 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-// endpoint to get products
-app.get('/products', async (req, res) => {
-  const products = await Product.find()
-  res.json({ success: true, products });
-})
-
-// endpoint to get one product by id
-app.get('/products/:id', async (req, res) => {
-  const { id } = req.params
-  const productById = await Product.findOne({_id: id })
-  res.json(productById)
-})
 
 // endpoint to edit profile as an artist
-// app.post('/editprofile', authenticateArtist)
-// app.patch('/artists/:id/profile', async (req, res) => {
-  app.patch('/profile/:id', async (req, res) => {
+app.patch('/profile/:id', async (req, res) => {
   
   try {
     const { id } = req.params
-    // const artistById = await Artist.findOne({_id: id }).save()
     const artistById = await Artist.findById({_id: id })
 
     const {
@@ -193,48 +181,22 @@ app.get('/products/:id', async (req, res) => {
   } catch (error) {
     return res.status(400).json({ message: 'Invalid request', error })
   }
-  //     if (editedArtist) {
-  //       res.json(editedArtist)
-  //     } else {
-  //       res.status(404).json({ message: 'Not found!' })
-  //     }
-  //   } catch (error) {
-  //     res.status(400).json({ message: 'Invalid request', error })
-  // }
 })
- 
-  // try {
-  //   const editedProfile = await Artist.findByIdAndUpdate(id, { presentation: editedProfile.presentation, photo: editedProfile.photo }, { new: true }).populate('presentation')
-  //   if (editedProfile) {
-  //     res.json(editedProfile)
-  //   } else {
-  //     res.status(404).json({ message: 'Not found!' })
-  //   }
-  // } catch (error) {
-  //   res.status(400).json({ message: 'Invalid request', error })
-  // }
-// })
-  // const { presentation, photo, artistID } = req.body
-  // try {
-  //   const artist = await Artist.findById(artistID)
-  //   const editedArtist = await artist({
-  //     presentation,
-  //     photo,
-  //     artistID
-  //   })
-  //   if (artist) {
-  //     res.json({
-  //     success: true,
-  //     presentation: artist.presentation,
-  //     photo: artist.photo
-  //     })
-  //   } else {
-  //     res.status(404).json({ success: false, message: 'User not found' })
-  //   }
-  // } catch (error) {
-  //   res.status(400).json({ success: false, message: 'Invalid request', error });
-  // }
 
+// endpoint to get products
+app.get('/products', async (req, res) => {
+  const products = await Product.find()
+  res.json({ success: true, products });
+})
+
+// endpoint to get one product by id
+app.get('/products/:id', async (req, res) => {
+  const { id } = req.params
+  const productById = await Product.findOne({_id: id })
+  res.json(productById)
+})
+
+ 
 
 // endpoint to post products
 app.post('/products', authenticateArtist)

@@ -48,7 +48,8 @@ export const Register = () => {
         if (data.success) {
           batch(() => {
             dispatch(artists.actions.setArtistName(data.artistName))
-            dispatch(artists.actions.setEmail(data.email))
+            // dispatch(artists.actions.setEmail(data.email))
+            dispatch(artists.actions.setArtistID(data.artistID))
             dispatch(artists.actions.setAccessToken(data.accessToken))
             dispatch(artists.actions.setErrors(null));
           })
