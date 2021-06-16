@@ -12,8 +12,8 @@ import { artists } from 'reducers/artists'
 import { Start } from 'pages/Start'
 import { Products } from 'pages/Products'
 import { SingleProduct } from 'pages/SingleProduct'
-// import { Artists } from 'pages/Artists'
-// import { SingleArtist } from 'pages/Artists'
+import { Artists } from 'pages/Artists'
+import { SingleArtist } from 'pages/SingleArtist'
 import { Register } from 'pages/Register'
 import { SignIn } from 'pages/SignIn'
 import { Basket } from 'pages/Basket'
@@ -65,7 +65,7 @@ export const App = () => {
                 <Start />
               </Route>
 
-              <Route path="/products">
+              <Route path="/products" exact>
                 <Products />
               </Route>
 
@@ -73,13 +73,13 @@ export const App = () => {
                 <SingleProduct />
               </Route>
 
-              {/* <Route path="/artists">
+              <Route path="/artists" exact>
                 <Artists />
-              </Route> */}
+              </Route>
 
-              {/* <Route path="/artists/:artistId">
+              <Route path="/artists/:artistId">
                 <SingleArtist />
-              </Route> */}
+              </Route>
 
               <Route path="/register">
                 <Register />

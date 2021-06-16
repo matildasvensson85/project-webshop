@@ -162,7 +162,6 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-
 // endpoint to edit profile as an artist
 app.patch('/profile/:id', async (req, res) => {
   
@@ -176,12 +175,24 @@ app.patch('/profile/:id', async (req, res) => {
     } = req.body
 
     const editedArtist = await Artist.findByIdAndUpdate({ _id: id}, { presentation, photo })
-    return res.status(200).json(editedArtist)
-
+    if (editedArtist) {
+      res.json({
+        success: true,
+        editedArtist
+      })
+    } else {
+      res.status(404).json({ success: false, message: 'User not found' })
+    }
   } catch (error) {
-    return res.status(400).json({ message: 'Invalid request', error })
+    res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 })
+  //   return res.status(200).json(editedArtist)
+
+  // } catch (error) {
+  //   return res.status(400).json({ message: 'Invalid request', error })
+  // }
+// })
 
 // endpoint to get products
 app.get('/products', async (req, res) => {

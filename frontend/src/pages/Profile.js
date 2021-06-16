@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 // import { useSelector, useDispatch, batch } from 'react-redux';
 // import React, { useState, useEffect } from 'react';
 import React from 'react';
-// import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -13,10 +13,12 @@ import { Accordion } from 'components/Accordion'
 // import { Sell } from 'components/Sell'
 import { EditProfile } from 'components/EditProfile'
 import { UploadProducts } from 'components/UploadProducts'
+import { Button } from 'components/Button'
 
 export const Profile = () => {
 
   const artistName = useSelector(store => store.artists.artistName);
+  const artistID = useSelector(store => store.artists.artistID);
 
   return (
     <>
@@ -34,6 +36,9 @@ export const Profile = () => {
           title='Add products'
           content={ <UploadProducts/> }
           />
+        <Link to={`/artists/${artistID}`}>
+          <Button buttonText='View profile' />
+        </Link>
           
       </PageWrapper>
     </>

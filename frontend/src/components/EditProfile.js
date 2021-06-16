@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 // import { useHistory, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
-
+import { ARTIST_URL } from 'reusable/Urls';
 import { InputLine } from 'components/InputLine'
 import { InputTextArea } from 'components/InputTextArea'
 import { Button } from 'components/Button'
@@ -16,6 +16,7 @@ import { artists } from 'reducers/artists'
 export const EditProfile = () => {
 
   const [presentation, setPresentation] = useState('')
+  const [mode, setMode] = useState(null)
   console.log(presentation)
   const artistID = useSelector(store => store.artists.artistID);
   console.log(artistID)
@@ -34,19 +35,20 @@ export const EditProfile = () => {
       },
       body: JSON.stringify({ presentation, artistID })
     }
-    fetch('http://localhost:8080/profile/60c9b9db77adff7b0593296f', options)
+    fetch(`http://localhost:8080/profile/${artistID}`, options)
+    // fetch(ARTIST_URL(mode), options)
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        // if (data.success) {
+        if (data.success) {
           batch(() => {
             dispatch(artists.actions.setPresentation(data.presentation))
             dispatch(artists.actions.setErrors(null));
           })
-        // } else {
-        //   dispatch(artists.actions.setErrors(data));
-        //   console.log('failure')
-        // }
+        } else {
+          dispatch(artists.actions.setErrors(data));
+          console.log('failure')
+        }
       })
       .catch()
 
@@ -61,7 +63,10 @@ export const EditProfile = () => {
             placeholder='Write a a few lines about yourself and your art.'
             value={presentation}
             onChange={event => setPresentation(event.target.value)}  />
-          <Button buttonText='Save' />
+          <Button 
+            buttonText='Publish'
+            // OnClick={() => setMode(artistID)}
+             />
         </Form>
       </PageWrapper>
     </>
