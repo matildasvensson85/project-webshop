@@ -17,16 +17,16 @@ export const EditProfile = () => {
 
   const [presentation, setPresentation] = useState('')
   const [mode, setMode] = useState(null)
-  console.log(presentation)
-  const artistID = useSelector(store => store.artists.artistID);
-  console.log(artistID)
+  const [published, setPublished] = useState(false)
 
+  const artistID = useSelector(store => store.artists.artistID);
+  const artistPresentation = useSelector(store => store.artists.presentation);
+  const artistsname = useSelector(store => store.artists.artistName);
+  
   const dispatch = useDispatch()
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-    console.log(`presentation ${presentation}`)
-    console.log(`artistid ${artistID}`)
 
     const options = {
       method: 'PATCH',
@@ -42,7 +42,7 @@ export const EditProfile = () => {
         console.log(data)
         if (data.success) {
           batch(() => {
-            dispatch(artists.actions.setPresentation(data.presentation))
+            dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
             dispatch(artists.actions.setErrors(null));
           })
         } else {
@@ -66,7 +66,10 @@ export const EditProfile = () => {
           <Button 
             buttonText='Publish'
             // OnClick={() => setMode(artistID)}
+            onClick={() => setPublished(true)}
              />
+
+          {published === true ? <p>Published!</p> : ''}
         </Form>
       </PageWrapper>
     </>

@@ -5,13 +5,13 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-export const Button = ({ buttonText, onCLick }) => {
+export const Button = ({ buttonText, onClick }) => {
 
   return (
     <>
       <StyledButton 
         type='submit'
-        onClick={onCLick}>
+        onClick={onClick}>
         {buttonText}
       </StyledButton>
     </>

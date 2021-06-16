@@ -174,7 +174,7 @@ app.patch('/profile/:id', async (req, res) => {
       photo = artistById.photo
     } = req.body
 
-    const editedArtist = await Artist.findByIdAndUpdate({ _id: id}, { presentation, photo })
+    const editedArtist = await Artist.findByIdAndUpdate({ _id: id}, { presentation, photo }, {new: true})
     if (editedArtist) {
       res.json({
         success: true,

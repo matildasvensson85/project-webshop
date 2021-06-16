@@ -5,9 +5,10 @@ export const artists = createSlice({
     initialState: {
         artistName: null,
         artistID: null,
+        testtest: null,
         email: null,
         accessToken: null,
-        presentation: '',
+        presentation: null,
         photo: '',
         errors: null
     },

@@ -19,6 +19,8 @@ export const Profile = () => {
 
   const artistName = useSelector(store => store.artists.artistName);
   const artistID = useSelector(store => store.artists.artistID);
+  const presentation = useSelector(store => store.artists.presentation)
+  // console.log(`pres is ${presentation}`)
 
   return (
     <>

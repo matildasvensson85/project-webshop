@@ -8,18 +8,20 @@ import styled from 'styled-components';
 export const SingleArtist = () => {
 
   const artistName = useSelector(store => store.artists.artistName);
+  console.log(artistName)
+  const artistPresentation = useSelector(store => store.artists.presentation);
+  console.log(artistPresentation)
   const artistID = useSelector(store => store.artists.artistID);
 
   return (
     <>
-      <p>Single artist profile page</p>
-      {/* <PageWrapper>
+      <PageWrapper>
 
-        <Title tabIndex='0'>Welcome {artistName} to Artist's Collection.</Title>
-        <BodyText>Edit your profile here, and upload your art to the market.</BodyText>
+        <Title tabIndex='0'>{artistName}.</Title>
+        <BodyText>{artistPresentation}</BodyText>
 
 
-      </PageWrapper> */}
+      </PageWrapper>
     </>
   ) 
 }

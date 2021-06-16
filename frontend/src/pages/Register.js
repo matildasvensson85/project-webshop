@@ -20,6 +20,9 @@ export const Register = () => {
   const history = useHistory()
   const accessToken = useSelector(store => store.artists.accessToken);
   console.log(`accesstoken is ${accessToken}`)
+  const artistsName = useSelector(store => store.artists.artistName);
+  console.log(`artistname is ${artistsName}`)
+  
  
 
   // Move to profile page when logged in
@@ -51,6 +54,7 @@ export const Register = () => {
             // dispatch(artists.actions.setEmail(data.email))
             dispatch(artists.actions.setArtistID(data.artistID))
             dispatch(artists.actions.setAccessToken(data.accessToken))
+            dispatch(artists.actions.setPresentation(null))
             dispatch(artists.actions.setErrors(null));
           })
         } else {
