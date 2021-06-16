@@ -68,7 +68,6 @@ export const EditProfile = () => {
             // OnClick={() => setMode(artistID)}
             onClick={() => setPublished(true)}
              />
-
           {published === true ? <p>Published!</p> : ''}
         </Form>
       </PageWrapper>
