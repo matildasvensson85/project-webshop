@@ -17,12 +17,9 @@ export const SingleArtist = () => {
   return (
     <>
       <PageWrapper>
-
         <Title tabIndex='0'>{artistName}.</Title>
         <BodyText>{artistPresentation}</BodyText>
         <ProfilePic src={profilePicture} />
-
-
       </PageWrapper>
     </>
   ) 

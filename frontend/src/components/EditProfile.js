@@ -34,56 +34,98 @@ export const EditProfile = () => {
   // const [name, setName] = useState('')
   const dispatch = useDispatch()
 
+
+  // const onFormSubmit = (event) => {
+  //   event.preventDefault()
+
+  //   const formData = new FormData()
+  //     formData.append('image', fileInput.current.files[0])
+  //     // formData.append('name', name)
+  //     formData.append('artistID', artistID)
+
+  //     fetch('http://localhost:8080/profilepic', { method: 'POST', body: formData })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data)
+  //         if (data.success) {
+  //           batch(() => {
+  //             dispatch(artists.actions.setPhoto(data.imageUrl))
+  //             dispatch(artists.actions.setPhotoID(data.photoID))
+  //             // dispatch(artists.actions.setArtistID(data.artistID))
+  //             dispatch(artists.actions.setErrors(null));
+  //           })
+  //         } else {
+  //           dispatch(artists.actions.setErrors(data));
+  //           console.log('failure')
+  //         }
+  //       })
+  //       .catch()
+  //   }
+
+
+
   const onFormSubmit = (event) => {
     event.preventDefault()
+    postProfilePic()
+  }
 
+
+  const postProfilePic = () => {
     const formData = new FormData()
-      formData.append('image', fileInput.current.files[0])
-      // formData.append('name', name)
-      formData.append('artistID', artistID)
+    formData.append('image', fileInput.current.files[0])
+    // formData.append('name', name)
+    formData.append('artistID', artistID)
 
-      fetch('http://localhost:8080/profilepic', { method: 'POST', body: formData })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data)
-          if (data.success) {
-            batch(() => {
-              dispatch(artists.actions.setPhoto(data.imageUrl))
-              dispatch(artists.actions.setPhotoID(data.photoID))
-              // dispatch(artists.actions.setArtistID(data.artistID))
-              dispatch(artists.actions.setErrors(null));
-            })
-          } else {
-            dispatch(artists.actions.setErrors(data));
-            console.log('failure')
-          }
-        })
-        .catch()
+    fetch('http://localhost:8080/profilepic', { method: 'POST', body: formData })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.success) {
+          batch(() => {
+            dispatch(artists.actions.setPhoto(data.imageUrl))
+            dispatch(artists.actions.setPhotoID(data.photoID))
+            // dispatch(artists.actions.setArtistID(data.artistID))
+            dispatch(artists.actions.setErrors(null));
+          })
+          patchPresentation()
+        } else {
+          dispatch(artists.actions.setErrors(data));
+          console.log('failure')
+        }
+      })
+      .catch()
+  }
+
+
+  const patchPresentation = () => {
+    const options = {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ presentation, artistID })
     }
+    fetch(`http://localhost:8080/profile/${artistID}`, options)
+    // fetch(ARTIST_URL(mode), options)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+          batch(() => {
+            dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
+            dispatch(artists.actions.setErrors(null));
+          })
+        } else {
+          dispatch(artists.actions.setErrors(data));
+          console.log('failure')
+        }
+      })
+      .catch()
 
-    // const options = {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   },
-    //   body: JSON.stringify({ presentation, artistID })
-    // }
-    // fetch(`http://localhost:8080/profile/${artistID}`, options)
-    // // fetch(ARTIST_URL(mode), options)
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     console.log(data)
-    //     if (data.success) {
-    //       batch(() => {
-    //         dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
-    //         dispatch(artists.actions.setErrors(null));
-    //       })
-    //     } else {
-    //       dispatch(artists.actions.setErrors(data));
-    //       console.log('failure')
-    //     }
-    //   })
-    //   .catch()
+  }
+   
+   
+
 
 
 
