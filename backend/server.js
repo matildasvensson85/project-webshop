@@ -74,10 +74,11 @@ const Product = mongoose.model('Product', {
 const ProfilePic = mongoose.model('ProfilePic', {
   name: String,
   imageUrl: String,
-  ofArtist: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Artist'
-  }
+  // ofArtist: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Artist'
+  // }
+  ofArtist: String
 })
 
 // endpoint for users later on?
@@ -224,21 +225,106 @@ app.patch('/profile/:id', async (req, res) => {
     res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 })
-  //   return res.status(200).json(editedArtist)
 
-  // } catch (error) {
-  //   return res.status(400).json({ message: 'Invalid request', error })
-  // }
+
+// // endpoint to upload profile picture
+// app.post('/profilepic', parser.single('image'), async (req, res) => {
+// 	// res.json({ imageUrl: req.file.path, imageId: req.file.filename})
+//   try {
+//     const profilePic = await new ProfilePic({ name: req.body.filename, imageUrl: req.file.path }).save()
+//     res.json({
+//       success: true,
+//       profilePic,
+//     })
+//   } catch (err) {
+//     res.status(400).json({ errors: err.errors })
+//   }
 // })
 
-// endpoint to upload profile picture
+// // endpoint to upload profile picture
+// app.post('/profilepic', parser.single('image'), async (req, res) => {
+
+//   const { artistID } = req.body
+//   const { imageUrl } = req.file.path
+//   const { name } = req.body.filename
+
+//   try {
+//     const artist = await Artist.findById(artistID)
+//     const profilePic = await new ProfilePic({ 
+//       name,
+//       imageUrl, 
+//       // ofArtist: req.body
+//       ofArtist: 'heloooo',
+//       imageId: req.file.filename
+//     }).save()
+//     res.json({
+//       success: true,
+//       hejhej: false,
+//       // profilePic,
+//       photoID: profilePic._id,
+//       imageUrl: profilePic.imageUrl,
+//       name: profilePic.name
+//       // name: 'lollo'
+//       // artistID: 'helloo'
+//       // artistID: profilePic.ofArtist
+//     })
+//   } catch (err) {
+//     res.status(400).json({ errors: err.errors })
+//   }
+// })
+
+
+// // endpoint to upload profile picture
 app.post('/profilepic', parser.single('image'), async (req, res) => {
-	// res.json({ imageUrl: req.file.path, imageId: req.file.filename})
+  // const artistID = req.body.artistID
   try {
-    const profilePic = await new ProfilePic({ name: req.body.filename, imageUrl: req.file.path }).save()
-    res.json(profilePic)
+    // const artist = await Artist.findById(artistID)
+    const profilePic = await new ProfilePic({ 
+      name: req.body.name,
+      imageUrl: req.file.path, 
+      ofArtist: req.body.artistID,
+      // ofArtist: artist
+    }).save()
+    res.json({
+      success: true,
+      // profilePic,
+      photoID: profilePic._id,
+      imageUrl: profilePic.imageUrl,
+      name: profilePic.name,
+      ofArtist: profilePic.ofArtist
+    })
   } catch (err) {
     res.status(400).json({ errors: err.errors })
+  }
+})
+
+// endpoint to post products
+// app.post('/products', authenticateArtist)
+app.post('/products', async (req, res) => {
+  const { productName, price, description, artistID } = req.body
+
+  try {
+    const artist = await Artist.findById(artistID)
+    const savedProduct = await new Product({
+      productName,
+      price,
+      description,
+      byArtist: artist
+    }).save()
+    res.status(400).json({ 
+      success: true,
+      productID: savedProduct._id,
+      productName: savedProduct.productName,
+      price: savedProduct.price,
+      description: savedProduct.description,
+      byArtist: savedProduct.byArtist,
+    })
+  } catch (error) {
+    res.status(400).json({ 
+      success: false,
+      message: 'Invalid request', 
+      error 
+    })
   }
 })
 
@@ -261,37 +347,7 @@ app.get('/products/:id', async (req, res) => {
   res.json(productById)
 })
 
- 
 
-// endpoint to post products
-app.post('/products', authenticateArtist)
-app.post('/products', async (req, res) => {
-  const { productName, price, description, artistID } = req.body
-
-  try {
-    const artist = await Artist.findById(artistID)
-    const savedProduct = await new Product({
-      productName,
-      price,
-      description,
-      byArtist: artist
-    }).save()
-    res.status(400).json({ 
-      success: true,
-      productID: savedProduct._id,
-      productName: savedProduct.productName,
-      price: savedProduct.price,
-      description: savedProduct.description,
-      artistID: savedProduct.byArtist,
-    })
-  } catch (error) {
-    res.status(400).json({ 
-      success: false,
-      message: 'Invalid request', 
-      error 
-    })
-  }
-})
 
 // Start the server
 app.listen(port, () => {

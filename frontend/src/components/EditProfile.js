@@ -20,11 +20,18 @@ export const EditProfile = () => {
   const [published, setPublished] = useState(false)
 
   const artistID = useSelector(store => store.artists.artistID);
+  console.log(`artist id is ${artistID}`)
   const artistPresentation = useSelector(store => store.artists.presentation);
+  console.log(`artist pres is ${artistPresentation}`)
   const artistsname = useSelector(store => store.artists.artistName);
+  console.log(`artist name is ${artistsname}`)
+  const artistPhoto = useSelector(store => store.artists.photo)
+  console.log(`artist photo is ${artistPhoto}`)
+  const artistPhotoID = useSelector(store => store.artists.photoID)
+  console.log(`artist photo id is ${artistPhotoID}`)
   
   const fileInput = useRef()
-  const [name, setName] = useState('')
+  // const [name, setName] = useState('')
   const dispatch = useDispatch()
 
   const onFormSubmit = (event) => {
@@ -32,16 +39,27 @@ export const EditProfile = () => {
 
     const formData = new FormData()
       formData.append('image', fileInput.current.files[0])
-      formData.append('name', name)
+      // formData.append('name', name)
+      formData.append('artistID', artistID)
 
-      fetch('http://localhost:8080/profilepic', { method: 'POST', body: formData})
+      fetch('http://localhost:8080/profilepic', { method: 'POST', body: formData })
         .then((res) => res.json())
         .then((data) => {
           console.log(data)
-          dispatch(artists.actions.setPhoto(data.imageURL))
-          dispatch(artists.actions.setPhotoID(data._id))
+          if (data.success) {
+            batch(() => {
+              dispatch(artists.actions.setPhoto(data.imageUrl))
+              dispatch(artists.actions.setPhotoID(data.photoID))
+              // dispatch(artists.actions.setArtistID(data.artistID))
+              dispatch(artists.actions.setErrors(null));
+            })
+          } else {
+            dispatch(artists.actions.setErrors(data));
+            console.log('failure')
+          }
         })
-    
+        .catch()
+    }
 
     // const options = {
     //   method: 'PATCH',
@@ -67,7 +85,7 @@ export const EditProfile = () => {
     //   })
     //   .catch()
 
-  }
+
 
   return (
     <>
@@ -84,10 +102,10 @@ export const EditProfile = () => {
             <input type='file' ref={fileInput} />
           </label>
 
-          <label>
+          {/* <label>
             Photo name
             <input type='text' value={name} onChange={(event) => setName(event.target.value)} />
-          </label>
+          </label> */}
 
 
           <Button 

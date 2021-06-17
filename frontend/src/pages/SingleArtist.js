@@ -12,6 +12,7 @@ export const SingleArtist = () => {
   const artistPresentation = useSelector(store => store.artists.presentation);
   console.log(artistPresentation)
   const artistID = useSelector(store => store.artists.artistID);
+  const profilePicture = useSelector(store => store.artists.photo)
 
   return (
     <>
@@ -19,6 +20,7 @@ export const SingleArtist = () => {
 
         <Title tabIndex='0'>{artistName}.</Title>
         <BodyText>{artistPresentation}</BodyText>
+        <ProfilePic src={profilePicture} />
 
 
       </PageWrapper>
@@ -57,4 +59,7 @@ const BodyText = styled.p`
   line-height: 130%;
   text-align: center;
   max-width: 300px;
+`
+const ProfilePic = styled.img`
+  width: 100%;
 `

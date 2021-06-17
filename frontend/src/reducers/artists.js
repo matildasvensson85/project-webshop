@@ -3,14 +3,14 @@ import { createSlice } from '@reduxjs/toolkit'
 export const artists = createSlice({
     name: 'artists',
     initialState: {
-        artistName: null,
+        artistName: null,  
         artistID: null,
         testtest: null,
         email: null,
         accessToken: null,
         presentation: null,
-        photo: '',
-        photoID: '',
+        photo: null,
+        photoID: null,
         errors: null
     },
     reducers: {
@@ -31,9 +31,9 @@ export const artists = createSlice({
         },
         setPhoto: (store, action) => {
             store.photo = action.payload
-        },
+        }, 
         setPhotoID: (store, action) => {
-            store.photo = action.payload
+            store.photoID = action.payload
         },
         setErrors: (store, action) => {
             store.errors = action.payload
