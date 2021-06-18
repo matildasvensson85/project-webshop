@@ -45,15 +45,30 @@ const Artist = mongoose.model('Artist', {
   }
 })
 
+const ProfilePic = mongoose.model('ProfilePic', {
+  name: String,
+  imageUrl: String,
+  // ofArtist: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'Artist'
+  // }
+  ofArtist: String,
+  photoID: String
+})
+
+
 const Product = mongoose.model('Product', {
   productName: {
     type: String,
-    required: true
+    // required: true
+  },
+  producID: {
+    type: String,
   },
   price: {
     type: Number
   },
-  cagtegory: {
+  category: {
     type: String
   },
   color: {
@@ -62,8 +77,9 @@ const Product = mongoose.model('Product', {
   description: {
     type: String
   },
-  photo: {
-    type: String
+  productPhoto: {
+    name: String,
+    imageUrl: String,
   },
     byArtist: {
       type: mongoose.Schema.Types.ObjectId,
@@ -71,15 +87,17 @@ const Product = mongoose.model('Product', {
   }
 });
 
-const ProfilePic = mongoose.model('ProfilePic', {
-  name: String,
+const ProductPhoto = mongoose.model('ProductPhoto', {
   imageUrl: String,
   // ofArtist: {
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: 'Artist'
   // }
-  ofArtist: String
+  byArtist: String,
+  photoID: String
+
 })
+
 
 // endpoint for users later on?
 
@@ -297,25 +315,50 @@ app.post('/profilepic', parser.single('image'), async (req, res) => {
     res.status(400).json({ errors: err.errors })
   }
 })
+// endpoint to upload productPhoto
+app.post('/productPhoto', parser.single('image'), async (req, res) => {
+  // const artistID = req.body.artistID
+  try {
+    // const artist = await Artist.findById(artistID)
+    const productPhoto = await new ProductPhoto({ 
+      imageUrl: req.file.path, 
+      byArtist: req.body.artistID,
+      // ofArtist: artist
+    }).save()
+    res.json({
+      success: true,
+      // profilePic,
+      photoID: productPhoto._id,
+      imageUrl: productPhoto.imageUrl,
+      byArtist: productPhoto.byArtist
+    })
+  } catch (err) {
+    res.status(400).json({ errors: err.errors })
+  }
+})
 
 // endpoint to post products
 // app.post('/products', authenticateArtist)
 app.post('/products', async (req, res) => {
-  const { productName, price, description, artistID } = req.body
+  const { productName, price, category, color, description, artistID } = req.body
 
   try {
     const artist = await Artist.findById(artistID)
     const savedProduct = await new Product({
       productName,
       price,
+      category,
+      color,
       description,
       byArtist: artist
     }).save()
-    res.status(400).json({ 
+    res.json({ 
       success: true,
-      productID: savedProduct._id,
       productName: savedProduct.productName,
+      productID: savedProduct._id,
       price: savedProduct.price,
+      category: savedProduct.category,
+      color: savedProduct.color,
       description: savedProduct.description,
       byArtist: savedProduct.byArtist,
     })
@@ -332,6 +375,12 @@ app.post('/products', async (req, res) => {
 app.get('/profilepic', async (req, res) => {
   const profilePics = await ProfilePic.find()
   res.json({ success: true, profilePics });
+})
+
+// endpoint to get product pictures
+app.get('/productPhoto', async (req, res) => {
+  const productPhotos = await ProductPhoto.find()
+  res.json({ success: true, productPhotos });
 })
 
 // endpoint to get products

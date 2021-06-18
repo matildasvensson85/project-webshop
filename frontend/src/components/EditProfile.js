@@ -121,14 +121,9 @@ export const EditProfile = () => {
         }
       })
       .catch()
-
   }
    
    
-
-
-
-
   return (
     <>
       <PageWrapper>
@@ -143,12 +138,6 @@ export const EditProfile = () => {
             Profile picture
             <input type='file' ref={fileInput} />
           </label>
-
-          {/* <label>
-            Photo name
-            <input type='text' value={name} onChange={(event) => setName(event.target.value)} />
-          </label> */}
-
 
           <Button 
             buttonText='Publish'

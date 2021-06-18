@@ -47,7 +47,7 @@ const Label = styled.label`
   color: #4F4F4F;
   width: 100%;
   font-size: 14px;
-  margin-bottom: 7px;
+  margin-bottom: 17px;
 `
 const Input = styled.input`
   outline: none;
@@ -56,7 +56,7 @@ const Input = styled.input`
   border-right: none;
   border-bottom: 1px solid #1D47B2;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   font-size: 16px; 
   background-color: transparent;
   padding: 7px 1px 7px 1px;
