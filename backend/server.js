@@ -62,7 +62,7 @@ const Product = mongoose.model('Product', {
     type: String,
     // required: true
   },
-  producID: {
+  productID: {
     type: String,
   },
   price: {
@@ -77,10 +77,10 @@ const Product = mongoose.model('Product', {
   description: {
     type: String
   },
-  productPhoto: {
-    name: String,
-    imageUrl: String,
-  },
+  // productPhoto: {
+  //   name: String,
+  //   imageUrl: String,
+  // },
     byArtist: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Artist'
@@ -350,10 +350,12 @@ app.post('/products', async (req, res) => {
       category,
       color,
       description,
-      byArtist: artist
+      byArtist: artist,
     }).save()
     res.json({ 
       success: true,
+      // savedProduct,
+      artistName: artist.artistByName,
       productName: savedProduct.productName,
       productID: savedProduct._id,
       price: savedProduct.price,
@@ -361,6 +363,7 @@ app.post('/products', async (req, res) => {
       color: savedProduct.color,
       description: savedProduct.description,
       byArtist: savedProduct.byArtist,
+      // artistName: savedProduct.byArtist.artistByName
     })
   } catch (error) {
     res.status(400).json({ 
@@ -369,6 +372,17 @@ app.post('/products', async (req, res) => {
       error 
     })
   }
+})
+
+// endpoint to get products
+app.get('/products', async (req, res) => {
+  const products = await Product.find()
+  res.json({ 
+    success: true, 
+    products,
+
+  
+  });
 })
 
 // endpoint to get profile pictures
@@ -383,11 +397,7 @@ app.get('/productPhoto', async (req, res) => {
   res.json({ success: true, productPhotos });
 })
 
-// endpoint to get products
-app.get('/products', async (req, res) => {
-  const products = await Product.find()
-  res.json({ success: true, products });
-})
+
 
 // endpoint to get one product by id
 app.get('/products/:id', async (req, res) => {

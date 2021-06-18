@@ -4,6 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { artists } from 'reducers/artists'
+import { products } from 'reducers/products'
 
 export const Header = () => {
 
@@ -37,7 +38,13 @@ export const Header = () => {
                 <MenuItem>Log in</MenuItem>
               </Link>
               <Link to='/register'>
-                <MenuItem onClick={()=> dispatch(artists.actions.setLogOut())}>Log out</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    dispatch(artists.actions.setLogOut())
+                    dispatch(products.actions.setLogOut())
+                  }}>
+                  Log out
+                </MenuItem>
               </Link>
             </DesktopNav>
           </MenuWrapper>

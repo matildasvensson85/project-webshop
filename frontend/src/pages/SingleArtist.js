@@ -13,6 +13,13 @@ export const SingleArtist = () => {
   console.log(artistPresentation)
   const artistID = useSelector(store => store.artists.artistID);
   const profilePicture = useSelector(store => store.artists.photo)
+  const productName = useSelector(store => store.products.productName)
+  const description = useSelector(store => store.products.description)
+  const productPhoto = useSelector(store => store.products.photo)
+  const productsArray = useSelector(store => store.products)
+  console.log(productsArray)
+
+  console.log(productName)
 
   return (
     <>
@@ -20,6 +27,30 @@ export const SingleArtist = () => {
         <Title tabIndex='0'>{artistName}.</Title>
         <BodyText>{artistPresentation}</BodyText>
         <ProfilePic src={profilePicture} />
+        <h2>{artistName}s art for sale</h2>
+
+        
+                  {/* {products.map((product) => (
+                    <p
+                      key={product}
+                      // value={color}
+                      // onClick={() => {
+                      //   handleColorSelect()
+                      //   setColor(color)
+                      //   setChosenColor(color)
+                      // }}
+                      >
+                      {product}
+                    </p>
+                  ))} */}
+             
+
+        {/* <Link to={`/products/${productID}`}> */}
+          <h4>{productName}</h4>
+          <ProductPhoto src={productPhoto} />
+        {/* </Link> */}
+
+
       </PageWrapper>
     </>
   ) 
@@ -58,5 +89,8 @@ const BodyText = styled.p`
   max-width: 300px;
 `
 const ProfilePic = styled.img`
-  width: 100%;
+  width: 300px;
+`
+const ProductPhoto = styled.img`
+  width: 200px;
 `

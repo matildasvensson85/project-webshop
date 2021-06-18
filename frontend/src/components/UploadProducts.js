@@ -32,6 +32,8 @@ const [chosenColor, setChosenColor] = useState('Beige')
 
 const artistID = useSelector(store => store.artists.artistID);
 console.log(`artist id is ${artistID}`)
+const byArtistName = useSelector(store => store.products.byArtistName);
+console.log(`by artist ${byArtistName}`)
 
 console.log(productName)
 console.log(price)
@@ -118,15 +120,22 @@ const postProductInfo = () => {
     .then(res => res.json())
     .then(data => {
       console.log(data)
-      // if (data.success) {
-      //   batch(() => {
-      //     // dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
-      //     // dispatch(artists.actions.setErrors(null));
-      //   })
-      // } else {
-      //   dispatch(products.actions.setErrors(data));
-      //   console.log('failure')
-      // }
+      if (data.success) {
+        batch(() => {
+          dispatch(products.actions.setProductName(data.productName))
+          dispatch(products.actions.setProductID(data.productID))
+          dispatch(products.actions.setPrice(data.price))
+          dispatch(products.actions.setCategory(data.category))
+          dispatch(products.actions.setColor(data.color))
+          dispatch(products.actions.setDescription(data.description))
+          dispatch(products.actions.setByArtistName(data.byArtist.artistName))
+          dispatch(products.actions.setByArtistID(data.byArtist._id))
+          dispatch(products.actions.setErrors(null));
+        })
+      } else {
+        dispatch(products.actions.setErrors(data));
+        console.log('failure')
+      }
     })
     .catch()
 }

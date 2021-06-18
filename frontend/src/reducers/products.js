@@ -3,18 +3,23 @@ import { createSlice } from '@reduxjs/toolkit'
 export const products = createSlice({
     name: 'products',
     initialState: {
-        productName: null,  
-        productID: null,
-        price: null,
-        category: null,
-        color: null,
-        description: null,
-        photo: null,
-        photoID: null,
-        errors: null
+        // products: [
+            productName: null,  
+            productID: null,
+            price: null,
+            category: null,
+            color: null,
+            description: null,
+            photo: null,
+            photoID: null,
+            byArtistName: null,
+            byArtistID: null,
+            errors: null
+        // ],
+
     },
     reducers: {
-        setProcuctName: (store, action) => {
+        setProductName: (store, action) => {
             store.productName = action.payload
         },
         setProductID: (store, action) => {
@@ -38,9 +43,27 @@ export const products = createSlice({
         setPhotoID: (store, action) => {
             store.photoID = action.payload
         },
+        setByArtistName: (store, action) => {
+          store.byArtistName = action.payload
+      },
+        setByArtistID: (store, action) => {
+        store.byArtistID = action.payload
+    },
         setErrors: (store, action) => {
             store.errors = action.payload
         },
+        setLogOut: () => {
+          return {
+              productName: null,
+              productID: null,
+              category: null,
+              color: null,
+              description: null,
+              photo: null,
+              photoID: null,
+              errors: null
+          }
+      }
     },
       
 })
