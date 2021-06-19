@@ -33,10 +33,11 @@ const [chosenCategory, setChosenCategory] = useState('Painting')
 const [chosenColor, setChosenColor] = useState('Beige')
 
 const artistID = useSelector(store => store.artists.artistID);
+
+const artistName = useSelector(store => store.artists.artistName);
 console.log(`artist id is ${artistID}`)
+console.log(`artist name is ${artistName}`)
 const accessToken = useSelector(store => store.artists.accessToken);
-const byArtistName = useSelector(store => store.products.byArtistName);
-console.log(`by artist ${byArtistName}`)
 
  console.log(productName)
 console.log(price)
@@ -85,9 +86,50 @@ const colors = [
 const onFormSubmit = (event) => {
   event.preventDefault()
   postProducts()
+  // postProductsOld()
+
 }
 
 const postProducts = () => {
+  const formData = new FormData()
+  formData.append('productName', productName)
+  formData.append('price', price)
+  formData.append('category', category)
+  formData.append('color', color)
+  formData.append('description', description)
+  formData.append('image', fileInput.current.files[0])
+  formData.append('artistID', artistID)
+  formData.append('artistName', artistName)
+
+  fetch('http://localhost:8080/products', { 
+    method: 'POST',
+    body: formData,
+    // headers: {
+    //   Authorization: accessToken,
+    // },
+   })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+      // if (data.success) {
+      //   batch(() => {
+      //     // dispatch(artists.actions.setProducts(data.savedProduct));
+      //     // dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
+      //     // dispatch(artists.actions.setPhoto(data.editedArtist.photo))
+      //     dispatch(artists.actions.setErrors(null));
+      //   })
+      // } else {
+      //   dispatch(artists.actions.setErrors(data));
+      //   console.log('failure')
+      // }
+    })
+    .catch()
+  }
+
+
+
+
+const postProductsOld = () => {
   const formData = new FormData()
   formData.append('image', fileInput.current.files[0])
   formData.append('artistID', artistID)
@@ -112,15 +154,15 @@ const postProducts = () => {
         batch(() => {
           // set alla useStates för att resettas!?
           // hämta ner den uppdatrade informationen till profilen
-          dispatch(getProductsAndOrders(accessToken, artistID))
+          // dispatch(getProductsAndOrders(accessToken, artistID))
 
           //tidigare
-          // dispatch(products.actions.setPhoto(data.imageUrl))
-          // dispatch(products.actions.setPhotoID(data.photoID))
-          // dispatch(artists.actions.setArtistID(data.artistID))
-          // dispatch(products.actions.setErrors(null));
+          dispatch(products.actions.setPhoto(data.imageUrl))
+          dispatch(products.actions.setPhotoID(data.photoID))
+          dispatch(artists.actions.setArtistID(data.artistID))
+          dispatch(products.actions.setErrors(null));
         })
-        // postProductInfo()
+        postProductInfo()
       } else {
         dispatch(products.actions.setErrors(data));
         console.log('failure')
