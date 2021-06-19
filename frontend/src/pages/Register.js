@@ -54,7 +54,7 @@ export const Register = () => {
             // dispatch(artists.actions.setEmail(data.email))
             dispatch(artists.actions.setArtistID(data.artistID))
             dispatch(artists.actions.setAccessToken(data.accessToken))
-            dispatch(artists.actions.setPresentation(null))
+            // dispatch(artists.actions.setPresentation(null))
             dispatch(artists.actions.setErrors(null));
           })
         } else {

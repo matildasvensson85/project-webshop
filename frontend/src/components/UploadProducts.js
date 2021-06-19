@@ -9,6 +9,8 @@ import { InputLine } from 'components/InputLine'
 import { InputTextArea } from 'components/InputTextArea'
 import { Button } from 'components/Button'
 import { products } from 'reducers/products'
+import { artists } from 'reducers/artists'
+import { getProductsAndOrders } from 'reducers/artists'
 // import { Accordion } from 'components/Accordion'
 // import { Sell } from 'components/Sell'
 // import { UploadSelect } from 'components/UploadSelect'
@@ -32,10 +34,11 @@ const [chosenColor, setChosenColor] = useState('Beige')
 
 const artistID = useSelector(store => store.artists.artistID);
 console.log(`artist id is ${artistID}`)
+const accessToken = useSelector(store => store.artists.accessToken);
 const byArtistName = useSelector(store => store.products.byArtistName);
 console.log(`by artist ${byArtistName}`)
 
-console.log(productName)
+ console.log(productName)
 console.log(price)
 console.log(color)
 console.log(category)
@@ -78,28 +81,46 @@ const colors = [
   'Other'
 ]
 
+// to upload products for sale
 const onFormSubmit = (event) => {
   event.preventDefault()
-  postProductPhoto()
+  postProducts()
 }
 
-const postProductPhoto = () => {
+const postProducts = () => {
   const formData = new FormData()
   formData.append('image', fileInput.current.files[0])
   formData.append('artistID', artistID)
+  // lägg in allt annat i formdata och gör bara en fetch
+  // formData.append('productName', productName)
+  // formData.append('price', price)
+  // formData.append('category', category)
+  // formData.append('color', color)
+  // formData.append('description', description)
 
-  fetch('http://localhost:8080/productPhoto', { method: 'POST', body: formData })
+  fetch('http://localhost:8080/productPhoto', { 
+    method: 'POST',
+     body: formData,
+    // headers: {
+    //   Authorization: accessToken,
+    // },
+   })
     .then((res) => res.json())
     .then((data) => {
       console.log(data)
       if (data.success) {
         batch(() => {
-          dispatch(products.actions.setPhoto(data.imageUrl))
-          dispatch(products.actions.setPhotoID(data.photoID))
+          // set alla useStates för att resettas!?
+          // hämta ner den uppdatrade informationen till profilen
+          dispatch(getProductsAndOrders(accessToken, artistID))
+
+          //tidigare
+          // dispatch(products.actions.setPhoto(data.imageUrl))
+          // dispatch(products.actions.setPhotoID(data.photoID))
           // dispatch(artists.actions.setArtistID(data.artistID))
-          dispatch(products.actions.setErrors(null));
+          // dispatch(products.actions.setErrors(null));
         })
-        postProductInfo()
+        // postProductInfo()
       } else {
         dispatch(products.actions.setErrors(data));
         console.log('failure')
@@ -239,7 +260,6 @@ const PageWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 20px 20px 20px 20px;
-
   @media (min-width: 768px) {
     padding-top: 90px;
   }
@@ -280,7 +300,6 @@ const SelectButton = styled.button`
   height: 44px;
   background-color: transparent;
   cursor: pointer;
-
   /* position: relative;
   -webkit-appearance: none;
   -webkit-box-align: center;
@@ -290,7 +309,6 @@ const SelectButton = styled.button`
   background: #fff;
   text-align: center;
    */
-
   &:focus {
     outline: none;
   }
@@ -315,7 +333,6 @@ const List = styled.ul`
   font-size: 12px;
   text-align: justify;
   opacity: ${(props) => (props.open ? 1 : 0)};
-
   transform: none;
   list-style: none;
   overflow: auto;
@@ -326,9 +343,7 @@ const ListItem = styled.li`
   box-sizing: border-box;
   background: #fff;
   cursor: pointer;
-
   &:hover {
     color: #fb958b;
   }
 `
-

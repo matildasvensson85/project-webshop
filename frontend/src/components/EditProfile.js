@@ -66,14 +66,41 @@ export const EditProfile = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-    postProfilePic()
+    // postProfilePic()
+    // postEditProfile()
+    patchEdits()
   }
+
+  const patchEdits = () => {
+    const formData = new FormData()
+    formData.append('image', fileInput.current.files[0])
+    formData.append('presentation', presentation)
+    formData.append('artistID', artistID)
+
+    fetch(`http://localhost:8080/profile/${artistID}`, { method: 'PATCH', body: formData })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        if (data.success) {
+          batch(() => {
+            dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
+            dispatch(artists.actions.setPhoto(data.editedArtist.photo))
+            dispatch(artists.actions.setErrors(null));
+          })
+        } else {
+          dispatch(artists.actions.setErrors(data));
+          console.log('failure')
+        }
+      })
+      .catch()
+    }
+  
 
 
   const postProfilePic = () => {
     const formData = new FormData()
     formData.append('image', fileInput.current.files[0])
-    // formData.append('name', name)
+    formData.append('presentation', presentation)
     formData.append('artistID', artistID)
 
     fetch('http://localhost:8080/profilepic', { method: 'POST', body: formData })

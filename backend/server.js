@@ -40,8 +40,7 @@ const Artist = mongoose.model('Artist', {
     type: String
   },
   photo: {
-    name: String,
-    imageUrl: String
+    type: String,
   }
 })
 
@@ -189,7 +188,7 @@ app.post('/register', async (req, res) => {
   } catch (error) {
     if (error.code === 11000) {
       // should I also add a status code here? see lecture
-      res.json({ message: 'Name is not unique' })
+      res.status(400).json({ message: 'Name is not unique' })
     } else {
     res.status(400).json({ success: false, message: 'Invalid request', error })
     }
@@ -218,8 +217,34 @@ app.post('/signin', async (req, res) => {
   }
 })
 
+// // endpoint to edit profile as an artist
+// app.patch('/profile/:id', async (req, res) => {
+  
+//   try {
+//     const { id } = req.params
+//     const artistById = await Artist.findById({_id: id })
+
+//     const {
+//       presentation = artistById.presentation,
+//       photo = artistById.photo
+//     } = req.body
+
+//     const editedArtist = await Artist.findByIdAndUpdate({ _id: id}, { presentation, photo }, {new: true})
+//     if (editedArtist) {
+//       res.json({
+//         success: true,
+//         editedArtist
+//       })
+//     } else {
+//       res.status(404).json({ success: false, message: 'User not found' })
+//     }
+//   } catch (error) {
+//     res.status(400).json({ success: false, message: 'Invalid request', error });
+//   }
+// })
+
 // endpoint to edit profile as an artist
-app.patch('/profile/:id', async (req, res) => {
+app.patch('/profile/:id', parser.single('image'), async (req, res) => {
   
   try {
     const { id } = req.params
@@ -230,7 +255,7 @@ app.patch('/profile/:id', async (req, res) => {
       photo = artistById.photo
     } = req.body
 
-    const editedArtist = await Artist.findByIdAndUpdate({ _id: id}, { presentation, photo }, {new: true})
+    const editedArtist = await Artist.findByIdAndUpdate({ _id: id}, { presentation: req.body.presentation, photo: req.file.path }, {new: true})
     if (editedArtist) {
       res.json({
         success: true,
@@ -243,54 +268,6 @@ app.patch('/profile/:id', async (req, res) => {
     res.status(400).json({ success: false, message: 'Invalid request', error });
   }
 })
-
-
-// // endpoint to upload profile picture
-// app.post('/profilepic', parser.single('image'), async (req, res) => {
-// 	// res.json({ imageUrl: req.file.path, imageId: req.file.filename})
-//   try {
-//     const profilePic = await new ProfilePic({ name: req.body.filename, imageUrl: req.file.path }).save()
-//     res.json({
-//       success: true,
-//       profilePic,
-//     })
-//   } catch (err) {
-//     res.status(400).json({ errors: err.errors })
-//   }
-// })
-
-// // endpoint to upload profile picture
-// app.post('/profilepic', parser.single('image'), async (req, res) => {
-
-//   const { artistID } = req.body
-//   const { imageUrl } = req.file.path
-//   const { name } = req.body.filename
-
-//   try {
-//     const artist = await Artist.findById(artistID)
-//     const profilePic = await new ProfilePic({ 
-//       name,
-//       imageUrl, 
-//       // ofArtist: req.body
-//       ofArtist: 'heloooo',
-//       imageId: req.file.filename
-//     }).save()
-//     res.json({
-//       success: true,
-//       hejhej: false,
-//       // profilePic,
-//       photoID: profilePic._id,
-//       imageUrl: profilePic.imageUrl,
-//       name: profilePic.name
-//       // name: 'lollo'
-//       // artistID: 'helloo'
-//       // artistID: profilePic.ofArtist
-//     })
-//   } catch (err) {
-//     res.status(400).json({ errors: err.errors })
-//   }
-// })
-
 
 // // endpoint to upload profile picture
 app.post('/profilepic', parser.single('image'), async (req, res) => {
@@ -305,6 +282,7 @@ app.post('/profilepic', parser.single('image'), async (req, res) => {
     }).save()
     res.json({
       success: true,
+      test: test,
       // profilePic,
       photoID: profilePic._id,
       imageUrl: profilePic.imageUrl,
@@ -413,5 +391,3 @@ app.listen(port, () => {
   // eslint-disable-next-line
   console.log(`Server running on http://localhost:${port}`)
 })
-
-

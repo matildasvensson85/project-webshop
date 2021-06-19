@@ -173,5 +173,3 @@ const Text = styled.p`
   font-size: 16px;
   line-height: 150%;
 `
-
-
