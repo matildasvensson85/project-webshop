@@ -1,50 +1,65 @@
 import { useSelector } from 'react-redux';
-import React from 'react';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { artists } from 'reducers/artists'
 
 // import {user} from '../reducers/user';
 import styled from 'styled-components';
 
 export const SingleArtist = () => {
 
-  const artist = useSelector(store => store.artists);
-  console.log(artist)
-  const products = useSelector(store => store.artists.products);
-  console.log(products)
-  // const artistPresentation = useSelector(store => store.artists.presentation);
-  // console.log(artistPresentation)
+  // const artist = useSelector(store => store.artists);
+  // console.log(artist)
+  // const products = useSelector(store => store.artists.products);
+  // console.log(products)
 
-  // const profilePicture = useSelector(store => store.artists.photo)
-  // const products = useSelector(store => store.artist.products)
-  // const description = useSelector(store => store.products.description)
+  const { artistId } = useParams()
+  console.log(artistId)
+  const [singleArtist, setSingleArtist] = useState({})
+  console.log(singleArtist)
+  const dispatch = useDispatch()
 
+
+    useEffect(() => {
+      
+        fetch(`http://localhost:8080/artists/${artistId}`)
+          .then(res => res.json())
+          .then(data => {
+            console.log(data)
+            if (data.success) {
+                setSingleArtist(data.artistById)
+            } else {
+              dispatch(artists.actions.setErrors(data));
+            }
+          })
+          .catch()
+      
+    }, [artistId])
 
   return (
     <>
       <PageWrapper>
         <ArtistWrapper>
-          <Title tabIndex='0'>{artist.artistName}.</Title>
-          <BodyText>{artist.presentation}</BodyText>
-          <ProfilePic src={artist.photo} />
-          <h2>{artist.artistName}s art for sale</h2>
+          <Title tabIndex='0'>{singleArtist.artistName}.</Title>
+          <BodyText>{singleArtist.presentation}</BodyText>
+          <ProfilePic src={singleArtist.photo} />
+          <h2>{singleArtist.artistName}s art for sale</h2>
         </ArtistWrapper>
         <ProductsWrapper>
-          {products.map((product, index) => (
+          {/* {products.map((product, index) => (
             
               <ProductCard key={product._id}>
                 <Link to={`/products/${product._id}`}>
                   <ProductImage key={index} src={product.photo} alt='Ceramics bowls and bottle'/>
                   <ProductTextWrapper>
                     <SubTitle tabIndex='0'>{product.productName} </SubTitle>
-                    {/* <SmallTextWrapper>
-                      <Text tabIndex='0'>{product.price} €</Text>
-                      <Text tabIndex='0'>{product.artistName}</Text>
-                    </SmallTextWrapper> */}
                   </ProductTextWrapper>
                 </Link>
               </ProductCard>
             
-          ))}
+          ))} */}
         </ProductsWrapper>
       </PageWrapper>
     </>

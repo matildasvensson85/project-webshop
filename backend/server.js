@@ -170,8 +170,10 @@ app.get('/artists', async (req, res) => {
 app.get('/artists/:id', async (req, res) => {
   const { id } = req.params
   const artistById = await Artist.findOne({_id: id })
-  res.json(artistById)
+  res.json({ success: true, artistById })
 })
+
+
 
 // endpoint to register artists
 app.post('/register', async (req, res) => {
@@ -420,7 +422,7 @@ app.get('/productPhoto', async (req, res) => {
 app.get('/products/:id', async (req, res) => {
   const { id } = req.params
   const productById = await Product.findOne({_id: id })
-  res.json({ success: true, productById});
+  res.json({ success: true, productById })
 })
 
 

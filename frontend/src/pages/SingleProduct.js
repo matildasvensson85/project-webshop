@@ -14,22 +14,6 @@ export const SingleProduct = () => {
   console.log(singleProduct)
   const dispatch = useDispatch()
 
-  // const artist = useSelector(store => store.artists);
-  // console.log(artist)
-  // const products = useSelector(store => store.artists.products);
-  // console.log(products)
-  // const currentProduct = useSelector(store => store.artists.products.find((a) => a._id === products._id))
-  // console.log(currentProduct)
-
-  //   // Chosen answer object of current question
-  // const chosenAnswer = useSelector((state) => state.quiz.answers[state.quiz.currentQuestionIndex])
-  // console.log(`Chosen answer: ${chosenAnswer}`)
-
-  // // This is the same thing as the object above I think!!
-  // // Its an object with the answer of the current question.
-  // const answer = useSelector((state) => state.quiz.answers.find((a) => (a.questionId === question.id)))
-  // console.log(`Answer ?? What is this: ${answer}`)
-
 
     useEffect(() => {
       
