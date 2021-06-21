@@ -44,16 +44,16 @@ const Artist = mongoose.model('Artist', {
   }
 })
 
-const ProfilePic = mongoose.model('ProfilePic', {
-  name: String,
-  imageUrl: String,
-  // ofArtist: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Artist'
-  // }
-  ofArtist: String,
-  photoID: String
-})
+// const ProfilePic = mongoose.model('ProfilePic', {
+//   name: String,
+//   imageUrl: String,
+//   // ofArtist: {
+//   //   type: mongoose.Schema.Types.ObjectId,
+//   //   ref: 'Artist'
+//   // }
+//   ofArtist: String,
+//   photoID: String
+// })
 
 
 const Product = mongoose.model('Product', {
@@ -91,16 +91,16 @@ const Product = mongoose.model('Product', {
   }
 });
 
-const ProductPhoto = mongoose.model('ProductPhoto', {
-  imageUrl: String,
-  // ofArtist: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Artist'
-  // }
-  byArtist: String,
-  photoID: String
+// const ProductPhoto = mongoose.model('ProductPhoto', {
+//   imageUrl: String,
+//   // ofArtist: {
+//   //   type: mongoose.Schema.Types.ObjectId,
+//   //   ref: 'Artist'
+//   // }
+//   byArtist: String,
+//   photoID: String
 
-})
+// })
 
 
 // endpoint for users later on?
@@ -284,6 +284,7 @@ app.post('/products', parser.single('image'), async (req, res) => {
     const savedProduct = await new Product({
       productName: req.body.productName,
       // productID: savedProduct._id,
+      // productID: req.body._id,
       price: req.body.price,
       category: req.body.category,
       color: req.body.color,
@@ -291,7 +292,7 @@ app.post('/products', parser.single('image'), async (req, res) => {
       photo: req.file.path,
       artistID: req.body.artistID,
       artistName: req.body.artistName,
-      byArtist: artist,
+      // byArtist: artist,
     }).save()
     res.json({ 
       success: true,
@@ -419,7 +420,7 @@ app.get('/productPhoto', async (req, res) => {
 app.get('/products/:id', async (req, res) => {
   const { id } = req.params
   const productById = await Product.findOne({_id: id })
-  res.json(productById)
+  res.json({ success: true, productById});
 })
 
 

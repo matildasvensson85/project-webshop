@@ -1,56 +1,51 @@
-import { useSelector, useDispatch, batch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 // import {user} from '../reducers/user';
 import styled from 'styled-components';
 
 export const SingleArtist = () => {
 
-  const artistName = useSelector(store => store.artists.artistName);
-  console.log(artistName)
-  const artistPresentation = useSelector(store => store.artists.presentation);
-  console.log(artistPresentation)
-  const artistID = useSelector(store => store.artists.artistID);
-  const profilePicture = useSelector(store => store.artists.photo)
-  const productName = useSelector(store => store.products.productName)
-  const description = useSelector(store => store.products.description)
-  const productPhoto = useSelector(store => store.products.photo)
-  const productsArray = useSelector(store => store.products)
-  console.log(productsArray)
+  const artist = useSelector(store => store.artists);
+  console.log(artist)
+  const products = useSelector(store => store.artists.products);
+  console.log(products)
+  // const artistPresentation = useSelector(store => store.artists.presentation);
+  // console.log(artistPresentation)
 
-  console.log(productName)
+  // const profilePicture = useSelector(store => store.artists.photo)
+  // const products = useSelector(store => store.artist.products)
+  // const description = useSelector(store => store.products.description)
+
 
   return (
     <>
       <PageWrapper>
-        <Title tabIndex='0'>{artistName}.</Title>
-        <BodyText>{artistPresentation}</BodyText>
-        <ProfilePic src={profilePicture} />
-        <h2>{artistName}s art for sale</h2>
-
-        
-                  {/* {products.map((product) => (
-                    <p
-                      key={product}
-                      // value={color}
-                      // onClick={() => {
-                      //   handleColorSelect()
-                      //   setColor(color)
-                      //   setChosenColor(color)
-                      // }}
-                      >
-                      {product}
-                    </p>
-                  ))} */}
-             
-
-        {/* <Link to={`/products/${productID}`}> */}
-          <h4>{productName}</h4>
-          <ProductPhoto src={productPhoto} />
-        {/* </Link> */}
-
-
+        <ArtistWrapper>
+          <Title tabIndex='0'>{artist.artistName}.</Title>
+          <BodyText>{artist.presentation}</BodyText>
+          <ProfilePic src={artist.photo} />
+          <h2>{artist.artistName}s art for sale</h2>
+        </ArtistWrapper>
+        <ProductsWrapper>
+          {products.map((product, index) => (
+            
+              <ProductCard key={product._id}>
+                <Link to={`/products/${product._id}`}>
+                  <ProductImage key={index} src={product.photo} alt='Ceramics bowls and bottle'/>
+                  <ProductTextWrapper>
+                    <SubTitle tabIndex='0'>{product.productName} </SubTitle>
+                    {/* <SmallTextWrapper>
+                      <Text tabIndex='0'>{product.price} €</Text>
+                      <Text tabIndex='0'>{product.artistName}</Text>
+                    </SmallTextWrapper> */}
+                  </ProductTextWrapper>
+                </Link>
+              </ProductCard>
+            
+          ))}
+        </ProductsWrapper>
       </PageWrapper>
     </>
   ) 
@@ -72,6 +67,8 @@ const PageWrapper = styled.section`
     background-repeat: no-repeat; */
   }
 `
+const ArtistWrapper = styled.section`
+`
 const Title = styled.h2`
   color: black;
   font-size: 25px;
@@ -91,6 +88,46 @@ const BodyText = styled.p`
 const ProfilePic = styled.img`
   width: 300px;
 `
-const ProductPhoto = styled.img`
-  width: 200px;
+
+const ProductsWrapper = styled.section`
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
 `
+
+const ProductCard = styled.section`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 40%;
+  margin: 10px;
+  /* @media (min-width: 768px) {
+    width: 48.8%;
+  }
+  @media (min-width: 1024px) {
+    width: 23.7%;
+  }  */
+`
+const ProductImage = styled.img`
+  width: 100%;
+`
+const ProductTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+const SubTitle = styled.h3`
+  font-size: 18px;
+  margin: 0 20px 20px 20px;
+  text-align: center;
+`
+// const SmallTextWrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `
+// const Text = styled.p`
+//   margin: 0;
+//   font-size: 16px;
+//   line-height: 150%;
+// `

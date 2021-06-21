@@ -1,4 +1,4 @@
-import { useSelector, useDispatch, batch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // import React, { useState, useEffect } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -93,10 +93,10 @@ const Hamburger = styled.h4`
   }
 `
 const DesktopNav = styled.div`
-  display: none;
-  @media (min-width: 1024px) {
+  /* display: none;
+  @media (min-width: 1024px) { */
     display: flex;
-  }
+  /* } */
 `
 const MenuItem = styled.p`
   font-size: 16px;

@@ -10,7 +10,7 @@ const initialState = {
         errors: null,
         products: [],
         orders: []
-    
+    // },
 }
 
 export const artists = createSlice({
@@ -39,7 +39,8 @@ export const artists = createSlice({
             store.errors = action.payload
         },
         setProducts: (store, action) => {
-            store.artistID = action.payload
+            store.products = action.payload
+            // store.products = [...store.products, action.payload]
         },
         setOrders: (store, action) => {
             store.artistID = action.payload
@@ -47,11 +48,11 @@ export const artists = createSlice({
         setLogOut: () => {
             return initialState
             // return {
-                // artistName: null,
-                // artistID: null,
-                // accessToken: null,
-                // errors: null
-            // },
+            //     artistName: null,
+            //     artistID: null,
+            //     accessToken: null,
+            //     errors: null,
+            // }
         },
     },
       

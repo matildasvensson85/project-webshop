@@ -8,9 +8,8 @@ import styled from 'styled-components';
 import { InputLine } from 'components/InputLine'
 import { InputTextArea } from 'components/InputTextArea'
 import { Button } from 'components/Button'
-import { products } from 'reducers/products'
 import { artists } from 'reducers/artists'
-import { getProductsAndOrders } from 'reducers/artists'
+// import { getProductsAndOrders } from 'reducers/artists'
 // import { Accordion } from 'components/Accordion'
 // import { Sell } from 'components/Sell'
 // import { UploadSelect } from 'components/UploadSelect'
@@ -35,15 +34,6 @@ const [chosenColor, setChosenColor] = useState('Beige')
 const artistID = useSelector(store => store.artists.artistID);
 
 const artistName = useSelector(store => store.artists.artistName);
-console.log(`artist id is ${artistID}`)
-console.log(`artist name is ${artistName}`)
-const accessToken = useSelector(store => store.artists.accessToken);
-
- console.log(productName)
-console.log(price)
-console.log(color)
-console.log(category)
-console.log(description)
 
 const fileInput = useRef()
 const dispatch = useDispatch()
@@ -111,97 +101,20 @@ const postProducts = () => {
     .then((res) => res.json())
     .then((data) => {
       console.log(data)
-      // if (data.success) {
-      //   batch(() => {
-      //     // dispatch(artists.actions.setProducts(data.savedProduct));
-      //     // dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
-      //     // dispatch(artists.actions.setPhoto(data.editedArtist.photo))
-      //     dispatch(artists.actions.setErrors(null));
-      //   })
-      // } else {
-      //   dispatch(artists.actions.setErrors(data));
-      //   console.log('failure')
-      // }
-    })
-    .catch()
-  }
-
-
-
-
-const postProductsOld = () => {
-  const formData = new FormData()
-  formData.append('image', fileInput.current.files[0])
-  formData.append('artistID', artistID)
-  // lägg in allt annat i formdata och gör bara en fetch
-  // formData.append('productName', productName)
-  // formData.append('price', price)
-  // formData.append('category', category)
-  // formData.append('color', color)
-  // formData.append('description', description)
-
-  fetch('http://localhost:8080/productPhoto', { 
-    method: 'POST',
-     body: formData,
-    // headers: {
-    //   Authorization: accessToken,
-    // },
-   })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data)
       if (data.success) {
         batch(() => {
-          // set alla useStates för att resettas!?
-          // hämta ner den uppdatrade informationen till profilen
-          // dispatch(getProductsAndOrders(accessToken, artistID))
-
-          //tidigare
-          dispatch(products.actions.setPhoto(data.imageUrl))
-          dispatch(products.actions.setPhotoID(data.photoID))
-          dispatch(artists.actions.setArtistID(data.artistID))
-          dispatch(products.actions.setErrors(null));
+          dispatch(artists.actions.setProducts(data.savedProduct));
+          // dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
+          // dispatch(artists.actions.setPhoto(data.editedArtist.photo))
+          dispatch(artists.actions.setErrors(null));
         })
-        postProductInfo()
       } else {
-        dispatch(products.actions.setErrors(data));
+        dispatch(artists.actions.setErrors(data));
         console.log('failure')
       }
     })
     .catch()
-}
-
-const postProductInfo = () => {
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ productName, price, category, color, description, artistID })
   }
-  fetch('http://localhost:8080/products', options)
-    .then(res => res.json())
-    .then(data => {
-      console.log(data)
-      if (data.success) {
-        batch(() => {
-          dispatch(products.actions.setProductName(data.productName))
-          dispatch(products.actions.setProductID(data.productID))
-          dispatch(products.actions.setPrice(data.price))
-          dispatch(products.actions.setCategory(data.category))
-          dispatch(products.actions.setColor(data.color))
-          dispatch(products.actions.setDescription(data.description))
-          dispatch(products.actions.setByArtistName(data.byArtist.artistName))
-          dispatch(products.actions.setByArtistID(data.byArtist._id))
-          dispatch(products.actions.setErrors(null));
-        })
-      } else {
-        dispatch(products.actions.setErrors(data));
-        console.log('failure')
-      }
-    })
-    .catch()
-}
 
 
   return (

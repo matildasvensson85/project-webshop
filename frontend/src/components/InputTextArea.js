@@ -17,7 +17,7 @@ export const InputTextArea = ({
 
   return (
     <>
-      <Form>
+      {/* <Form> */}
         <Label htmlFor={id} tabIndex='0' aria-label={`Enter your ${id}`}>{label}</Label>
         <Input 
           type={type}
@@ -28,29 +28,29 @@ export const InputTextArea = ({
           onChange={onChange}
           label={label}
         />
-      </Form>
+      {/* </Form> */}
     </>
   ) 
 }
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 450px;
+// const Form = styled.form`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   width: 100%;
+//   max-width: 450px;
 
-  /* margin: 15px 0px 15px 0px;
-  padding: 10px 10px 40px 10px;
-  border: solid 1px darkgrey;
-  margin: 20px; */
-  @media (min-width: 768px) {
-    background-color: white;
-    padding: 30px;
-    width: 450px;
-    height: 365px;
-  }
-`
+//   /* margin: 15px 0px 15px 0px;
+//   padding: 10px 10px 40px 10px;
+//   border: solid 1px darkgrey;
+//   margin: 20px; */
+//   @media (min-width: 768px) {
+//     background-color: white;
+//     padding: 30px;
+//     width: 450px;
+//     height: 365px;
+//   }
+// `
 const Label = styled.label`
   color: #4F4F4F;
   width: 100%;

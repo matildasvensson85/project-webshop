@@ -1,25 +1,26 @@
-import { useSelector, useDispatch, batch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+// import { useSelector, useDispatch, batch } from 'react-redux';
+import React  from 'react';
+// import { useHistory, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
 // import {user} from '../reducers/user';
 // import { DropDown } from 'components/DropDown'
-import { SearchBar } from 'components/SearchBar'
-import { ProductUnit } from 'components/ProductUnit'
+// import { SearchBar } from 'components/SearchBar'
+// import { ProductUnit } from 'components/ProductUnit'
 
 export const Artists = () => {
 
   return (
     <>
     <h1>list of all artists</h1>
-      {/* <PageWrapper>
+      <PageWrapper>
         <SearchWrapper>
-          <SearchBar />
+          {/* <SearchBar /> */}
         </SearchWrapper>
         <ProductsWrapper>
           <InnerWrapper>
+            {/* <ProductUnit />
             <ProductUnit />
             <ProductUnit />
             <ProductUnit />
@@ -30,11 +31,10 @@ export const Artists = () => {
             <ProductUnit />
             <ProductUnit />
             <ProductUnit />
-            <ProductUnit />
-            <ProductUnit />
+            <ProductUnit /> */}
           </InnerWrapper>
         </ProductsWrapper>
-      </PageWrapper> */}
+      </PageWrapper>
     </>
   ) 
 }

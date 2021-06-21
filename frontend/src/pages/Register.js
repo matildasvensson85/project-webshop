@@ -19,11 +19,6 @@ export const Register = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const accessToken = useSelector(store => store.artists.accessToken);
-  console.log(`accesstoken is ${accessToken}`)
-  const artistsName = useSelector(store => store.artists.artistName);
-  console.log(`artistname is ${artistsName}`)
-  
- 
 
   // Move to profile page when logged in
   useEffect(() => {

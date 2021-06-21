@@ -7,7 +7,7 @@ import { Provider } from 'react-redux'
 import { combineReducers, createStore } from '@reduxjs/toolkit';
 
 import { artists } from 'reducers/artists'
-import { products } from 'reducers/products'
+// import { products } from 'reducers/products'
 
 import { Start } from 'pages/Start'
 import { Products } from 'pages/Products'
@@ -25,7 +25,7 @@ import { Footer } from 'components/Footer'
 
 const reducer = combineReducers ({
   artists: artists.reducer,
-  products: products.reducer,
+  // products: products.reducer,
 })
 
 // const store = configureStore({ reducer })

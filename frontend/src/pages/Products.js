@@ -1,54 +1,89 @@
-import { useSelector, useDispatch, batch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 // import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-
+import { artists } from 'reducers/artists'
 import styled from 'styled-components';
 
 import { SearchBar } from 'components/SearchBar'
 // import { ProductUnit } from 'components/ProductUnit'
-import { products } from 'reducers/products'
 
 
 export const Products = () => {
+  const dispatch = useDispatch()
 
-  const productsArray = useSelector(store => store.products)
-  // console.log(productsArray)
+  const artist = useSelector(store => store.artists);
+  console.log(artist)
+  const products = useSelector(store => store.artists.products);
+  console.log(products)
+  // const [allProducts, setAllProducts] = useState({})
+  // console.log(allProducts)
+  // const productsArray = useSelector(store => store.products)
+  // // console.log(productsArray)
 
-  const [productList, setProductList] = useState([])
-  const [photoList, setPhotoList] = useState([])
-  console.log(productList)
-  // console.log(photoList)
+  // const [productList, setProductList] = useState([])
+  // const [photoList, setPhotoList] = useState([])
+  // console.log(productList)
+  // // console.log(photoList)
 
-  const productName = useSelector(store => store.products.productName)
-  const description = useSelector(store => store.products.description)
-  const byArtistName = useSelector(store => store.products.byArtistName);
-  console.log(`by artist ${byArtistName}`)
+  // const productName = useSelector(store => store.products.productName)
+  // const description = useSelector(store => store.products.description)
+  // const byArtistName = useSelector(store => store.products.byArtistName);
+  // console.log(`by artist ${byArtistName}`)
+  // const products = useSelector(store => store.artists.products);
+  // console.log(products)
+  // console.log(products.productName)
 
-  // Fetch all products
-  const fetchProducts = () => {
-    fetch('http://localhost:8080/products')
-    .then((res) => res.json())
-    .then((data) => {
-      setProductList(data.products)
-    })
-    .catch((err) => console.error(err));
-  }
-
-    // Fetch all product photos
-    const fetchProductPhotos = () => {
-      fetch('http://localhost:8080/productPhoto')
-      .then((res) => res.json())
-      .then((data) => {
-        setPhotoList(data.productPhotos)
-      })
-      .catch((err) => console.error(err));
-    }
 
   useEffect(() => {
-    fetchProducts()
-    fetchProductPhotos()
+    // fetchAllProducts()
+    // fetchAllProducts = () => {
+      fetch('http://localhost:8080/products')
+        .then(res => res.json())
+        .then(data => {
+          console.log(data)
+          if (data.success) {
+            // setAllProducts(data.products)
+              // setSingleProduct(data.productById)
+              // setProductList(data.products)
+              // dispatch(artists.actions.setArtistName(data.artistName))
+              dispatch(artists.actions.setProducts(data.products))
+          } else {
+            dispatch(artists.actions.setErrors(data));
+          }
+        })
+        .catch((err) => console.error(err));
+      // }
   }, [])
+
+
+
+
+  // // Fetch all products
+  // const fetchProducts = () => {
+  //   fetch('http://localhost:8080/products')
+  //   .then((res) => res.json())
+  //   .then((data) => {
+  //     setProductList(data.products)
+  //   })
+  //   .catch((err) => console.error(err));
+  // }
+
+  //   // Fetch all product photos
+  //   const fetchProductPhotos = () => {
+  //     fetch('http://localhost:8080/productPhoto')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setPhotoList(data.productPhotos)
+  //     })
+  //     .catch((err) => console.error(err));
+  //   }
+
+  // useEffect(() => {
+  //   fetchProducts()
+  //   fetchProductPhotos()
+  // }, [])
   
   return (
     <>
@@ -59,21 +94,39 @@ export const Products = () => {
         <ProductsWrapper>
           <InnerWrapper>
 
-          {productList.map((product, index) => (
-            <ProductCard key={index}>
-              {/* {photoList.map((photo, index) => (
-                <ProductImage key={index} src={photo.imageUrl} alt='Ceramics bowls and bottle'/>
-              ))} */}
+          {/* {products.map((product) => (
+            <ProductCard key={product._id}>
+              
+                <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
+             
                 <ProductTextWrapper>
                   <Title tabIndex='0'>{product.productName} </Title>
                   <SmallTextWrapper>
                     <Text tabIndex='0'>{product.price} €</Text>
-                    {/* <Text tabIndex='0'>{byArtistName}</Text> */}
+                    <Text tabIndex='0'>{product.artistName}</Text>
+
                   </SmallTextWrapper>
                 </ProductTextWrapper>
             </ProductCard>
 
-          ))}
+          ))} */}
+
+{products.map((product, index) => (
+            
+            <ProductCard key={product._id}>
+              <Link to={`/products/${product._id}`}>
+                <ProductImage key={index} src={product.photo} alt='Ceramics bowls and bottle'/>
+                <ProductTextWrapper>
+                  <SubTitle tabIndex='0'>{product.productName} </SubTitle>
+                  {/* <SmallTextWrapper>
+                    <Text tabIndex='0'>{product.price} €</Text>
+                    <Text tabIndex='0'>{product.artistName}</Text>
+                  </SmallTextWrapper> */}
+                </ProductTextWrapper>
+              </Link>
+            </ProductCard>
+          
+        ))}
 
           </InnerWrapper>
         </ProductsWrapper>
@@ -121,37 +174,16 @@ const ProductCard = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* height: 20px; */
-  /* width: 100%; */
-  /* height: auto; */
-  /* height: 100%; */
-  /* background-color: gray; */
-  /* outline: 1px solid blue; */
-  /* margin: 20px 20px 0 0; */
   margin-bottom: 20px;
   @media (min-width: 768px) {
     width: 48.8%;
   }
   @media (min-width: 1024px) {
     width: 23.7%;
-    /* :nth-last-child() {
-      border: 5px solid red;
-    }
-    :last-child {
-      border: 5px solid green;
-      justify-content: margin-left: 10px;
-    } */
   } 
 `
-
 const ProductImage = styled.img`
-  /* background-color: red; */
   width: 100%;
-  /* height: 520px; */
-  /* height: auto; */
-  /* object-fit: cover;
-  object-position: 50% 50%; */
-  /* margin-bottom: 100px; */
 `
 const ProductTextWrapper = styled.div`
   display: flex;
@@ -172,4 +204,9 @@ const Text = styled.p`
   margin: 0;
   font-size: 16px;
   line-height: 150%;
+`
+const SubTitle = styled.h3`
+  font-size: 18px;
+  margin: 0 20px 20px 20px;
+  text-align: center;
 `

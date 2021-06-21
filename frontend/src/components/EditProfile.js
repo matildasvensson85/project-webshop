@@ -4,8 +4,8 @@ import React, { useState, useRef } from 'react';
 // import { useHistory, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
-import { ARTIST_URL } from 'reusable/Urls';
-import { InputLine } from 'components/InputLine'
+// import { ARTIST_URL } from 'reusable/Urls';
+// import { InputLine } from 'components/InputLine'
 import { InputTextArea } from 'components/InputTextArea'
 import { Button } from 'components/Button'
 // import { Accordion } from 'components/Accordion'
@@ -16,7 +16,7 @@ import { artists } from 'reducers/artists'
 export const EditProfile = () => {
 
   const [presentation, setPresentation] = useState('')
-  const [mode, setMode] = useState(null)
+  // const [mode, setMode] = useState(null)
   const [published, setPublished] = useState(false)
 
   const artistID = useSelector(store => store.artists.artistID);
@@ -195,22 +195,22 @@ const Form = styled.form`
   align-items: center;
 `
 
-const Title = styled.h2`
-  color: black;
-  font-size: 25px;
-  margin: 0 20px 20px 20px;
-  text-align: center;
-  @media (min-width: 768px) {
-    font-size: 35px;
-  }
-`
-const BodyText = styled.p`
-  font-size: 16px;
-  margin: 0 0 30px 0;
-  line-height: 130%;
-  text-align: center;
-  max-width: 300px;
-`
+// const Title = styled.h2`
+//   color: black;
+//   font-size: 25px;
+//   margin: 0 20px 20px 20px;
+//   text-align: center;
+//   @media (min-width: 768px) {
+//     font-size: 35px;
+//   }
+// `
+// const BodyText = styled.p`
+//   font-size: 16px;
+//   margin: 0 0 30px 0;
+//   line-height: 130%;
+//   text-align: center;
+//   max-width: 300px;
+// `
 // const SmallText = styled.p`
 // font-size: 14px;
 // margin: 0;
