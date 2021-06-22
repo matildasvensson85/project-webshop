@@ -1,15 +1,15 @@
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { artists } from 'reducers/artists'
 
 // import {user} from '../reducers/user';
 import styled from 'styled-components';
+import { SingleArtist } from './SingleArtist';
 
 export const SingleProduct = () => {
 
   const { productId } = useParams()
-  console.log(productId)
   const [singleProduct, setSingleProduct] = useState({})
   console.log(singleProduct)
   const dispatch = useDispatch()
@@ -43,7 +43,9 @@ export const SingleProduct = () => {
           <Text>{singleProduct.price} €</Text>
           <Text>{singleProduct.color}</Text>
           <Text>{singleProduct.category}</Text>
-          <Text>{singleProduct.artistName}</Text>
+          <Link to={`/artists/${singleProduct.artistID}`}>
+            <Text>{singleProduct.artistName}</Text>
+          </Link>
           <button>Add to cart</button>
       </PageWrapper>
     </>

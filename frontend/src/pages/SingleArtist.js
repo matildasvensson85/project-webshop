@@ -10,33 +10,30 @@ import styled from 'styled-components';
 
 export const SingleArtist = () => {
 
-  // const artist = useSelector(store => store.artists);
-  // console.log(artist)
-  // const products = useSelector(store => store.artists.products);
-  // console.log(products)
-
   const { artistId } = useParams()
-  console.log(artistId)
   const [singleArtist, setSingleArtist] = useState({})
-  console.log(singleArtist)
+  const [art, setArt] = useState([{}])
+
   const dispatch = useDispatch()
 
-
     useEffect(() => {
-      
-        fetch(`http://localhost:8080/artists/${artistId}`)
-          .then(res => res.json())
-          .then(data => {
-            console.log(data)
-            if (data.success) {
-                setSingleArtist(data.artistById)
-            } else {
-              dispatch(artists.actions.setErrors(data));
-            }
-          })
-          .catch()
-      
+      fetchArtistInfo()
     }, [artistId])
+
+    const fetchArtistInfo = () => {
+      fetch(`http://localhost:8080/artists/${artistId}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+            setSingleArtist(data.artistById)
+            setArt(data.artByArtist)
+        } else {
+          dispatch(artists.actions.setErrors(data));
+        }
+      })
+      .catch()
+    }
 
   return (
     <>
@@ -48,18 +45,16 @@ export const SingleArtist = () => {
           <h2>{singleArtist.artistName}s art for sale</h2>
         </ArtistWrapper>
         <ProductsWrapper>
-          {/* {products.map((product, index) => (
-            
+          {art.map((product) => (
               <ProductCard key={product._id}>
                 <Link to={`/products/${product._id}`}>
-                  <ProductImage key={index} src={product.photo} alt='Ceramics bowls and bottle'/>
+                  <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
                   <ProductTextWrapper>
                     <SubTitle tabIndex='0'>{product.productName} </SubTitle>
                   </ProductTextWrapper>
                 </Link>
               </ProductCard>
-            
-          ))} */}
+          ))}
         </ProductsWrapper>
       </PageWrapper>
     </>

@@ -166,12 +166,7 @@ app.get('/artists', async (req, res) => {
   }
 })
 
-// endpoint to get one artist by id
-app.get('/artists/:id', async (req, res) => {
-  const { id } = req.params
-  const artistById = await Artist.findOne({_id: id })
-  res.json({ success: true, artistById })
-})
+
 
 
 
@@ -393,16 +388,45 @@ app.post('/profilepic', parser.single('image'), async (req, res) => {
 //   }
 // })
 
+// endpoint to get one artist by id
+// app.get('/artists/:id', async (req, res) => {
+//   const { id } = req.params
+//   const artistById = await Artist.findOne({_id: id })
+//   res.json({ success: true, artistById })
+// })
+
+// endpoint to get one artist by id and their art
+app.get('/artists/:id', async (req, res) => {
+  const { id } = req.params
+  const artistById = await Artist.findOne({_id: id })
+  const artByArtist = await Product.find({artistID: id })
+  // res.json({ success: true, artistById, artByArtistId })
+  res.json({ success: true, artistById, artByArtist })
+})
+
 // endpoint to get products
 app.get('/products', async (req, res) => {
   const products = await Product.find()
   res.json({ 
     success: true, 
     products,
-
-  
   });
 })
+
+// // endpoint to get products by artistID
+// app.get('/products/:id', async (req, res) => {
+//   const { id } = req.params
+//   const productById = await Product.findOne({_id: id })
+//   res.json({ success: true, productById })
+// })
+
+// endpoint to get one product by id
+app.get('/products/:id', async (req, res) => {
+  const { id } = req.params
+  const productById = await Product.findOne({_id: id })
+  res.json({ success: true, productById })
+})
+
 
 // endpoint to get profile pictures
 app.get('/profilepic', async (req, res) => {
@@ -415,16 +439,6 @@ app.get('/productPhoto', async (req, res) => {
   const productPhotos = await ProductPhoto.find()
   res.json({ success: true, productPhotos });
 })
-
-
-
-// endpoint to get one product by id
-app.get('/products/:id', async (req, res) => {
-  const { id } = req.params
-  const productById = await Product.findOne({_id: id })
-  res.json({ success: true, productById })
-})
-
 
 
 // Start the server

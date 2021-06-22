@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-// import { useHistory, Link } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+
 
 import { artists } from 'reducers/artists'
 import styled from 'styled-components';
@@ -93,40 +93,21 @@ export const Products = () => {
         </SearchWrapper>
         <ProductsWrapper>
           <InnerWrapper>
+            {products.map((product) => (
+              <ProductCard key={product._id}>
+                <Link to={`/products/${product._id}`}>
+                  <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
+                  <ProductTextWrapper>
+                    <Title tabIndex='0'>{product.productName} </Title>
+                    <SmallTextWrapper>
+                      <Text tabIndex='0'>{product.price} €</Text>
+                      <Text tabIndex='0'>{product.artistName}</Text>
+                    </SmallTextWrapper>
+                  </ProductTextWrapper>
+                </Link>
+              </ProductCard>
 
-          {/* {products.map((product) => (
-            <ProductCard key={product._id}>
-              
-                <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
-             
-                <ProductTextWrapper>
-                  <Title tabIndex='0'>{product.productName} </Title>
-                  <SmallTextWrapper>
-                    <Text tabIndex='0'>{product.price} €</Text>
-                    <Text tabIndex='0'>{product.artistName}</Text>
-
-                  </SmallTextWrapper>
-                </ProductTextWrapper>
-            </ProductCard>
-
-          ))} */}
-
-{products.map((product, index) => (
-            
-            <ProductCard key={product._id}>
-              <Link to={`/products/${product._id}`}>
-                <ProductImage key={index} src={product.photo} alt='Ceramics bowls and bottle'/>
-                <ProductTextWrapper>
-                  <SubTitle tabIndex='0'>{product.productName} </SubTitle>
-                  {/* <SmallTextWrapper>
-                    <Text tabIndex='0'>{product.price} €</Text>
-                    <Text tabIndex='0'>{product.artistName}</Text>
-                  </SmallTextWrapper> */}
-                </ProductTextWrapper>
-              </Link>
-            </ProductCard>
-          
-        ))}
+            ))}
 
           </InnerWrapper>
         </ProductsWrapper>
