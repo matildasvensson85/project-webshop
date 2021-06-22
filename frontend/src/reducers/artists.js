@@ -42,9 +42,9 @@ export const artists = createSlice({
             store.products = action.payload
             // store.products = [...store.products, action.payload]
         },
-        setOrders: (store, action) => {
-            store.artistID = action.payload
-        },
+        // setOrders: (store, action) => {
+        //     store.orders = action.payload
+        // },
         setLogOut: () => {
             return initialState
             // return {

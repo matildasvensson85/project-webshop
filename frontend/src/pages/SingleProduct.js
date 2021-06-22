@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { artists } from 'reducers/artists'
+import { basket } from 'reducers/basket'
 
 // import {user} from '../reducers/user';
 import styled from 'styled-components';
@@ -11,9 +12,13 @@ export const SingleProduct = () => {
 
   const { productId } = useParams()
   const [singleProduct, setSingleProduct] = useState({})
+  const [price, setPrice] = useState('')
+  const [artistName, setArtistName] = useState('')
+  const [productID, setProductID] = useState('')
+  const [photo, setPhoto] = useState('')
   console.log(singleProduct)
+  console.log(price)
   const dispatch = useDispatch()
-
 
     useEffect(() => {
       
@@ -23,6 +28,10 @@ export const SingleProduct = () => {
             console.log(data)
             if (data.success) {
                 setSingleProduct(data.productById)
+                // setPrice(data.productById.price)
+                // setArtistName(data.productById.artistName)
+                // setProductID(data.productById._id)
+                // setPhoto(data.productById.photo)
             } else {
               dispatch(artists.actions.setErrors(data));
             }
@@ -31,7 +40,10 @@ export const SingleProduct = () => {
       
     }, [productId])
 
-  
+    const addToBasket = () => {
+      console.log('added')
+      dispatch(basket.actions.addItem({singleProduct, quantity: 1}))
+    }
 
   return (
     <>
@@ -46,7 +58,7 @@ export const SingleProduct = () => {
           <Link to={`/artists/${singleProduct.artistID}`}>
             <Text>{singleProduct.artistName}</Text>
           </Link>
-          <button>Add to cart</button>
+          <button onClick={addToBasket}>Add to basket</button>
       </PageWrapper>
     </>
   ) 

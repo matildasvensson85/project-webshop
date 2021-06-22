@@ -4,6 +4,7 @@ import { useHistory, Link } from 'react-router-dom';
 
 
 import { artists } from 'reducers/artists'
+import { basket } from 'reducers/basket'
 import styled from 'styled-components';
 
 import { SearchBar } from 'components/SearchBar'
@@ -17,28 +18,13 @@ export const Products = () => {
   console.log(artist)
   const products = useSelector(store => store.artists.products);
   console.log(products)
-  // const [allProducts, setAllProducts] = useState({})
-  // console.log(allProducts)
-  // const productsArray = useSelector(store => store.products)
-  // // console.log(productsArray)
 
-  // const [productList, setProductList] = useState([])
-  // const [photoList, setPhotoList] = useState([])
-  // console.log(productList)
-  // // console.log(photoList)
-
-  // const productName = useSelector(store => store.products.productName)
-  // const description = useSelector(store => store.products.description)
-  // const byArtistName = useSelector(store => store.products.byArtistName);
-  // console.log(`by artist ${byArtistName}`)
-  // const products = useSelector(store => store.artists.products);
-  // console.log(products)
-  // console.log(products.productName)
-
+  // const addToBasket = () => {
+  //   console.log('added')
+  //   dispatch(basket.actions.addItem({product._id}))
+  // }
 
   useEffect(() => {
-    // fetchAllProducts()
-    // fetchAllProducts = () => {
       fetch('http://localhost:8080/products')
         .then(res => res.json())
         .then(data => {
@@ -54,7 +40,6 @@ export const Products = () => {
           }
         })
         .catch((err) => console.error(err));
-      // }
   }, [])
 
 
@@ -102,6 +87,7 @@ export const Products = () => {
                     <SmallTextWrapper>
                       <Text tabIndex='0'>{product.price} €</Text>
                       <Text tabIndex='0'>{product.artistName}</Text>
+                      {/* <button onClick={addToBasket}>Add to basket</button> */}
                     </SmallTextWrapper>
                   </ProductTextWrapper>
                 </Link>

@@ -93,10 +93,10 @@ const Hamburger = styled.h4`
   }
 `
 const DesktopNav = styled.div`
-  /* display: none;
-  @media (min-width: 1024px) { */
+  display: none;
+  @media (min-width: 1024px) {
     display: flex;
-  /* } */
+  }
 `
 const MenuItem = styled.p`
   font-size: 16px;
