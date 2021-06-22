@@ -21,7 +21,6 @@ export const SingleProduct = () => {
   const dispatch = useDispatch()
 
     useEffect(() => {
-      
         fetch(`http://localhost:8080/products/${productId}`)
           .then(res => res.json())
           .then(data => {

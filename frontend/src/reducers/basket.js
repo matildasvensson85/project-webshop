@@ -4,11 +4,14 @@ const initialState = {
   items: [],
 }
 
+
+
 export const basket = createSlice({
     name: 'basket',
     initialState: initialState,
     reducers: {
         addItem: (store, action) => {
+          console.log(store.items)
           // store.items = action.payload
           // store.items.push({ ...action.payload, quantity: 1 })
 

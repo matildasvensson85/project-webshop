@@ -87,7 +87,7 @@ export const Products = () => {
                     <SmallTextWrapper>
                       <Text tabIndex='0'>{product.price} €</Text>
                       <Text tabIndex='0'>{product.artistName}</Text>
-                      {/* <button onClick={addToBasket}>Add to basket</button> */}
+                      
                     </SmallTextWrapper>
                   </ProductTextWrapper>
                 </Link>

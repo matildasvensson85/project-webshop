@@ -103,7 +103,7 @@ const postProducts = () => {
       console.log(data)
       if (data.success) {
         batch(() => {
-          dispatch(artists.actions.setProducts(data.savedProduct));
+          dispatch(artists.actions.setProduct(data.savedProduct));
           // dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
           // dispatch(artists.actions.setPhoto(data.editedArtist.photo))
           dispatch(artists.actions.setErrors(null));
