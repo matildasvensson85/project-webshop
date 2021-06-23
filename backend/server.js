@@ -44,22 +44,10 @@ const Artist = mongoose.model('Artist', {
   }
 })
 
-// const ProfilePic = mongoose.model('ProfilePic', {
-//   name: String,
-//   imageUrl: String,
-//   // ofArtist: {
-//   //   type: mongoose.Schema.Types.ObjectId,
-//   //   ref: 'Artist'
-//   // }
-//   ofArtist: String,
-//   photoID: String
-// })
-
 
 const Product = mongoose.model('Product', {
   productName: {
     type: String,
-    // required: true
   },
   productID: {
     type: String,
@@ -91,19 +79,6 @@ const Product = mongoose.model('Product', {
   }
 });
 
-// const ProductPhoto = mongoose.model('ProductPhoto', {
-//   imageUrl: String,
-//   // ofArtist: {
-//   //   type: mongoose.Schema.Types.ObjectId,
-//   //   ref: 'Artist'
-//   // }
-//   byArtist: String,
-//   photoID: String
-
-// })
-
-
-// endpoint for users later on?
 
 // AUTHENTICATE USER 
 const authenticateArtist = async (req, res, next) => {
@@ -121,10 +96,11 @@ const authenticateArtist = async (req, res, next) => {
   }
 }
 
+
 // Cloudinary
 const cloudinary = cloudinaryFramework.v2; 
 cloudinary.config({
-  cloud_name: 'dx0ku6mdm', // this needs to be whatever you get from cloudinary
+  cloud_name: 'dx0ku6mdm',
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 })
@@ -140,24 +116,17 @@ const storage = cloudinaryStorage({
 const parser = multer({ storage })
 
 
-
-
 const port = process.env.PORT || 8080
 const app = express()
 
 app.use(cors())
 app.use(bodyParser.json())
 
+
 // ROUTES
 app.get('/', (req, res) => {
   res.send(listEndpoints(app))
 })
-
-
-
-
-
-
 
 // endpoint to register artists
 app.post('/register', async (req, res) => {
@@ -178,7 +147,6 @@ app.post('/register', async (req, res) => {
     })
   } catch (error) {
     if (error.code === 11000) {
-      // should I also add a status code here? see lecture
       res.status(400).json({ message: 'Name is not unique' })
     } else {
     res.status(400).json({ success: false, message: 'Invalid request', error })
@@ -208,32 +176,6 @@ app.post('/signin', async (req, res) => {
   }
 })
 
-// // endpoint to edit profile as an artist
-// app.patch('/profile/:id', async (req, res) => {
-  
-//   try {
-//     const { id } = req.params
-//     const artistById = await Artist.findById({_id: id })
-
-//     const {
-//       presentation = artistById.presentation,
-//       photo = artistById.photo
-//     } = req.body
-
-//     const editedArtist = await Artist.findByIdAndUpdate({ _id: id}, { presentation, photo }, {new: true})
-//     if (editedArtist) {
-//       res.json({
-//         success: true,
-//         editedArtist
-//       })
-//     } else {
-//       res.status(404).json({ success: false, message: 'User not found' })
-//     }
-//   } catch (error) {
-//     res.status(400).json({ success: false, message: 'Invalid request', error });
-//   }
-// })
-
 // endpoint to edit profile as an artist
 app.patch('/profile/:id', parser.single('image'), async (req, res) => {
   
@@ -261,7 +203,7 @@ app.patch('/profile/:id', parser.single('image'), async (req, res) => {
 })
 
 // endpoint to post products
-// app.post('/products', authenticateArtist)
+app.post('/products', authenticateArtist)
 app.post('/products', parser.single('image'), async (req, res) => {
   const { productName, price, category, color, description, photo, artistID, artistName } = req.body
 
@@ -269,8 +211,6 @@ app.post('/products', parser.single('image'), async (req, res) => {
     const artist = await Artist.findById(artistID)
     const savedProduct = await new Product({
       productName: req.body.productName,
-      // productID: savedProduct._id,
-      // productID: req.body._id,
       price: req.body.price,
       category: req.body.category,
       color: req.body.color,
@@ -278,7 +218,6 @@ app.post('/products', parser.single('image'), async (req, res) => {
       photo: req.file.path,
       artistID: req.body.artistID,
       artistName: req.body.artistName,
-      // byArtist: artist,
     }).save()
     res.json({ 
       success: true,
@@ -313,19 +252,15 @@ app.post('/productPhoto', parser.single('image'), async (req, res) => {
 
 // // endpoint to upload profile picture
 app.post('/profilepic', parser.single('image'), async (req, res) => {
-  // const artistID = req.body.artistID
   try {
-    // const artist = await Artist.findById(artistID)
     const profilePic = await new ProfilePic({ 
       name: req.body.name,
       imageUrl: req.file.path, 
       ofArtist: req.body.artistID,
-      // ofArtist: artist
     }).save()
     res.json({
       success: true,
       test: test,
-      // profilePic,
       photoID: profilePic._id,
       imageUrl: profilePic.imageUrl,
       name: profilePic.name,
@@ -336,75 +271,14 @@ app.post('/profilepic', parser.single('image'), async (req, res) => {
   }
 })
 
-
-
-
-
-// // endpoint to post products
-// // app.post('/products', authenticateArtist)
-// app.post('/products', async (req, res) => {
-//   const { productName, price, category, color, description, artistID } = req.body
-
-//   try {
-//     const artist = await Artist.findById(artistID)
-//     const savedProduct = await new Product({
-//       productName,
-//       price,
-//       category,
-//       color,
-//       description,
-//       byArtist: artist,
-//     }).save()
-//     res.json({ 
-//       success: true,
-//       // savedProduct,
-//       artistName: artist.artistByName,
-//       productName: savedProduct.productName,
-//       productID: savedProduct._id,
-//       price: savedProduct.price,
-//       category: savedProduct.category,
-//       color: savedProduct.color,
-//       description: savedProduct.description,
-//       byArtist: savedProduct.byArtist,
-//       // artistName: savedProduct.byArtist.artistByName
-//     })
-//   } catch (error) {
-//     res.status(400).json({ 
-//       success: false,
-//       message: 'Invalid request', 
-//       error 
-//     })
-//   }
-// })
-
-// endpoint to get one artist by id
-// app.get('/artists/:id', async (req, res) => {
-//   const { id } = req.params
-//   const artistById = await Artist.findOne({_id: id })
-//   res.json({ success: true, artistById })
-// })
-
 // endpoint to get one artist by id and their art
 app.get('/artists/:id', async (req, res) => {
   const { id } = req.params
   const artistById = await Artist.findOne({_id: id })
   const artByArtist = await Product.find({artistID: id })
-  // res.json({ success: true, artistById, artByArtistId })
   res.json({ success: true, artistById, artByArtist })
 })
 
-// // endpoint to get artists
-// app.get('/artists', async (req, res) => {
-//   // get one artist by name
-//   const { name } = req.query
-//   if (name) {
-//     const artistByName = await Artist.findOne({ artistName: name})
-//     res.json({ success: true, artistByName })
-//   } else {
-//     const artists = await Artist.find();
-//     res.json({ success: true, artists });
-//   }
-// })
 
 // endpoint to get artists
 app.get('/artists', async (req, res) => {
@@ -424,20 +298,12 @@ app.get('/products', async (req, res) => {
   });
 })
 
-// // endpoint to get products by artistID
-// app.get('/products/:id', async (req, res) => {
-//   const { id } = req.params
-//   const productById = await Product.findOne({_id: id })
-//   res.json({ success: true, productById })
-// })
-
 // endpoint to get one product by id
 app.get('/products/:id', async (req, res) => {
   const { id } = req.params
   const productById = await Product.findOne({_id: id })
   res.json({ success: true, productById })
 })
-
 
 // endpoint to get profile pictures
 app.get('/profilepic', async (req, res) => {

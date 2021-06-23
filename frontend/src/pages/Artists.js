@@ -1,22 +1,17 @@
-// import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 import { artists } from 'reducers/artists'
-import styled from 'styled-components';
-
-import { SearchBar } from 'components/SearchBar'
-
+import { 
+  StyledLink,
+  Title,
+} from 'Styling'
 
 export const Artists = () => {
+
   const dispatch = useDispatch()
-
-
-  // const [artists, setArtists] = useState([])
-  console.log(artists)
   const artistList = useSelector(store => store.artists.artistList);
-  // console.log(artistList)
 
   useEffect(() => {
       fetch('https://artists-webshop.herokuapp.com/artists')
@@ -25,34 +20,27 @@ export const Artists = () => {
           console.log(data)
           console.log(data.artists)
           if (data.success) {
-            // setArtists(data.artists)
             dispatch(artists.actions.setArtistList(data.artists))
           } else {
-            // dispatch(artists.actions.setErrors(data));
+            dispatch(artists.actions.setErrors(data));
           }
         })
         .catch((err) => console.error(err));
-
   }, [dispatch])
 
-  
   return (
     <>
       <PageWrapper>
-        <SearchWrapper>
-          <SearchBar />
-        </SearchWrapper>
         <ProductsWrapper>
           <InnerWrapper>
           {artistList.map(artist => (
-          // {artists.map(artist => (
             <ProductCard key={artist._id}>
-              <Link to={`/artists/${artist._id}`}>
+              <StyledLink to={`/artists/${artist._id}`}>
                 <ProductImage src={artist.photo} alt='Artist photo'/>
                 <ProductTextWrapper>
                       <Title tabIndex='0'>{artist.artistName} </Title>
                 </ProductTextWrapper>
-              </Link>
+              </StyledLink>
             </ProductCard>
             ))}
           </InnerWrapper>
@@ -72,13 +60,6 @@ const PageWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   min-height: 90vh;
-`
-const SearchWrapper = styled.section`
-  height: 60px;
-  width: 100%;
-  background-color: #BCB0A6;
-  display: flex;
-  justify-content: center;
 `
 const ProductsWrapper = styled.section`
   display: flex;
@@ -117,23 +98,3 @@ const ProductTextWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `
-// const SmallTextWrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-// `
-const Title = styled.h3`
-  margin: 5px 0 0 0;
-  font-size: 18px;
-  line-height: 150%;
-`
-// const Text = styled.p`
-//   margin: 0;
-//   font-size: 16px;
-//   line-height: 150%;
-// `
-// const SubTitle = styled.h3`
-//   font-size: 18px;
-//   margin: 0 20px 20px 20px;
-//   text-align: center;
-// `

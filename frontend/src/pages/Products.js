@@ -1,28 +1,18 @@
-import { useSelector, useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-
+import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { artists } from 'reducers/artists'
-// import { basket } from 'reducers/basket'
-import styled from 'styled-components';
-
-import { SearchBar } from 'components/SearchBar'
-// import { ProductUnit } from 'components/ProductUnit'
-
+import { 
+  StyledLink,
+  Title,
+  Text 
+} from 'Styling'
 
 export const Products = () => {
+
   const dispatch = useDispatch()
-
-  const artist = useSelector(store => store.artists);
-  console.log(artist)
   const products = useSelector(store => store.artists.productList);
-  console.log(products)
-
-  // const addToBasket = () => {
-  //   console.log('added')
-  //   dispatch(basket.actions.addItem({product._id}))
-  // }
 
   useEffect(() => {
       fetch('https://artists-webshop.herokuapp.com/products')
@@ -30,10 +20,6 @@ export const Products = () => {
         .then(data => {
           console.log(data)
           if (data.success) {
-            // setAllProducts(data.products)
-              // setSingleProduct(data.productById)
-              // setProductList(data.products)
-              // dispatch(artists.actions.setArtistName(data.artistName))
               dispatch(artists.actions.setProductList(data.products))
           } else {
             dispatch(artists.actions.setErrors(data));
@@ -42,59 +28,25 @@ export const Products = () => {
         .catch((err) => console.error(err));
   }, [dispatch])
 
-
-
-
-  // // Fetch all products
-  // const fetchProducts = () => {
-  //   fetch('http://localhost:8080/products')
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     setProductList(data.products)
-  //   })
-  //   .catch((err) => console.error(err));
-  // }
-
-  //   // Fetch all product photos
-  //   const fetchProductPhotos = () => {
-  //     fetch('http://localhost:8080/productPhoto')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setPhotoList(data.productPhotos)
-  //     })
-  //     .catch((err) => console.error(err));
-  //   }
-
-  // useEffect(() => {
-  //   fetchProducts()
-  //   fetchProductPhotos()
-  // }, [])
   
   return (
     <>
       <PageWrapper>
-        <SearchWrapper>
-          <SearchBar />
-        </SearchWrapper>
         <ProductsWrapper>
           <InnerWrapper>
             {products.map((product) => (
               <ProductCard key={product._id}>
-                <Link to={`/products/${product._id}`}>
-                  <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
-                  <ProductTextWrapper>
+                <StyledLink to={`/products/${product._id}`}>
+                  <LinkWrapper>
+                    <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
                     <Title tabIndex='0'>{product.productName} </Title>
-                    <SmallTextWrapper>
-                      <Text tabIndex='0'>{product.price} €</Text>
-                      <Text tabIndex='0'>{product.artistName}</Text>
-                      
-                    </SmallTextWrapper>
-                  </ProductTextWrapper>
-                </Link>
+                  </LinkWrapper>
+                </StyledLink>
+                  <SmallTextWrapper>
+                    <Text tabIndex='0'>{product.price} €</Text>
+                  </SmallTextWrapper>
               </ProductCard>
-
             ))}
-
           </InnerWrapper>
         </ProductsWrapper>
       </PageWrapper>
@@ -112,13 +64,6 @@ const PageWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   min-height: 90vh;
-`
-const SearchWrapper = styled.section`
-  height: 60px;
-  width: 100%;
-  background-color: #BCB0A6;
-  display: flex;
-  justify-content: center;
 `
 const ProductsWrapper = styled.section`
   display: flex;
@@ -152,28 +97,15 @@ const ProductCard = styled.section`
 const ProductImage = styled.img`
   width: 100%;
 `
-const ProductTextWrapper = styled.div`
+const LinkWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `
 const SmallTextWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: center;
 `
-const Title = styled.h3`
-  margin: 5px 0 0 0;
-  font-size: 18px;
-  line-height: 150%;
-`
-const Text = styled.p`
-  margin: 0;
-  font-size: 16px;
-  line-height: 150%;
-`
-// const SubTitle = styled.h3`
-//   font-size: 18px;
-//   margin: 0 20px 20px 20px;
-//   text-align: center;
-// `
+
+

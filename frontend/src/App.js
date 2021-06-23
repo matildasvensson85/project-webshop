@@ -1,14 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
-// import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { combineReducers, createStore } from '@reduxjs/toolkit';
 
 import { artists } from 'reducers/artists'
 import { basket } from 'reducers/basket'
-// import { products } from 'reducers/products'
 
 import { Start } from 'pages/Start'
 import { Products } from 'pages/Products'
@@ -19,18 +16,13 @@ import { Register } from 'pages/Register'
 import { SignIn } from 'pages/SignIn'
 import { Basket } from 'pages/Basket'
 import { Profile } from 'pages/Profile'
-// import { Sell } from 'components/Sell'
-
 import { Header } from 'components/Header'
 import { Footer } from 'components/Footer'
 
 const reducer = combineReducers ({
   artists: artists.reducer,
   basket: basket.reducer
-  // products: products.reducer,
 })
-
-// const store = configureStore({ reducer })
 
 // To keep user signeed in after refreshing the page
 const persistedStateJSON = localStorage.getItem('reduxState');
@@ -99,10 +91,6 @@ export const App = () => {
                 <Profile />
               </Route>
 
-              {/* <Route path="/sell">
-                <Sell />
-              </Route> */}
-
             </Switch>
           </Main>
           <StyledFooter>
@@ -119,18 +107,21 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  /* background-color: #F4F3F2; */
+
 `
 const StyledHeader = styled.header`
-  background-color: white;
   height: 60px;
   width: 100%;
   display: flex;
   top: 0;
+  background-color: #EFEEED;
+
 `
 const Main = styled.div`
 `
 const StyledFooter= styled.footer`
-  background-color: #D6D4C5;
+  background-color: #DBD5D1;
   width: 100%;
   margin-top: auto;
 

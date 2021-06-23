@@ -1,13 +1,16 @@
-import { useDispatch } from 'react-redux';
-// import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { artists } from 'reducers/artists'
-import { products } from 'reducers/products'
+import { basket } from 'reducers/basket'
+import { Hamburger } from 'components/Hamburger'
+import { FaShoppingCart } from 'react-icons/fa';
+import { StyledLink } from 'Styling'
 
 export const Header = () => {
 
+  const accessToken = useSelector((store) => store.artists.accessToken)
+  const basketItems = useSelector((store) => store.basket.items)
   const dispatch = useDispatch()
 
   return (
@@ -15,37 +18,57 @@ export const Header = () => {
       <HeaderWrapper>
         <NavWrapper>
           <LogoWrapper>
-            <Link to='/'>
-              <Logo>Artist's Collection</Logo>
-            </Link>
+            <StyledLink to='/'>
+              <Logo>Artists Collection</Logo>
+            </StyledLink>
           </LogoWrapper>
           <MenuWrapper>
-            <Link to='/basket'>
-              <Cart>C</Cart>
-            </Link>
-            <Hamburger>H</Hamburger>
+            {accessToken && (
+              <>
+              <StyledLink to='/basket'>
+                <CartWrapper>
+                  <Cart>
+                    <FaShoppingCart /> 
+                  </Cart>
+                  <Amount>
+                    ({basketItems.length})
+                  </Amount>
+                </CartWrapper>
+              </StyledLink>
+              </>
+            )}
+            <Hamburger />
             <DesktopNav>
-              <Link to='/products'>
+              <StyledLink to='/products'>
                 <MenuItem>Products</MenuItem>
-              </Link>
-              <Link to='/artists'>
+              </StyledLink>
+              <StyledLink to='/artists'>
                 <MenuItem>Artists</MenuItem>
-              </Link>
-              <Link to='/register'>
-                <MenuItem>Register</MenuItem>
-              </Link>
-              <Link to='/login'>
-                <MenuItem>Log in</MenuItem>
-              </Link>
-              <Link to='/register'>
-                <MenuItem
-                  onClick={() => {
-                    dispatch(artists.actions.setLogOut())
-                    dispatch(products.actions.setLogOut())
-                  }}>
-                  Log out
-                </MenuItem>
-              </Link>
+              </StyledLink>
+
+              {!accessToken && (
+                <>
+                  <StyledLink to='/register'>
+                    <MenuItem>Register</MenuItem>
+                  </StyledLink>
+                </>
+              )}
+              {accessToken && (
+                <>
+                  <StyledLink to='/profile'>
+                    <MenuItem>Profile</MenuItem>
+                  </StyledLink>
+                  <StyledLink to='/products'>
+                    <MenuItem
+                      onClick={() => {
+                        dispatch(artists.actions.setLogOut())
+                        dispatch(basket.actions.setLogOut())}}>
+                      Log out
+                    </MenuItem>
+                  </StyledLink>
+                </>
+              )}
+
             </DesktopNav>
           </MenuWrapper>
         </NavWrapper>
@@ -70,37 +93,44 @@ const NavWrapper = styled.nav`
 const LogoWrapper = styled.div`
 `
 const Logo = styled.h4`
-  margin: 0;
+  margin: 0 0 0 2px;
   cursor: pointer;
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 18px;
+  line-height: 120%;
+  color: #282875;
   @media (min-width: 768px) {
-    font-size: 25px;
+    font-size: 20px;
   }
 `
 const MenuWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
 `
-const Cart = styled.h4`
-  margin: 0;
+const CartWrapper= styled.div`
+  text-decoration: none;
+  display: flex;
+  margin: 9px 0 0 0;
+`
+const Cart = styled.div`
+  text-decoration: none;
+  margin: 1px 3px 0 0;
   cursor: pointer;
 `
-const Hamburger = styled.h4`
-  margin: 0 0 0 15px;
-  cursor: pointer;
-  @media (min-width: 1024px) {
-    display: none;
-    
-  }
+const Amount = styled.div`
 `
 const DesktopNav = styled.div`
-  /* display: none;
-  @media (min-width: 1024px) { */
+  text-decoration: none;
+  display: none;
+  @media (min-width: 768px) {
     display: flex;
-  /* } */
+  }
 `
 const MenuItem = styled.p`
+  text-decoration: none;
   font-size: 16px;
-  margin: 0 0 0 15px;
-  cursor: pointer;
+  margin: 10px 0 0 15px;
 `
 

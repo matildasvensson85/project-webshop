@@ -1,7 +1,5 @@
 import { useSelector, useDispatch, batch } from 'react-redux';
 import React, { useState, useRef } from 'react';
-// import React, { useState, useEffect } from 'react';
-// import { useHistory, Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 
@@ -9,14 +7,6 @@ import { InputLine } from 'components/InputLine'
 import { InputTextArea } from 'components/InputTextArea'
 import { Button } from 'components/Button'
 import { artists } from 'reducers/artists'
-// import { getProductsAndOrders } from 'reducers/artists'
-// import { Accordion } from 'components/Accordion'
-// import { Sell } from 'components/Sell'
-// import { UploadSelect } from 'components/UploadSelect'
-
-//ej min
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-// import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
 export const UploadProducts = () => {
 
@@ -32,7 +22,7 @@ const [chosenCategory, setChosenCategory] = useState('Painting')
 const [chosenColor, setChosenColor] = useState('Beige')
 
 const artistID = useSelector(store => store.artists.artistID);
-
+const accessToken= useSelector(store => store.artists.accessToken);
 const artistName = useSelector(store => store.artists.artistName);
 
 const fileInput = useRef()
@@ -76,8 +66,6 @@ const colors = [
 const onFormSubmit = (event) => {
   event.preventDefault()
   postProducts()
-  // postProductsOld()
-
 }
 
 const postProducts = () => {
@@ -94,9 +82,9 @@ const postProducts = () => {
   fetch('https://artists-webshop.herokuapp.com/products', { 
     method: 'POST',
     body: formData,
-    // headers: {
-    //   Authorization: accessToken,
-    // },
+    headers: {
+      Authorization: accessToken,
+    },
    })
     .then((res) => res.json())
     .then((data) => {
@@ -104,8 +92,6 @@ const postProducts = () => {
       if (data.success) {
         batch(() => {
           dispatch(artists.actions.setProduct(data.savedProduct));
-          // dispatch(artists.actions.setPresentation(data.editedArtist.presentation))
-          // dispatch(artists.actions.setPhoto(data.editedArtist.photo))
           dispatch(artists.actions.setErrors(null));
         })
       } else {
@@ -115,7 +101,6 @@ const postProducts = () => {
     })
     .catch()
   }
-
 
   return (
     <>
@@ -136,14 +121,11 @@ const postProducts = () => {
             />
 
           <SelectWrapper>
-              <Select>
-              <Label htmlFor='category' tabIndex='0' aria-label={`Choose category`}>Category</Label>
-                <SelectButton type="button" onClick={handleCategorySelect}>
-                  <SelectTitle>{chosenCategory}</SelectTitle>
-                  {/* <SelectArrow open={categoryOpen}>
-                    <FontAwesomeIcon icon={faCaretDown} />
-                  </SelectArrow> */}
-                </SelectButton>
+            <Select>
+            <Label htmlFor='category' tabIndex='0' aria-label={`Choose category`}>Category</Label>
+              <SelectButton type="button" onClick={handleCategorySelect}>
+                <SelectTitle>{chosenCategory}</SelectTitle>
+              </SelectButton>
                 <List open={categoryOpen}>
                   {categories.map((category) => (
                     <ListItem
@@ -164,9 +146,6 @@ const postProducts = () => {
               <Label htmlFor='Color' tabIndex='0' aria-label={`Choose color`}>Color</Label>
                 <SelectButton type="button" onClick={handleColorSelect}>
                   <SelectTitle>{chosenColor}</SelectTitle>
-                  {/* <SelectArrow open={categoryOpen}>
-                    <FontAwesomeIcon icon={faCaretDown} />
-                  </SelectArrow> */}
                 </SelectButton>
                 <List open={colorOpen}>
                   {colors.map((color) => (
@@ -183,7 +162,6 @@ const postProducts = () => {
                   ))}
                 </List>
               </Select>
-
           </SelectWrapper>
 
           <InputTextArea
@@ -191,19 +169,19 @@ const postProducts = () => {
             placeholder='Describe the product.'
             value={description}
             id={description}
-            onChange={event => setDescription(event.target.value)}  />
+            onChange={event => setDescription(event.target.value)} />
 
-          <Label>
+          <Upload>
             Upload product photo
             <input type='file' ref={fileInput} />
-          </Label>
+          </Upload>
 
           <Button 
             buttonText='Publish'
-            onClick={() => setPublished(true)}
-             />
+            onClick={() => setPublished(true)} />
 
           {published === true ? <p>Published!</p> : ''}
+
         </Form>
       </PageWrapper>
     </>
@@ -240,11 +218,9 @@ const Label = styled.label`
   color: #4F4F4F;
   width: 100%;
   font-size: 14px;
-  /* margin-bottom: 150px; */
 `
 const SelectButton = styled.button`
   color: #4F4F4F;
-  font-size: 14px;
   margin: 15px 0 20px 0;
   display: flex;
   align-items: center;
@@ -255,21 +231,6 @@ const SelectButton = styled.button`
   height: 44px;
   background-color: transparent;
   cursor: pointer;
-  /* position: relative;
-  -webkit-appearance: none;
-  -webkit-box-align: center;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  padding: 12px 18px;
-  background: #fff;
-  text-align: center;
-   */
-  &:focus {
-    outline: none;
-  }
-  /* :hover {
-    background-color: #B72C72;
-  } */
 `
 const SelectTitle = styled.p``
 
@@ -278,14 +239,13 @@ const List = styled.ul`
   top: 37px;
   display: ${(props) => (props.open ? 'block' : 'none')};
   width: 100%;
-  height: 350px;
+  height: 200px;
   margin: 0;
   padding: 10px 0;
   box-sizing: border-box;
   border: 1px solid #1a1a1a;
   border-top: none;
   background: #fff;
-  font-size: 12px;
   text-align: justify;
   opacity: ${(props) => (props.open ? 1 : 0)};
   transform: none;
@@ -301,4 +261,7 @@ const ListItem = styled.li`
   &:hover {
     color: #fb958b;
   }
+`
+const Upload= styled.label`
+  margin-bottom: 15px;
 `

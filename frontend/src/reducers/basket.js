@@ -4,19 +4,15 @@ const initialState = {
   items: [],
 }
 
-
-
 export const basket = createSlice({
     name: 'basket',
     initialState: initialState,
     reducers: {
         addItem: (store, action) => {
-          console.log(store.items)
-          // store.items = action.payload
-          // store.items.push({ ...action.payload, quantity: 1 })
+          // store.items.push({ ...action.payload })
 
           const exsistingItems = store.items.find(
-            (item) => item._id === action.payload._id
+            (item) => item.productName === action.payload.productName
           );
     
           if (exsistingItems) {
@@ -24,7 +20,7 @@ export const basket = createSlice({
           } else {
             store.items.push({ ...action.payload, quantity: 1 });
           }
-        }
+        },
         // setErrors: (store, action) => {
         //     store.errors = action.payload
         // },
@@ -42,6 +38,9 @@ export const basket = createSlice({
         //     //     errors: null,  
         //     // }
         // },
+        setLogOut: () => {
+          return initialState
+      },
     },
       
 })

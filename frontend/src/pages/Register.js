@@ -1,6 +1,5 @@
 import { useSelector, useDispatch, batch } from 'react-redux'
 import React, { useEffect, useState } from 'react';
-// import { useHistory, Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,7 +13,6 @@ export const Register = () => {
   const [artistName, setArtistName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const [mode, setMode] = useState(null);
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -26,7 +24,6 @@ export const Register = () => {
       history.push('/profile')
     }
   }, [accessToken, history])
-
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -46,10 +43,8 @@ export const Register = () => {
         if (data.success) {
           batch(() => {
             dispatch(artists.actions.setArtistName(data.artistName))
-            // dispatch(artists.actions.setEmail(data.email))
             dispatch(artists.actions.setArtistID(data.artistID))
             dispatch(artists.actions.setAccessToken(data.accessToken))
-            // dispatch(artists.actions.setPresentation(null))
             dispatch(artists.actions.setErrors(null));
           })
         } else {
@@ -71,12 +66,6 @@ export const Register = () => {
                 label='Name' 
                 value={artistName}
                 onChange={event => setArtistName(event.target.value)} 
-                />
-              <InputLine
-                type='text'
-                label='E-mail' 
-                value={email}
-                onChange={event => setEmail(event.target.value)} 
                 />
               <InputLine
                 type='password'
@@ -140,9 +129,9 @@ const BottomWrapper = styled.div`
   align-items: center;
 `
 const SmallText = styled.p`
-font-size: 14px;
-margin: 0;
-line-height: 19px;
+  font-size: 14px;
+  margin: 0;
+  line-height: 19px;
 `
 const LinkText = styled(SmallText)`
   font-weight: 600;

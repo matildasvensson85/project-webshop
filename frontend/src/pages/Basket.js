@@ -1,31 +1,24 @@
 import { useSelector  } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { artists } from 'reducers/artists'
-// import { basket } from 'reducers/basket'
+import { artists } from 'reducers/artists'
+import { basket } from 'reducers/basket'
 
-// import {user} from '../reducers/user';
 import styled from 'styled-components';
-// import { SingleArtist } from './SingleArtist';
 
 export const Basket = () => {
 
-  // const dispatch = useDispatch()
   const basketItems = useSelector(store => store.basket.items);
-  console.log(basketItems)
-  const products = useSelector(store => store.artists.products);
-  console.log(products)
+  const productList = useSelector(store => store.artists.productList);
+  const totalPrice = basketItems.reduce((total, item) => total + item.price, 0)
 
 
   return (
     <>
       <PageWrapper>
           <Title tabIndex='0'>Your basket</Title>
-
-          {/* {basketItems.map((item) => ( */}
-            {products.map((item) => (
-              <ProductCard key={item._id}>
-                
+            {basketItems.map((item, index) => (
+              <ProductCard key={index}>
                 <ImageWrapper>
                   <Link to={`/products/${item._id}`}>
                     <ProductImage src={item.photo} alt='Product image'/>
@@ -34,18 +27,14 @@ export const Basket = () => {
                 <ProductTextWrapper>
                   <SubTitle tabIndex='0'>{item.productName} </SubTitle>
                   <Text tabIndex='0'>{item.price} €</Text>
-                  {/* <button>Remove</button> */}
+                  <Text tabIndex='0'>Quantity: {item.quantity}</Text>
                 </ProductTextWrapper>                
               </ProductCard>
-                          ))}
+            ))}
               <SummaryWrapper>
-                <Text>Total products:{}</Text>
-                <Text>Order total:{}€</Text>
-                <button>To checkout</button>
-                <button>Clear cart</button>
+                <Text>Total products: {basketItems.length}</Text>
+                <Text>Order total: {totalPrice} €</Text>
               </SummaryWrapper>
-
-
       </PageWrapper>
     </>
   ) 
@@ -70,7 +59,6 @@ const Title = styled.h2`
 `
 const ProductCard = styled.section`
   display: flex;
-  /* flex-direction: column; */
   width: 100%;
   margin-bottom: 20px;
   @media (min-width: 768px) {

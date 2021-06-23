@@ -16,7 +16,6 @@ export const InputLine = ({
 
   return (
     <>
-      {/* <Form> */}
         <Label htmlFor={id} tabIndex='0' aria-label={`Enter your ${id}`}>{label}</Label>
         <Input 
           type={type}
@@ -27,22 +26,11 @@ export const InputLine = ({
           onChange={onChange}
           label={label}
         />
-      {/* </Form> */}
     </>
   ) 
 }
 
 
-// const Form = styled.form`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   width: 100%;
-//   max-width: 450px;
-//   @media (min-width: 768px) {
-//     width: 450px;
-//   }
-// `
 const Label = styled.label`
   color: #4F4F4F;
   width: 100%;

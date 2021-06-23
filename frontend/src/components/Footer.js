@@ -1,7 +1,4 @@
-// import { useSelector, useDispatch, batch } from 'react-redux';
-// import React, { useState, useEffect } from 'react';
 import React from 'react';
-// import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Footer = () => {
@@ -25,7 +22,6 @@ export const Footer = () => {
           </ContactDetails>
         </ContactWrapper>
       </FooterWrapper>
-      
     </>
   )
 }
@@ -62,7 +58,6 @@ const RegisterWrapper = styled.section`
     width: 20%;
   }
 `
-
 const ContactWrapper = styled.section`
   display: flex;
   flex-direction: column;
@@ -76,11 +71,8 @@ const Title = styled.h4`
   margin: 0 0 4px 0;
   font-size: 14px;
   line-height: 150%;
-  
 `
 const ContactDetails = styled.section`
-  /* display: flex;
-  flex-wrap: wrap; */
 `
 
 const Text = styled.p`

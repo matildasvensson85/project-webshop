@@ -1,20 +1,24 @@
 import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import styled from 'styled-components';
+
 import { artists } from 'reducers/artists'
 import { basket } from 'reducers/basket'
-
-// import {user} from '../reducers/user';
-import styled from 'styled-components';
+import { Button } from 'components/Button'
+import { 
+  StyledLink,
+  BigTitle,
+  Title,
+  SubTitle,
+  Text 
+} from 'Styling'
 
 export const SingleProduct = () => {
 
   const { productId } = useParams()
   const [singleProduct, setSingleProduct] = useState({})
-  // const [price, setPrice] = useState('')
-  // const [artistName, setArtistName] = useState('')
-  // const [productID, setProductID] = useState('')
-  // const [photo, setPhoto] = useState('')
+  const [questionIndex, setQuestionIndex] = useState(0)
   console.log(singleProduct)
   const dispatch = useDispatch()
 
@@ -25,71 +29,61 @@ export const SingleProduct = () => {
             console.log(data)
             if (data.success) {
                 setSingleProduct(data.productById)
-                // setPrice(data.productById.price)
-                // setArtistName(data.productById.artistName)
-                // setProductID(data.productById._id)
-                // setPhoto(data.productById.photo)
             } else {
               dispatch(artists.actions.setErrors(data));
             }
           })
           .catch()
-      
     }, [productId, dispatch])
 
     const addToBasket = () => {
-      console.log('added')
-      dispatch(basket.actions.addItem({singleProduct, quantity: 1}))
+      dispatch(basket.actions.addItem(singleProduct))
+      onQuestionIndexChange()
     }
+
+    const onQuestionIndexChange = () => {
+      setQuestionIndex(questionIndex +1)
+  }
 
   return (
     <>
       <PageWrapper>
-          <Title tabIndex='0'>{singleProduct.productName}</Title>
+        <ProductWrapper>
+          <BigTitle tabIndex='0'>{singleProduct.productName}</BigTitle>
           <Text>{singleProduct.description}</Text>
           <Image src={singleProduct.photo} />
-          <Text>{singleProduct.price} €</Text>
+          <Text>Price: {singleProduct.price} €</Text>
           <Text>{singleProduct.color}</Text>
           <Text>{singleProduct.category}</Text>
-          <Link to={`/artists/${singleProduct.artistID}`}>
-            <Text>{singleProduct.artistName}</Text>
-          </Link>
-          <button onClick={addToBasket}>Add to basket</button>
+          <StyledLink to={`/artists/${singleProduct.artistID}`}>
+            <Text>Artist: {singleProduct.artistName}</Text>
+          </StyledLink>
+          </ProductWrapper>
+        <ButtonWrapper>
+          <Button
+            buttonText='Add to basket'
+            onClick={() => dispatch(basket.actions.addItem(singleProduct))}
+          />
+        </ButtonWrapper>
       </PageWrapper>
     </>
   ) 
 }
 
 const PageWrapper = styled.section`
-  background-color: #F7D5DF;
+`
+const ProductWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 50px 20px 20px 20px;
-  min-height: 90vh;
-
-  @media (min-width: 768px) {
-    padding-top: 90px;
-    /* background-image: linear-gradient(rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2)), url('https://images.unsplash.com/photo-1602172694659-d6a5fb605c07?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80');
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat; */
-  }
-`
-const Title = styled.h2`
-  color: black;
-  font-size: 25px;
-  margin: 0 20px 20px 20px;
-  text-align: center;
-  @media (min-width: 768px) {
-    font-size: 35px;
-  }
 `
 const Image = styled.img`
   width: 300px;
+  margin: 0 0 10px 0;
 `
-const Text = styled.p`
-  margin: 0;
-  font-size: 16px;
-  line-height: 150%;
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
 `

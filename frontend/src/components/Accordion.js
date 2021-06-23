@@ -1,7 +1,4 @@
-// import { useSelector, useDispatch, batch } from 'react-redux';
 import React, { useState } from 'react';
-// import { useHistory, Link } from 'react-router-dom';
-
 import styled from 'styled-components';
 
 export const Accordion = ({ title, content }) => {
@@ -42,7 +39,6 @@ const AccordionHeader = styled.button`
 @media (min-width: 1024px) {
 }
 `
-
 const AccordionContent = styled.div`
   overflow: hidden;
   max-height: ${(props) => (props.open ? '100%' : '0')};
