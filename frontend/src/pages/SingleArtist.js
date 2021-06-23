@@ -65,11 +65,18 @@ export const SingleArtist = () => {
 }
 
 const PageWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
 `
 const ArtistWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  width: 350px;
 `
 const ProfilePic = styled.img`
   width: 300px;
