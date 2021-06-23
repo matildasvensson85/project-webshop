@@ -153,18 +153,7 @@ app.get('/', (req, res) => {
   res.send(listEndpoints(app))
 })
 
-// endpoint to get artists
-app.get('/artists', async (req, res) => {
-  // get one artist by name
-  const { name } = req.query
-  if (name) {
-    const artistByName = await Artist.findOne({ artistName: name})
-    res.json({ success: true, artistByName })
-  } else {
-    const artists = await Artist.find();
-    res.json({ success: true, artists });
-  }
-})
+
 
 
 
@@ -402,6 +391,28 @@ app.get('/artists/:id', async (req, res) => {
   const artByArtist = await Product.find({artistID: id })
   // res.json({ success: true, artistById, artByArtistId })
   res.json({ success: true, artistById, artByArtist })
+})
+
+// // endpoint to get artists
+// app.get('/artists', async (req, res) => {
+//   // get one artist by name
+//   const { name } = req.query
+//   if (name) {
+//     const artistByName = await Artist.findOne({ artistName: name})
+//     res.json({ success: true, artistByName })
+//   } else {
+//     const artists = await Artist.find();
+//     res.json({ success: true, artists });
+//   }
+// })
+
+// endpoint to get artists
+app.get('/artists', async (req, res) => {
+    const artists = await Artist.find();
+    res.json({
+      success: true,
+      artists, 
+    });
 })
 
 // endpoint to get products

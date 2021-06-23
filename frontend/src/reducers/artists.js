@@ -8,8 +8,9 @@ const initialState = {
         presentation: null,
         photo: null,
         errors: null,
-        products: [],
+        productList: [],
         orders: [],
+        // singleArtist: null,
         artistList: [],
     // },
 }
@@ -39,15 +40,15 @@ export const artists = createSlice({
         setErrors: (store, action) => {
             store.errors = action.payload
         },
-        setProducts: (store, action) => {
-            store.products = action.payload
-            // store.products = [...store.products, action.payload]
+        setProductList: (store, action) => {
+            store.productList = action.payload
         },
         setProduct: (store, action) => {
-            // store.products = action.payload
-            // USE for post request
             store.products = [...store.products, action.payload]
         },
+        // setSingleArtist: (store, action) => {
+        //     store.singleArtist = action.payload
+        // },
         setArtistList: (store, action) => {
             store.artistList = action.payload
         },

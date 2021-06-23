@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -13,6 +13,8 @@ export const SingleArtist = () => {
   const { artistId } = useParams()
   const [singleArtist, setSingleArtist] = useState({})
   const [art, setArt] = useState([{}])
+  // const artist = useSelector(store => store.artists.singleArtist);
+  // console.log(artist)
 
   const dispatch = useDispatch()
 
@@ -26,6 +28,7 @@ export const SingleArtist = () => {
       .then(data => {
         console.log(data)
         if (data.success) {
+            // dispatch(artists.actions.setSingleArtist({data.artistById, data.artByArtist}))
             setSingleArtist(data.artistById)
             setArt(data.artByArtist)
         } else {

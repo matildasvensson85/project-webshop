@@ -1,12 +1,12 @@
-import { useSelector, useDispatch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { artists } from 'reducers/artists'
-import { basket } from 'reducers/basket'
+import { useSelector  } from 'react-redux';
+import React from 'react';
+import { Link } from 'react-router-dom';
+// import { artists } from 'reducers/artists'
+// import { basket } from 'reducers/basket'
 
 // import {user} from '../reducers/user';
 import styled from 'styled-components';
-import { SingleArtist } from './SingleArtist';
+// import { SingleArtist } from './SingleArtist';
 
 export const Basket = () => {
 

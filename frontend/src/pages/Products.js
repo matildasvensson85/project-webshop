@@ -1,10 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 
 import { artists } from 'reducers/artists'
-import { basket } from 'reducers/basket'
+// import { basket } from 'reducers/basket'
 import styled from 'styled-components';
 
 import { SearchBar } from 'components/SearchBar'
@@ -16,7 +16,7 @@ export const Products = () => {
 
   const artist = useSelector(store => store.artists);
   console.log(artist)
-  const products = useSelector(store => store.artists.products);
+  const products = useSelector(store => store.artists.productList);
   console.log(products)
 
   // const addToBasket = () => {
@@ -34,7 +34,7 @@ export const Products = () => {
               // setSingleProduct(data.productById)
               // setProductList(data.products)
               // dispatch(artists.actions.setArtistName(data.artistName))
-              dispatch(artists.actions.setProducts(data.products))
+              dispatch(artists.actions.setProductList(data.products))
           } else {
             dispatch(artists.actions.setErrors(data));
           }
@@ -172,8 +172,8 @@ const Text = styled.p`
   font-size: 16px;
   line-height: 150%;
 `
-const SubTitle = styled.h3`
-  font-size: 18px;
-  margin: 0 20px 20px 20px;
-  text-align: center;
-`
+// const SubTitle = styled.h3`
+//   font-size: 18px;
+//   margin: 0 20px 20px 20px;
+//   text-align: center;
+// `

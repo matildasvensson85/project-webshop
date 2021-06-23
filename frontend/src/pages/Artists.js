@@ -1,9 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-
-import { artists } from 'reducers/artists'
+// import { artists } from 'reducers/artists'
 import styled from 'styled-components';
 
 import { SearchBar } from 'components/SearchBar'
@@ -12,26 +12,21 @@ import { SearchBar } from 'components/SearchBar'
 export const Artists = () => {
   const dispatch = useDispatch()
 
-  const artist = useSelector(store => store.artists);
-  console.log(artist)
+
   const [artists, setArtists] = useState([])
   console.log(artists)
-  console.log(artists.map(artist => artist.artistName))
-  // const products = useSelector(store => store.artists.products);
-  // console.log(products)
+  // const artistList = useSelector(store => store.artists.artistList);
+  // console.log(artistList)
 
   useEffect(() => {
       fetch('http://localhost:8080/artists')
         .then(res => res.json())
         .then(data => {
           console.log(data)
+          console.log(data.artists)
           if (data.success) {
-            
             setArtists(data.artists)
-              // setSingleProduct(data.productById)
-              // setProductList(data.products)
-              // dispatch(artists.actions.setArtistName(data.artistName))
-              // dispatch(artists.actions.setArtists(data.products))
+            // dispatch(artists.actions.setArtistList(data.artists))
           } else {
             dispatch(artists.actions.setErrors(data));
           }
@@ -49,6 +44,7 @@ export const Artists = () => {
         </SearchWrapper>
         <ProductsWrapper>
           <InnerWrapper>
+          {/* {artists.map(artist => ( */}
           {artists.map(artist => (
             <ProductCard key={artist._id}>
               <Link to={`/artists/${artist._id}`}>
@@ -121,23 +117,23 @@ const ProductTextWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `
-const SmallTextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
+// const SmallTextWrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// `
 const Title = styled.h3`
   margin: 5px 0 0 0;
   font-size: 18px;
   line-height: 150%;
 `
-const Text = styled.p`
-  margin: 0;
-  font-size: 16px;
-  line-height: 150%;
-`
-const SubTitle = styled.h3`
-  font-size: 18px;
-  margin: 0 20px 20px 20px;
-  text-align: center;
-`
+// const Text = styled.p`
+//   margin: 0;
+//   font-size: 16px;
+//   line-height: 150%;
+// `
+// const SubTitle = styled.h3`
+//   font-size: 18px;
+//   margin: 0 20px 20px 20px;
+//   text-align: center;
+// `

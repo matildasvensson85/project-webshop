@@ -6,18 +6,16 @@ import { basket } from 'reducers/basket'
 
 // import {user} from '../reducers/user';
 import styled from 'styled-components';
-import { SingleArtist } from './SingleArtist';
 
 export const SingleProduct = () => {
 
   const { productId } = useParams()
   const [singleProduct, setSingleProduct] = useState({})
-  const [price, setPrice] = useState('')
-  const [artistName, setArtistName] = useState('')
-  const [productID, setProductID] = useState('')
-  const [photo, setPhoto] = useState('')
+  // const [price, setPrice] = useState('')
+  // const [artistName, setArtistName] = useState('')
+  // const [productID, setProductID] = useState('')
+  // const [photo, setPhoto] = useState('')
   console.log(singleProduct)
-  console.log(price)
   const dispatch = useDispatch()
 
     useEffect(() => {
@@ -47,7 +45,6 @@ export const SingleProduct = () => {
   return (
     <>
       <PageWrapper>
-
           <Title tabIndex='0'>{singleProduct.productName}</Title>
           <Text>{singleProduct.description}</Text>
           <Image src={singleProduct.photo} />
