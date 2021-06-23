@@ -1,9 +1,9 @@
 // import { useSelector, useDispatch } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-// import { artists } from 'reducers/artists'
+import { artists } from 'reducers/artists'
 import styled from 'styled-components';
 
 import { SearchBar } from 'components/SearchBar'
@@ -13,9 +13,9 @@ export const Artists = () => {
   const dispatch = useDispatch()
 
 
-  const [artists, setArtists] = useState([])
+  // const [artists, setArtists] = useState([])
   console.log(artists)
-  // const artistList = useSelector(store => store.artists.artistList);
+  const artistList = useSelector(store => store.artists.artistList);
   // console.log(artistList)
 
   useEffect(() => {
@@ -25,8 +25,8 @@ export const Artists = () => {
           console.log(data)
           console.log(data.artists)
           if (data.success) {
-            setArtists(data.artists)
-            // dispatch(artists.actions.setArtistList(data.artists))
+            // setArtists(data.artists)
+            dispatch(artists.actions.setArtistList(data.artists))
           } else {
             // dispatch(artists.actions.setErrors(data));
           }
@@ -44,8 +44,8 @@ export const Artists = () => {
         </SearchWrapper>
         <ProductsWrapper>
           <InnerWrapper>
-          {/* {artists.map(artist => ( */}
-          {artists.map(artist => (
+          {artistList.map(artist => (
+          // {artists.map(artist => (
             <ProductCard key={artist._id}>
               <Link to={`/artists/${artist._id}`}>
                 <ProductImage src={artist.photo} alt='Artist photo'/>

@@ -44,7 +44,7 @@ export const artists = createSlice({
             store.productList = action.payload
         },
         setProduct: (store, action) => {
-            store.products = [...store.products, action.payload]
+            store.productList = [...store.productList, action.payload]
         },
         // setSingleArtist: (store, action) => {
         //     store.singleArtist = action.payload

@@ -20,7 +20,7 @@ export const Header = () => {
             </Link>
           </LogoWrapper>
           <MenuWrapper>
-            <Link to='/cart'>
+            <Link to='/basket'>
               <Cart>C</Cart>
             </Link>
             <Hamburger>H</Hamburger>
