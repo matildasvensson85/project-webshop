@@ -19,7 +19,7 @@ export const Artists = () => {
   // console.log(artistList)
 
   useEffect(() => {
-      fetch('http://localhost:8080/artists')
+      fetch('https://artists-webshop.herokuapp.com/artists')
         .then(res => res.json())
         .then(data => {
           console.log(data)
@@ -28,12 +28,12 @@ export const Artists = () => {
             setArtists(data.artists)
             // dispatch(artists.actions.setArtistList(data.artists))
           } else {
-            dispatch(artists.actions.setErrors(data));
+            // dispatch(artists.actions.setErrors(data));
           }
         })
         .catch((err) => console.error(err));
 
-  }, [])
+  }, [dispatch])
 
   
   return (

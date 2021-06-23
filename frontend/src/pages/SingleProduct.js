@@ -19,7 +19,7 @@ export const SingleProduct = () => {
   const dispatch = useDispatch()
 
     useEffect(() => {
-        fetch(`http://localhost:8080/products/${productId}`)
+        fetch(`https://artists-webshop.herokuapp.com/products/${productId}`)
           .then(res => res.json())
           .then(data => {
             console.log(data)
@@ -35,7 +35,7 @@ export const SingleProduct = () => {
           })
           .catch()
       
-    }, [productId])
+    }, [productId, dispatch])
 
     const addToBasket = () => {
       console.log('added')

@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { artists } from 'reducers/artists'
 
 // import {user} from '../reducers/user';
@@ -18,12 +18,8 @@ export const SingleArtist = () => {
 
   const dispatch = useDispatch()
 
-    useEffect(() => {
-      fetchArtistInfo()
-    }, [artistId])
-
-    const fetchArtistInfo = () => {
-      fetch(`http://localhost:8080/artists/${artistId}`)
+    const fetchArtistInfo = useCallback(() => {
+      fetch(`https://artists-webshop.herokuapp.com/artists/${artistId}`)
       .then(res => res.json())
       .then(data => {
         console.log(data)
@@ -36,7 +32,12 @@ export const SingleArtist = () => {
         }
       })
       .catch()
-    }
+    }, [artistId, dispatch])
+
+    useEffect(() => {
+      fetchArtistInfo()
+    }, [fetchArtistInfo])
+
 
   return (
     <>

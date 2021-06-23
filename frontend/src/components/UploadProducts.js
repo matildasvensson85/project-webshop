@@ -91,7 +91,7 @@ const postProducts = () => {
   formData.append('artistID', artistID)
   formData.append('artistName', artistName)
 
-  fetch('http://localhost:8080/products', { 
+  fetch('https://artists-webshop.herokuapp.com/products', { 
     method: 'POST',
     body: formData,
     // headers: {

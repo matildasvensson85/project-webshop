@@ -39,7 +39,7 @@ export const Register = () => {
       },
       body: JSON.stringify({ artistName, email, password })
     }
-    fetch('http://localhost:8080/register', options)
+    fetch('https://artists-webshop.herokuapp.com/register', options)
       .then(res => res.json())
       .then(data => {
         console.log(data)
@@ -59,7 +59,6 @@ export const Register = () => {
       })
       .catch()
   }
-
 
   return (
     <>

@@ -25,7 +25,7 @@ export const Products = () => {
   // }
 
   useEffect(() => {
-      fetch('http://localhost:8080/products')
+      fetch('https://artists-webshop.herokuapp.com/products')
         .then(res => res.json())
         .then(data => {
           console.log(data)
@@ -40,7 +40,7 @@ export const Products = () => {
           }
         })
         .catch((err) => console.error(err));
-  }, [])
+  }, [dispatch])
 
 
 

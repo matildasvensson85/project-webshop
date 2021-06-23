@@ -48,7 +48,7 @@ export const EditProfile = () => {
     formData.append('presentation', presentation)
     formData.append('artistID', artistID)
 
-    fetch(`http://localhost:8080/profile/${artistID}`, { method: 'PATCH', body: formData })
+    fetch(`https://artists-webshop.herokuapp.com/profile/${artistID}`, { method: 'PATCH', body: formData })
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
