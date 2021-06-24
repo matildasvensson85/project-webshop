@@ -36,6 +36,3 @@ export const Text = styled.p`
   line-height: 150%;
   text-align: center;
 `
-
-// font-family: 'Frank Ruhl Libre', serif;
-// font-family: 'Roboto', sans-serif;

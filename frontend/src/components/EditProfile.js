@@ -87,5 +87,4 @@ const Form = styled.form`
 `
 const Upload= styled.label`
   margin-bottom: 15px;
-
 `

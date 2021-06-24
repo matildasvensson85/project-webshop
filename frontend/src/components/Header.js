@@ -37,7 +37,9 @@ export const Header = () => {
               </StyledLink>
               </>
             )}
-            <Hamburger />
+            <HamburgerWrapper>
+              <Hamburger />
+            </HamburgerWrapper>
             <DesktopNav>
               <StyledLink to='/products'>
                 <MenuItem>Products</MenuItem>
@@ -120,6 +122,12 @@ const Cart = styled.div`
   cursor: pointer;
 `
 const Amount = styled.div`
+`
+const HamburgerWrapper = styled.div`
+  display: flex;
+  @media (min-width: 768px) {
+    display: none;
+  }
 `
 const DesktopNav = styled.div`
   text-decoration: none;
