@@ -47,7 +47,6 @@ export const Header = () => {
               <StyledLink to='/artists'>
                 <MenuItem>Artists</MenuItem>
               </StyledLink>
-
               {!accessToken && (
                 <>
                   <StyledLink to='/register'>
@@ -61,7 +60,7 @@ export const Header = () => {
                     <MenuItem>Profile</MenuItem>
                   </StyledLink>
                   <StyledLink to='/products'>
-                    <MenuItem
+                  <MenuItem
                       onClick={() => {
                         dispatch(artists.actions.setLogOut())
                         dispatch(basket.actions.setLogOut())}}>
@@ -100,7 +99,7 @@ const Logo = styled.h4`
   font-family: 'Frank Ruhl Libre', serif;
   font-size: 18px;
   line-height: 120%;
-  color: #282875;
+  color: black;
   @media (min-width: 768px) {
     font-size: 20px;
   }
@@ -141,4 +140,3 @@ const MenuItem = styled.p`
   font-size: 16px;
   margin: 10px 0 0 15px;
 `
-

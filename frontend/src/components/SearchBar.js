@@ -8,10 +8,10 @@ export const SearchBar = () => {
 
   return (
     <>
-          <SearchWrapper>
-            <SearchInput placeholder='search'/>
-            <FilterWrapper>
-              <Filter>Filter</Filter>
+      <SearchWrapper>
+        <SearchInput placeholder='search'/>
+          <FilterWrapper>
+            <Filter>Filter</Filter>
               <DesktopFilter>
                 <FilterSelect 
                   id='Type'
@@ -44,14 +44,13 @@ export const SearchBar = () => {
                   optionOne='blue'
                   optionTwo='green'
                   >
-                </FilterSelect>
-              </DesktopFilter>
-            </FilterWrapper>
-          </SearchWrapper>
+              </FilterSelect>
+            </DesktopFilter>
+          </FilterWrapper>
+      </SearchWrapper>
     </>
   ) 
 }
-
 
 const SearchWrapper = styled.div`
   display: flex;

@@ -1,9 +1,6 @@
 import { useSelector } from 'react-redux';
-// import { useSelector, useDispatch, batch } from 'react-redux';
-// import React, { useState, useEffect } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import styled from 'styled-components';
 
 import { Accordion } from 'components/Accordion'
@@ -21,7 +18,7 @@ export const Profile = () => {
       <PageWrapper>
 
         <Title tabIndex='0'>Welcome {artistName} to Artist's Collection.</Title>
-        <BodyText>Edit your profile here, and upload your art to the market.</BodyText>
+        <BodyText tabIndex='0'>Edit your profile here, and upload your art to the market.</BodyText>
 
         <Accordion 
           title='Edit profile'

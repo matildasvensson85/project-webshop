@@ -177,6 +177,7 @@ app.post('/signin', async (req, res) => {
 })
 
 // endpoint to edit profile as an artist
+app.post('/profile/:id', authenticateArtist)
 app.patch('/profile/:id', parser.single('image'), async (req, res) => {
   
   try {
@@ -232,54 +233,6 @@ app.post('/products', parser.single('image'), async (req, res) => {
   }
 })
 
-// endpoint to upload productPhoto
-app.post('/productPhoto', parser.single('image'), async (req, res) => {
-  try {
-    const productPhoto = await new ProductPhoto({ 
-      imageUrl: req.file.path, 
-      byArtist: req.body.artistID,
-    }).save()
-    res.json({
-      success: true,
-      photoID: productPhoto._id,
-      imageUrl: productPhoto.imageUrl,
-      byArtist: productPhoto.byArtist
-    })
-  } catch (err) {
-    res.status(400).json({ errors: err.errors })
-  }
-})
-
-// // endpoint to upload profile picture
-app.post('/profilepic', parser.single('image'), async (req, res) => {
-  try {
-    const profilePic = await new ProfilePic({ 
-      name: req.body.name,
-      imageUrl: req.file.path, 
-      ofArtist: req.body.artistID,
-    }).save()
-    res.json({
-      success: true,
-      test: test,
-      photoID: profilePic._id,
-      imageUrl: profilePic.imageUrl,
-      name: profilePic.name,
-      ofArtist: profilePic.ofArtist
-    })
-  } catch (err) {
-    res.status(400).json({ errors: err.errors })
-  }
-})
-
-// endpoint to get one artist by id and their art
-app.get('/artists/:id', async (req, res) => {
-  const { id } = req.params
-  const artistById = await Artist.findOne({_id: id })
-  const artByArtist = await Product.find({artistID: id })
-  res.json({ success: true, artistById, artByArtist })
-})
-
-
 // endpoint to get artists
 app.get('/artists', async (req, res) => {
     const artists = await Artist.find();
@@ -298,23 +251,20 @@ app.get('/products', async (req, res) => {
   });
 })
 
+// endpoint to get one artist by id and their art
+app.get('/artists/:id', async (req, res) => {
+  const { id } = req.params
+  const artistById = await Artist.findOne({_id: id })
+  const artByArtist = await Product.find({artistID: id })
+  res.json({ success: true, artistById, artByArtist })
+})
+
+
 // endpoint to get one product by id
 app.get('/products/:id', async (req, res) => {
   const { id } = req.params
   const productById = await Product.findOne({_id: id })
   res.json({ success: true, productById })
-})
-
-// endpoint to get profile pictures
-app.get('/profilepic', async (req, res) => {
-  const profilePics = await ProfilePic.find()
-  res.json({ success: true, profilePics });
-})
-
-// endpoint to get product pictures
-app.get('/productPhoto', async (req, res) => {
-  const productPhotos = await ProductPhoto.find()
-  res.json({ success: true, productPhotos });
 })
 
 

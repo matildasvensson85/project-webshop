@@ -36,8 +36,6 @@ const AccordionHeader = styled.button`
     :hover {
     background-color: #B72C72;
     }  
-@media (min-width: 1024px) {
-}
 `
 const AccordionContent = styled.div`
   overflow: hidden;

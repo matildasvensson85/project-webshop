@@ -38,7 +38,7 @@ export const Products = () => {
               <ProductCard key={product._id}>
                 <StyledLink to={`/products/${product._id}`}>
                   <LinkWrapper>
-                    <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
+                    <ProductImage src={product.photo} alt='Product photo'/>
                     <Title tabIndex='0'>{product.productName} </Title>
                   </LinkWrapper>
                 </StyledLink>

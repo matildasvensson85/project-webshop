@@ -11,7 +11,6 @@ import { Button } from 'components/Button'
 export const Register = () => {
 
   const [artistName, setArtistName] = useState('')
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
@@ -27,14 +26,13 @@ export const Register = () => {
 
   const onFormSubmit = (event) => {
     event.preventDefault()
-    console.log(`Name is ${artistName}, e-mail is ${email}, password is ${password} `)
 
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ artistName, email, password })
+      body: JSON.stringify({ artistName, password })
     }
     fetch('https://artists-webshop.herokuapp.com/register', options)
       .then(res => res.json())

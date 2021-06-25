@@ -9,12 +9,8 @@ export const FilterSelect = ({ id, value, name, onChange, optionOne, optionTwo, 
       <Label htmlFor={id} aria-label={`Filter by ${id}`}></Label>
         <Select
           id={id}
-          // value={value}
           name={id}
-          onChange={onChange}
-
-          >
-          {/* <option disabled selected>{id}</option> */}
+          onChange={onChange}>
           <option>{optionOne}</option>
           <option>{optionTwo}</option>
           <option>{optionThree}</option>

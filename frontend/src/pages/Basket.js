@@ -1,17 +1,12 @@
 import { useSelector  } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { artists } from 'reducers/artists'
-import { basket } from 'reducers/basket'
-
 import styled from 'styled-components';
 
 export const Basket = () => {
 
   const basketItems = useSelector(store => store.basket.items);
-  const productList = useSelector(store => store.artists.productList);
   const totalPrice = basketItems.reduce((total, item) => total + item.price, 0)
-
 
   return (
     <>
@@ -32,8 +27,8 @@ export const Basket = () => {
               </ProductCard>
             ))}
               <SummaryWrapper>
-                <Text>Total products: {basketItems.length}</Text>
-                <Text>Order total: {totalPrice} €</Text>
+                <Text tabIndex='0'>Total products: {basketItems.length}</Text>
+                <Text tabIndex='0'>Order total: {totalPrice} €</Text>
               </SummaryWrapper>
       </PageWrapper>
     </>

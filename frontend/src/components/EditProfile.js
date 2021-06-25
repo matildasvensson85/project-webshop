@@ -10,10 +10,7 @@ export const EditProfile = () => {
   const [presentation, setPresentation] = useState('')
   const [published, setPublished] = useState(false)
   const artistID = useSelector(store => store.artists.artistID);
-  const artistPresentation = useSelector(store => store.artists.presentation);
-  const artistsname = useSelector(store => store.artists.artistName);
-  const artistPhoto = useSelector(store => store.artists.photo)
-  const artistPhotoID = useSelector(store => store.artists.photoID)
+  const accessToken= useSelector(store => store.artists.accessToken);
   const fileInput = useRef()
   const dispatch = useDispatch()
 
@@ -28,7 +25,13 @@ export const EditProfile = () => {
     formData.append('presentation', presentation)
     formData.append('artistID', artistID)
 
-    fetch(`https://artists-webshop.herokuapp.com/profile/${artistID}`, { method: 'PATCH', body: formData })
+    fetch(`https://artists-webshop.herokuapp.com/profile/${artistID}`, { 
+      method: 'PATCH',
+      body: formData,
+      headers: {
+        Authorization: accessToken,
+      },
+     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data)

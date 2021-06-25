@@ -1,6 +1,5 @@
 import { useSelector, useDispatch, batch } from 'react-redux';
 import React, { useState, useRef } from 'react';
-
 import styled from 'styled-components';
 
 import { InputLine } from 'components/InputLine'
@@ -207,7 +206,6 @@ const SelectWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  
 `
 const Select = styled.div`
   position: relative;

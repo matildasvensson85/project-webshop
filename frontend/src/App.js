@@ -13,7 +13,6 @@ import { SingleProduct } from 'pages/SingleProduct'
 import { Artists } from 'pages/Artists'
 import { SingleArtist } from 'pages/SingleArtist'
 import { Register } from 'pages/Register'
-import { SignIn } from 'pages/SignIn'
 import { Basket } from 'pages/Basket'
 import { Profile } from 'pages/Profile'
 import { Header } from 'components/Header'
@@ -24,7 +23,7 @@ const reducer = combineReducers ({
   basket: basket.reducer
 })
 
-// To keep user signeed in after refreshing the page
+// To keep user signed in after refreshing the page
 const persistedStateJSON = localStorage.getItem('reduxState');
 let persistedState = {};
 
@@ -79,10 +78,6 @@ export const App = () => {
                 <Register />
               </Route>
 
-              <Route path="/signin">
-                <SignIn />
-              </Route>
-
               <Route path="/basket">
                 <Basket />
               </Route>
@@ -107,8 +102,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* background-color: #F4F3F2; */
-
 `
 const StyledHeader = styled.header`
   height: 60px;
@@ -116,7 +109,6 @@ const StyledHeader = styled.header`
   display: flex;
   top: 0;
   background-color: #EFEEED;
-
 `
 const Main = styled.div`
 `
@@ -124,6 +116,4 @@ const StyledFooter= styled.footer`
   background-color: #DBD5D1;
   width: 100%;
   margin-top: auto;
-
-
 `

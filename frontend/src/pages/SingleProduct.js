@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { artists } from 'reducers/artists'
@@ -9,8 +9,6 @@ import { Button } from 'components/Button'
 import { 
   StyledLink,
   BigTitle,
-  Title,
-  SubTitle,
   Text 
 } from 'Styling'
 
@@ -18,9 +16,9 @@ export const SingleProduct = () => {
 
   const { productId } = useParams()
   const [singleProduct, setSingleProduct] = useState({})
-  const [questionIndex, setQuestionIndex] = useState(0)
   console.log(singleProduct)
   const dispatch = useDispatch()
+  const accessToken = useSelector((store) => store.artists.accessToken)
 
     useEffect(() => {
         fetch(`https://artists-webshop.herokuapp.com/products/${productId}`)
@@ -36,35 +34,31 @@ export const SingleProduct = () => {
           .catch()
     }, [productId, dispatch])
 
-    const addToBasket = () => {
-      dispatch(basket.actions.addItem(singleProduct))
-      onQuestionIndexChange()
-    }
-
-    const onQuestionIndexChange = () => {
-      setQuestionIndex(questionIndex +1)
-  }
-
   return (
     <>
       <PageWrapper>
         <ProductWrapper>
           <BigTitle tabIndex='0'>{singleProduct.productName}</BigTitle>
-          <Text>{singleProduct.description}</Text>
+          <Text tabIndex='0'>{singleProduct.description}</Text>
           <Image src={singleProduct.photo} />
-          <Text>Price: {singleProduct.price} €</Text>
-          <Text>{singleProduct.color}</Text>
-          <Text>{singleProduct.category}</Text>
+          <Text tabIndex='0'>Price: {singleProduct.price} €</Text>
+          <Text tabIndex='0'>{singleProduct.color}</Text>
+          <Text tabIndex='0'>{singleProduct.category}</Text>
           <StyledLink to={`/artists/${singleProduct.artistID}`}>
-            <Text>Artist: {singleProduct.artistName}</Text>
+            <Text tabIndex='0'>Artist: {singleProduct.artistName}</Text>
           </StyledLink>
           </ProductWrapper>
-        <ButtonWrapper>
-          <Button
-            buttonText='Add to basket'
-            onClick={() => dispatch(basket.actions.addItem(singleProduct))}
-          />
-        </ButtonWrapper>
+
+        {accessToken && (
+          <>
+            <ButtonWrapper>
+              <Button
+                buttonText='Add to basket'
+                onClick={() => dispatch(basket.actions.addItem(singleProduct))}
+              />
+            </ButtonWrapper>
+          </>
+        )}
       </PageWrapper>
     </>
   ) 
