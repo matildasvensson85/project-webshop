@@ -1,13 +1,11 @@
 # Project Auth
 
-Replace this readme with your own information about your project.
+Artists Collection is my final project of Technigo Bootcamp. Its a webshop where artists can sell their own art. The artists can register, create a profile and upload their own art to the market.
 
-Start by briefly describing the assignment in a sentence or two. Keep it short and to the point.
-
-## The problem
-
-Describe how you approached to problem, and what tools and techniques you used to solve it. How did you plan? What technologies did you use? If you had more time, what would be next?
+The project is created in React with backend in Mongoose.
 
 ## View it live
 
-Every project should be deployed somewhere. Be sure to include the link to the deployed project so that the viewer can click around and see what it's all about.
+Live site: https://artists-collection.netlify.app/
+
+Heroku deployment: https://artists-webshop.herokuapp.com/
