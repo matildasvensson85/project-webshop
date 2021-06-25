@@ -1,4 +1,4 @@
-# Arists Collection
+# Webshop - Technigo final project
 
 Artists Collection is my final project of Technigo Bootcamp. Its a webshop where artists can sell their own art. The artists can register, create a profile and upload their own art to the market.
 
