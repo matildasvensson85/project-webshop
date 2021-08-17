@@ -114,6 +114,10 @@ const CartWrapper= styled.div`
   text-decoration: none;
   display: flex;
   margin: 9px 0 0 0;
+  
+  @media (max-width: 768px) {
+    margin: 9px 34px 0 0;
+  
 `
 const Cart = styled.div`
   text-decoration: none;
@@ -123,10 +127,6 @@ const Cart = styled.div`
 const Amount = styled.div`
 `
 const HamburgerWrapper = styled.div`
-  display: flex;
-  @media (min-width: 768px) {
-    display: none;
-  }
 `
 const DesktopNav = styled.div`
   text-decoration: none;

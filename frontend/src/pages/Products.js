@@ -40,11 +40,11 @@ export const Products = () => {
                   <LinkWrapper>
                     <ProductImage src={product.photo} alt='Product photo'/>
                     <Title tabIndex='0'>{product.productName} </Title>
+                    <SmallTextWrapper>
+                      <Text tabIndex='0'>{product.price} €</Text>
+                    </SmallTextWrapper>
                   </LinkWrapper>
                 </StyledLink>
-                  <SmallTextWrapper>
-                    <Text tabIndex='0'>{product.price} €</Text>
-                  </SmallTextWrapper>
               </ProductCard>
             ))}
           </InnerWrapper>
@@ -101,6 +101,10 @@ const LinkWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  :hover {
+    transform: scale(1.01);
+  }
 `
 const SmallTextWrapper = styled.div`
   display: flex;

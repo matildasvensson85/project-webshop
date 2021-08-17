@@ -83,12 +83,16 @@ const ProductCard = styled.section`
   flex-direction: column;
   width: 100%;
   margin-bottom: 20px;
+  :hover {
+    transform: scale(1.01);
+  }
   @media (min-width: 768px) {
     width: 48.8%;
   }
   @media (min-width: 1024px) {
     width: 23.7%;
   } 
+
 `
 const ProductImage = styled.img`
   width: 100%;

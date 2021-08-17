@@ -38,15 +38,18 @@ export const SingleProduct = () => {
     <>
       <PageWrapper>
         <ProductWrapper>
-          <BigTitle tabIndex='0'>{singleProduct.productName}</BigTitle>
-          <Text tabIndex='0'>{singleProduct.description}</Text>
           <Image src={singleProduct.photo} />
-          <Text tabIndex='0'>Price: {singleProduct.price} €</Text>
-          <Text tabIndex='0'>{singleProduct.color}</Text>
-          <Text tabIndex='0'>{singleProduct.category}</Text>
-          <StyledLink to={`/artists/${singleProduct.artistID}`}>
-            <Text tabIndex='0'>Artist: {singleProduct.artistName}</Text>
-          </StyledLink>
+          <TextWrapper>
+            <BigTitle tabIndex='0'>{singleProduct.productName}</BigTitle>
+            <Text tabIndex='0'>{singleProduct.description}</Text>
+            
+            <Text tabIndex='0'>Price: {singleProduct.price} €</Text>
+            <Text tabIndex='0'>{singleProduct.color}</Text>
+            <Text tabIndex='0'>{singleProduct.category}</Text>
+            <StyledLink to={`/artists/${singleProduct.artistID}`}>
+              <Text tabIndex='0'>Artist: {singleProduct.artistName}</Text>
+            </StyledLink>
+          </TextWrapper>
           </ProductWrapper>
 
         {accessToken && (
@@ -72,8 +75,15 @@ const ProductWrapper = styled.section`
   align-items: center;
 `
 const Image = styled.img`
-  width: 300px;
-  margin: 0 0 10px 0;
+  width: 100%;
+  margin: 0 0 0 0;
+`
+const TextWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 10px 20px 20px 20px;
+
 `
 const ButtonWrapper = styled.div`
   display: flex;

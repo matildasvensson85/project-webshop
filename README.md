@@ -1,8 +1,11 @@
 # Webshop - Technigo final project
 
-Artists Collection is my final project of Technigo Bootcamp. Its a webshop where artists can sell their own art. The artists can register, create a profile and upload their own art to the market.
+For this project, I created a webshop where you can buy art directly from artists. Artists can register, create a profile and upload their art to the market.
 
 The project is created in React with backend in Mongoose.
+
+This project was created as the final project of Technigos Frontend Bootcamp.
+
 
 ## View it live
 

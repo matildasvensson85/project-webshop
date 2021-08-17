@@ -34,5 +34,5 @@ export const Text = styled.p`
   margin: 0;
   font-size: 16px;
   line-height: 150%;
-  text-align: center;
+  text-align: left;
 `
