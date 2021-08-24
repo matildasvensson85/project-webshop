@@ -77,6 +77,9 @@ const ProductWrapper = styled.section`
 const Image = styled.img`
   width: 100%;
   margin: 0 0 0 0;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `
 const TextWrapper = styled.section`
   display: flex;
