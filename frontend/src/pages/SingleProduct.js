@@ -42,26 +42,24 @@ export const SingleProduct = () => {
           <TextWrapper>
             <BigTitle tabIndex='0'>{singleProduct.productName}</BigTitle>
             <Text tabIndex='0'>{singleProduct.description}</Text>
-            
             <Text tabIndex='0'>Price: {singleProduct.price} €</Text>
             <Text tabIndex='0'>{singleProduct.color}</Text>
             <Text tabIndex='0'>{singleProduct.category}</Text>
             <StyledLink to={`/artists/${singleProduct.artistID}`}>
               <Text tabIndex='0'>Artist: {singleProduct.artistName}</Text>
             </StyledLink>
+            {accessToken && (
+              <>
+                <ButtonWrapper>
+                  <Button
+                    buttonText='Add to basket'
+                    onClick={() => dispatch(basket.actions.addItem(singleProduct))}
+                  />
+                </ButtonWrapper>
+              </>
+            )}
           </TextWrapper>
-          </ProductWrapper>
-
-        {accessToken && (
-          <>
-            <ButtonWrapper>
-              <Button
-                buttonText='Add to basket'
-                onClick={() => dispatch(basket.actions.addItem(singleProduct))}
-              />
-            </ButtonWrapper>
-          </>
-        )}
+        </ProductWrapper>
       </PageWrapper>
     </>
   ) 
@@ -72,25 +70,29 @@ const PageWrapper = styled.section`
 const ProductWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `
 const Image = styled.img`
   width: 100%;
   margin: 0 0 0 0;
   @media (min-width: 768px) {
-    width: 50%;
+    width: 450px;
+    margin: 20px 0 0 20px;
   }
 `
 const TextWrapper = styled.section`
   display: flex;
   flex-direction: column;
   align-items: left;
-  margin: 10px 20px 20px 20px;
-
+  margin: 20px 20px 20px 20px;
+  max-width: 450px;
 `
 const ButtonWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 10px;
+  margin: 25px 10px 10px 0;
 `

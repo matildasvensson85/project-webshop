@@ -34,7 +34,7 @@ export const Products = () => {
       <PageWrapper>
         <ProductsWrapper>
           <InnerWrapper>
-            {products.map((product) => (
+            {products.slice(0, 12).map((product) => (
               <ProductCard key={product._id}>
                 <StyledLink to={`/products/${product._id}`}>
                   <LinkWrapper>

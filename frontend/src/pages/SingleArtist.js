@@ -42,22 +42,27 @@ export const SingleArtist = () => {
     <>
       <PageWrapper>
         <ArtistWrapper>
-          <BigTitle tabIndex='0'>{singleArtist.artistName}.</BigTitle>
           <ProfilePic src={singleArtist.photo} />
-          <Text>{singleArtist.presentation}</Text>
-          <Title>{singleArtist.artistName}s art for sale</Title>
+          <TextWrapper>
+            <BigTitle tabIndex='0'>{singleArtist.artistName}.</BigTitle>
+            <Text>{singleArtist.presentation}</Text>
+          </TextWrapper>
+            
         </ArtistWrapper>
         <ProductsWrapper>
-          {art.map((product, index) => (
-              <ProductCard key={index}>
-                <StyledLink to={`/products/${product._id}`}>
-                  <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
-                  <ProductTextWrapper>
-                    <SubTitle tabIndex='0'>{product.productName} </SubTitle>
-                  </ProductTextWrapper>
-                </StyledLink>
-              </ProductCard>
-          ))}
+          <Title>{singleArtist.artistName}s art for sale</Title>
+            <CardsWrapper>
+              {art.map((product, index) => (
+                  <ProductCard key={index}>
+                    <StyledLink to={`/products/${product._id}`}>
+                      <ProductImage src={product.photo} alt='Ceramics bowls and bottle'/>
+                      <ProductTextWrapper>
+                        <SubTitle tabIndex='0'>{product.productName} </SubTitle>
+                      </ProductTextWrapper>
+                    </StyledLink>
+                  </ProductCard>
+              ))}
+            </CardsWrapper>
         </ProductsWrapper>
       </PageWrapper>
     </>
@@ -65,42 +70,53 @@ export const SingleArtist = () => {
 }
 
 const PageWrapper = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
 `
 const ArtistWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 350px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
 `
 const ProfilePic = styled.img`
-  width: 300px;
-  margin: 0 0 10px 0;
+  width: 100%;
+  margin: 0 0 0 0;
+  @media (min-width: 768px) {
+    width: 450px;
+    margin: 20px 0 0 20px;
+  }
+`
+const TextWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  margin: 20px 20px 20px 20px;
+  max-width: 450px;
 `
 const ProductsWrapper = styled.section`
   display: flex;
-  justify-content: center;
-  width: 100%;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: left;
+  margin: 20px 20px 20px 20px;
+`
+const CardsWrapper = styled.section`
+  display: flex;
 `
 const ProductCard = styled.section`
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  width: 30%;
-  margin: 10px;
+  flex-wrap: wrap;
+  width: 47%;
+  margin: 10px 10px 0 0;
+  :hover {
+    transform: scale(1.01);
+  }
+  @media (min-width: 768px) {
+    width: 200px;
+  }
 `
 const ProductImage = styled.img`
-  width: 150px;
-  margin: 10px 0 10px 0;
+  width: 100%;
 `
 const ProductTextWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `

@@ -33,7 +33,7 @@ export const Artists = () => {
       <PageWrapper>
         <ProductsWrapper>
           <InnerWrapper>
-          {artistList.map(artist => (
+          {artistList.slice(0, 12).map(artist => (
             <ProductCard key={artist._id}>
               <StyledLink to={`/artists/${artist._id}`}>
                 <ProductImage src={artist.photo} alt='Artist photo'/>
