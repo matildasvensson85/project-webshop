@@ -1,17 +1,17 @@
-import { useSelector } from 'react-redux';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
+import React from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 import { Accordion } from 'components/Accordion'
+import { Button } from 'components/Button'
 import { EditProfile } from 'components/EditProfile'
 import { UploadProducts } from 'components/UploadProducts'
-import { Button } from 'components/Button'
+
 
 export const Profile = () => {
 
-  const artistName = useSelector(store => store.artists.artistName);
-  const artistID = useSelector(store => store.artists.artistID);
+  const artistName = useSelector(store => store.artists.artistName)
+  const artistID = useSelector(store => store.artists.artistID)
 
   return (
     <>

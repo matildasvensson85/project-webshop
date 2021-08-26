@@ -1,7 +1,6 @@
-import { useSelector, useDispatch, batch } from 'react-redux';
-import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
-
+import React, { useState, useRef } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
+import styled from 'styled-components'
 import { InputLine } from 'components/InputLine'
 import { InputTextArea } from 'components/InputTextArea'
 import { Button } from 'components/Button'
@@ -20,9 +19,9 @@ const [colorOpen, setColorOpen] = useState(false)
 const [chosenCategory, setChosenCategory] = useState('Painting')
 const [chosenColor, setChosenColor] = useState('Beige')
 
-const artistID = useSelector(store => store.artists.artistID);
-const accessToken= useSelector(store => store.artists.accessToken);
-const artistName = useSelector(store => store.artists.artistName);
+const artistID = useSelector(store => store.artists.artistID)
+const accessToken= useSelector(store => store.artists.accessToken)
+const artistName = useSelector(store => store.artists.artistName)
 
 const fileInput = useRef()
 const dispatch = useDispatch()
@@ -90,11 +89,11 @@ const postProducts = () => {
       console.log(data)
       if (data.success) {
         batch(() => {
-          dispatch(artists.actions.setProduct(data.savedProduct));
-          dispatch(artists.actions.setErrors(null));
+          dispatch(artists.actions.setProduct(data.savedProduct))
+          dispatch(artists.actions.setErrors(null))
         })
       } else {
-        dispatch(artists.actions.setErrors(data));
+        dispatch(artists.actions.setErrors(data))
         console.log('failure')
       }
     })
@@ -230,8 +229,8 @@ const SelectButton = styled.button`
   background-color: transparent;
   cursor: pointer;
 `
-const SelectTitle = styled.p``
-
+const SelectTitle = styled.p`
+`
 const List = styled.ul`
   position: absolute;
   top: 37px;

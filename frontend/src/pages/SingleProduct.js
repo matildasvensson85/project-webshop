@@ -1,8 +1,7 @@
-import { useDispatch, useSelector } from 'react-redux';
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
+import styled from 'styled-components'
 import { artists } from 'reducers/artists'
 import { basket } from 'reducers/basket'
 import { Button } from 'components/Button'
@@ -28,7 +27,7 @@ export const SingleProduct = () => {
             if (data.success) {
                 setSingleProduct(data.productById)
             } else {
-              dispatch(artists.actions.setErrors(data));
+              dispatch(artists.actions.setErrors(data))
             }
           })
           .catch()

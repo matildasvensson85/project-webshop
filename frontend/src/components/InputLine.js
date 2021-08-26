@@ -1,6 +1,5 @@
-import React from 'react';
-
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 export const InputLine = ({
   id,
@@ -26,7 +25,6 @@ export const InputLine = ({
     </>
   ) 
 }
-
 
 const Label = styled.label`
   color: #4F4F4F;

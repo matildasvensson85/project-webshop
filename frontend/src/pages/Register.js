@@ -1,12 +1,10 @@
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-
+import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
 import { artists } from 'reducers/artists'
-import { InputLine } from 'components/InputLine'
 import { Button } from 'components/Button'
-
+import { InputLine } from 'components/InputLine'
 
 export const Register = () => {
 
@@ -15,7 +13,7 @@ export const Register = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
-  const accessToken = useSelector(store => store.artists.accessToken);
+  const accessToken = useSelector(store => store.artists.accessToken)
 
   // Move to profile page when logged in
   useEffect(() => {

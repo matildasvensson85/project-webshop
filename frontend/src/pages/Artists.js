@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 import { artists } from 'reducers/artists'
 import { 
   StyledLink,
@@ -11,7 +10,7 @@ import {
 export const Artists = () => {
 
   const dispatch = useDispatch()
-  const artistList = useSelector(store => store.artists.artistList);
+  const artistList = useSelector(store => store.artists.artistList)
 
   useEffect(() => {
       fetch('https://artists-webshop.herokuapp.com/artists')
@@ -22,10 +21,10 @@ export const Artists = () => {
           if (data.success) {
             dispatch(artists.actions.setArtistList(data.artists))
           } else {
-            dispatch(artists.actions.setErrors(data));
+            dispatch(artists.actions.setErrors(data))
           }
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.error(err))
   }, [dispatch])
 
   return (
@@ -92,7 +91,6 @@ const ProductCard = styled.section`
   @media (min-width: 1024px) {
     width: 23.7%;
   } 
-
 `
 const ProductImage = styled.img`
   width: 100%;

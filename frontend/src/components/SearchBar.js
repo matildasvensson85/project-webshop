@@ -1,7 +1,5 @@
-import React from 'react';
-
-import styled from 'styled-components';
-
+import React from 'react'
+import styled from 'styled-components'
 import { FilterSelect } from 'components/FilterSelect'
 
 export const SearchBar = () => {

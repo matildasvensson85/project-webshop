@@ -1,16 +1,17 @@
-import { useSelector, useDispatch, batch } from 'react-redux';
-import React, { useState, useRef } from 'react';
-import styled from 'styled-components';
-import { InputTextArea } from 'components/InputTextArea'
-import { Button } from 'components/Button'
+import React, { useState, useRef } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
+import styled from 'styled-components'
 import { artists } from 'reducers/artists'
+import { Button } from 'components/Button'
+import { InputTextArea } from 'components/InputTextArea'
+
 
 export const EditProfile = () => {
 
   const [presentation, setPresentation] = useState('')
   const [published, setPublished] = useState(false)
-  const artistID = useSelector(store => store.artists.artistID);
-  const accessToken= useSelector(store => store.artists.accessToken);
+  const artistID = useSelector(store => store.artists.artistID)
+  const accessToken= useSelector(store => store.artists.accessToken)
   const fileInput = useRef()
   const dispatch = useDispatch()
 
@@ -42,7 +43,7 @@ export const EditProfile = () => {
             dispatch(artists.actions.setErrors(null));
           })
         } else {
-          dispatch(artists.actions.setErrors(data));
+          dispatch(artists.actions.setErrors(data))
           console.log('failure')
         }
       })

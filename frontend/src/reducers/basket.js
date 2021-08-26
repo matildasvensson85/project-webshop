@@ -12,18 +12,17 @@ export const basket = createSlice({
 
           const exsistingItems = store.items.find(
             (item) => item.productName === action.payload.productName
-          );
+          )
     
           if (exsistingItems) {
-            exsistingItems.quantity += 1;
+            exsistingItems.quantity += 1
           } else {
-            store.items.push({ ...action.payload, quantity: 1 });
+            store.items.push({ ...action.payload, quantity: 1 })
           }
         },
         setLogOut: () => {
           return initialState
       },
-    },
-      
+    },   
 })
 

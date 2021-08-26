@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
-import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-
+import React, { useEffect } from 'react'
+import styled from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
 import { artists } from 'reducers/artists'
 import { 
   StyledLink,
@@ -12,7 +11,7 @@ import {
 export const Products = () => {
 
   const dispatch = useDispatch()
-  const products = useSelector(store => store.artists.productList);
+  const products = useSelector(store => store.artists.productList)
 
   useEffect(() => {
       fetch('https://artists-webshop.herokuapp.com/products')
@@ -22,10 +21,10 @@ export const Products = () => {
           if (data.success) {
               dispatch(artists.actions.setProductList(data.products))
           } else {
-            dispatch(artists.actions.setErrors(data));
+            dispatch(artists.actions.setErrors(data))
           }
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.error(err))
   }, [dispatch])
 
   

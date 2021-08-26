@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 export const UploadSelect = ({ handleSelect, chosenOption, selectOpen, open, id, label, content, value, mapData, data, onClick, key }) => {
 
@@ -10,9 +10,6 @@ export const UploadSelect = ({ handleSelect, chosenOption, selectOpen, open, id,
         <Select>
           <SelectButton type="button" onClick={onClick}>
             <SelectTitle>{chosenOption}</SelectTitle>
-            {/* <SelectArrow open={selectOpen}>
-              <FontAwesomeIcon icon={faCaretDown} />
-              </SelectArrow> */}
           </SelectButton>
           <List open={open}>
             {mapData.map((data) => (
@@ -25,7 +22,6 @@ export const UploadSelect = ({ handleSelect, chosenOption, selectOpen, open, id,
              ))}
           </List>
         </Select>
-
         <Label htmlFor={id} aria-label={`Filter by ${id}`}>{label}</Label>
         <Select
           id={id}
@@ -40,7 +36,6 @@ export const UploadSelect = ({ handleSelect, chosenOption, selectOpen, open, id,
           <option>{optionTwo}</option>
           <option>{optionThree}</option>
         </Select>
-        
       </SelectWrapper>
     </>
   ) 
@@ -59,7 +54,6 @@ const SelectWrapper = styled.div`
     height: 365px;
   }
 `
-
 const Select = styled.select`
   border: 1px solid #1D47B2;
   background-color: transparent;
@@ -71,13 +65,11 @@ const Label = styled.label`
   color: #4F4F4F;
   font-size: 14px;
 `
-
 const Selections = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 20px;
 `
-
 const SelectButton = styled.button`
   position: relative;
   -webkit-appearance: none;
@@ -104,7 +96,6 @@ const SelectArrow = styled.span`
     props.open ? 'rotate(180deg) translateZ(0px)' : 'none'};
   transition: transform 0.2s linear;
 `
-
 const SelectTitle = styled.div`
   margin-right: 8px;
   color: #1a1a1a;
@@ -127,13 +118,12 @@ const List = styled.ul`
   font-size: 12px;
   text-align: justify;
   opacity: ${(props) => (props.open ? 1 : 0)};
-
   transform: none;
   list-style: none;
   overflow: auto;
 `
-const SizeList = styled(List)``
-
+const SizeList = styled(List)`
+`
 const SubList = styled.ul`
   width: 100%;
   margin: 0;
@@ -149,7 +139,6 @@ const ListItem = styled.li`
   box-sizing: border-box;
   background: #fff;
   cursor: pointer;
-
   &:hover {
     color: #fb958b;
   }

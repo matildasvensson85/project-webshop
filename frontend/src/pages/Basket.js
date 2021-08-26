@@ -1,11 +1,11 @@
-import { useSelector  } from 'react-redux';
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React from 'react'
+import { useSelector  } from 'react-redux'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
 export const Basket = () => {
 
-  const basketItems = useSelector(store => store.basket.items);
+  const basketItems = useSelector(store => store.basket.items)
   const totalPrice = basketItems.reduce((total, item) => total + item.price, 0)
 
   return (

@@ -1,11 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
+import { Hamburger } from 'components/Hamburger'
+import { FaShoppingCart } from 'react-icons/fa'
+import { StyledLink } from 'Styling'
 import { artists } from 'reducers/artists'
 import { basket } from 'reducers/basket'
-import { Hamburger } from 'components/Hamburger'
-import { FaShoppingCart } from 'react-icons/fa';
-import { StyledLink } from 'Styling'
+
 
 export const Header = () => {
 
@@ -114,10 +115,9 @@ const CartWrapper= styled.div`
   text-decoration: none;
   display: flex;
   margin: 9px 0 0 0;
-  
   @media (max-width: 768px) {
     margin: 9px 34px 0 0;
-  
+  }
 `
 const Cart = styled.div`
   text-decoration: none;

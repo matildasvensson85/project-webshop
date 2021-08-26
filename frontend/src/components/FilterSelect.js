@@ -1,6 +1,5 @@
-import React from 'react';
-
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 export const FilterSelect = ({ id, value, name, onChange, optionOne, optionTwo, optionThree }) => {
 

@@ -1,8 +1,8 @@
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import React, { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import styled from 'styled-components'
 import { artists } from 'reducers/artists'
-import styled from 'styled-components';
 import { 
   StyledLink,
   BigTitle,
@@ -27,7 +27,7 @@ export const SingleArtist = () => {
             setSingleArtist(data.artistById)
             setArt(data.artByArtist)
         } else {
-          dispatch(artists.actions.setErrors(data));
+          dispatch(artists.actions.setErrors(data))
         }
       })
       .catch()

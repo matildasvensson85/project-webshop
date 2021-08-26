@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
 export const Footer = () => {
 
@@ -74,7 +74,6 @@ const Title = styled.h4`
 `
 const ContactDetails = styled.section`
 `
-
 const Text = styled.p`
   margin: 0;
   font-size: 14px;
