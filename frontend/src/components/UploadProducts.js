@@ -191,9 +191,6 @@ const PageWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   padding: 20px 20px 20px 20px;
-  @media (min-width: 768px) {
-    padding-top: 90px;
-  }
 `
 const Form = styled.form`
   width: 100%;
@@ -202,6 +199,7 @@ const Form = styled.form`
   align-items: center;
 `
 const SelectWrapper = styled.div`
+  max-width: 600px;
   width: 100%;
   display: flex;
   justify-content: space-between;

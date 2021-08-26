@@ -31,6 +31,7 @@ const Label = styled.label`
   width: 100%;
   font-size: 14px;
   margin-bottom: 7px;
+  max-width: 600px;
 `
 const Input = styled.textarea`
   border: solid 1px #1D47B2;
@@ -39,7 +40,8 @@ const Input = styled.textarea`
   height: 200px;
   margin: 10px 0 30px 0;
   padding: 10px;
-  font-size: 16px; 
+  font-size: 16px;
+  max-width: 600px;
   background-color: transparent;
   font-family: Arial, Helvetica, sans-serif;
   cursor: pointer;

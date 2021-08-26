@@ -31,6 +31,7 @@ const Label = styled.label`
   width: 100%;
   font-size: 14px;
   margin-bottom: 17px;
+  max-width: 600px;
 `
 const Input = styled.input`
   outline: none;
@@ -44,6 +45,7 @@ const Input = styled.input`
   background-color: transparent;
   padding: 7px 1px 7px 1px;
   cursor: pointer;
+  max-width: 600px;
   :focus {
     border: none;
     background-color: peachpuff;

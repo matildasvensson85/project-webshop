@@ -71,10 +71,6 @@ export const Register = () => {
                 />
                 <Button buttonText='Register' />
               </Form>
-            <BottomWrapper>
-              <SmallText tabIndex='0'>Already have an account?</SmallText>
-              <LinkText tabIndex='0'>Sign In</LinkText>
-            </BottomWrapper>
         </RegisterWrapper>
       </PageWrapper>
     </>
@@ -119,22 +115,8 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `
-const BottomWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
 const SmallText = styled.p`
   font-size: 14px;
   margin: 0;
   line-height: 19px;
-`
-const LinkText = styled(SmallText)`
-  font-weight: 600;
-  color: black;
-  margin: 0;
-  cursor: pointer;
-  :hover {
-    color: #1D47B2;
-  }
 `
