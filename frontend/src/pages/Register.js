@@ -115,8 +115,4 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
 `
-const SmallText = styled.p`
-  font-size: 14px;
-  margin: 0;
-  line-height: 19px;
-`
+
