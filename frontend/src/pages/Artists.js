@@ -1,49 +1,59 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { artists } from 'reducers/artists'
 import { 
   StyledLink,
   Title,
+  LoadingWrapper,
+  LoadingSpinner
 } from 'Styling'
 
 export const Artists = () => {
 
   const dispatch = useDispatch()
   const artistList = useSelector(store => store.artists.artistList)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-      fetch('https://artists-webshop.herokuapp.com/artists')
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          console.log(data.artists)
-          if (data.success) {
-            dispatch(artists.actions.setArtistList(data.artists))
-          } else {
-            dispatch(artists.actions.setErrors(data))
-          }
-        })
-        .catch((err) => console.error(err))
+    setLoading(true)
+    fetch('https://artists-webshop.herokuapp.com/artists')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setLoading(false)
+          dispatch(artists.actions.setArtistList(data.artists))
+        } else {
+          dispatch(artists.actions.setErrors(data))
+        }
+      })
+      .catch((err) => console.error(err))
   }, [dispatch])
 
   return (
     <>
       <PageWrapper>
-        <ProductsWrapper>
-          <InnerWrapper>
-          {artistList.slice(0, 12).map(artist => (
-            <ProductCard key={artist._id}>
-              <StyledLink to={`/artists/${artist._id}`}>
-                <ProductImage src={artist.photo} alt='Artist photo'/>
-                <ProductTextWrapper>
-                      <Title tabIndex='0'>{artist.artistName} </Title>
-                </ProductTextWrapper>
-              </StyledLink>
-            </ProductCard>
-            ))}
-          </InnerWrapper>
-        </ProductsWrapper>
+        {loading &&
+          <LoadingWrapper>
+            <LoadingSpinner />
+          </LoadingWrapper>
+        }
+        {!loading && 
+          <ProductsWrapper>
+            <InnerWrapper>
+            {artistList.slice(0, 12).map(artist => (
+              <ProductCard key={artist._id}>
+                <StyledLink to={`/artists/${artist._id}`}>
+                  <ProductImage src={artist.photo} alt='Artist photo'/>
+                  <ProductTextWrapper>
+                        <Title tabIndex='0'>{artist.artistName} </Title>
+                  </ProductTextWrapper>
+                </StyledLink>
+              </ProductCard>
+              ))}
+            </InnerWrapper>
+          </ProductsWrapper>
+        }
       </PageWrapper>
     </>
   ) 

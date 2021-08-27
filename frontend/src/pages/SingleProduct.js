@@ -9,59 +9,70 @@ import {
   StyledLink,
   BigTitle,
   Text,
-  BoldText
+  BoldText,
+  LoadingWrapper,
+  LoadingSpinner
 } from 'Styling'
 
 export const SingleProduct = () => {
 
   const { productId } = useParams()
   const [singleProduct, setSingleProduct] = useState({})
-  console.log(singleProduct)
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch()
   const accessToken = useSelector((store) => store.artists.accessToken)
 
     useEffect(() => {
-        fetch(`https://artists-webshop.herokuapp.com/products/${productId}`)
-          .then(res => res.json())
-          .then(data => {
-            console.log(data)
-            if (data.success) {
-                setSingleProduct(data.productById)
-            } else {
-              dispatch(artists.actions.setErrors(data))
-            }
-          })
-          .catch()
+      setLoading(true)
+      fetch(`https://artists-webshop.herokuapp.com/products/${productId}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            setLoading(false)
+            setSingleProduct(data.productById)
+          } else {
+            dispatch(artists.actions.setErrors(data))
+          }
+        })
+        .catch()
     }, [productId, dispatch])
+
 
   return (
     <>
       <PageWrapper>
-        <ProductWrapper>
-          <Image src={singleProduct.photo} />
-          <TextWrapper>
-            <BigTitle tabIndex='0'>{singleProduct.productName}</BigTitle>
-            <Text tabIndex='0'>{singleProduct.description}</Text>
-            <Line />
-            <BoldText tabIndex='0'>Price: {singleProduct.price} €</BoldText>
-            <BoldText tabIndex='0'>{singleProduct.color}</BoldText>
-            <BoldText tabIndex='0'>{singleProduct.category}</BoldText>
-            <StyledLink to={`/artists/${singleProduct.artistID}`}>
-              <BoldText tabIndex='0'>Artist: {singleProduct.artistName}</BoldText>
-            </StyledLink>
-            <Line />
-            {accessToken && (
-              <>
-                <ButtonWrapper>
-                  <Button
-                    buttonText='Add to basket'
-                    onClick={() => dispatch(basket.actions.addItem(singleProduct))}
-                  />
-                </ButtonWrapper>
-              </>
-            )}
-          </TextWrapper>
-        </ProductWrapper>
+        {loading &&
+          <LoadingWrapper>
+            <LoadingSpinner />
+          </LoadingWrapper>
+        }
+        {!loading && 
+          <ProductWrapper>
+            <Image src={singleProduct.photo} />
+            <TextWrapper>
+              <BigTitle tabIndex='0'>{singleProduct.productName}</BigTitle>
+              <Text tabIndex='0'>{singleProduct.description}</Text>
+              <Line />
+              <BoldText tabIndex='0'>Price: {singleProduct.price} €</BoldText>
+              <BoldText tabIndex='0'>{singleProduct.color}</BoldText>
+              <BoldText tabIndex='0'>{singleProduct.category}</BoldText>
+              <StyledLink to={`/artists/${singleProduct.artistID}`}>
+                <BoldText tabIndex='0'>Artist: {singleProduct.artistName}</BoldText>
+              </StyledLink>
+              <Line />
+              {accessToken && (
+                <>
+                  <ButtonWrapper>
+                    <Button
+                      buttonText='Add to basket'
+                      onClick={() => dispatch(basket.actions.addItem(singleProduct))}
+                    />
+                  </ButtonWrapper>
+                </>
+              )}
+            </TextWrapper>
+          </ProductWrapper>
+        }
       </PageWrapper>
     </>
   ) 

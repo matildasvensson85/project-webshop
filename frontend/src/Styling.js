@@ -39,3 +39,34 @@ export const Text = styled.p`
 export const BoldText = styled(Text)`
   font-weight: 500;
 `
+export const LoadingWrapper = styled.section`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  @media (min-width: 375px) {
+    margin-top: 100px;
+  }
+  @media (min-width: 768px) {
+    margin-top: 200px;
+  }
+  @media (min-width: 1024px) {
+    margin-top: 250px;
+  } 
+`
+export const LoadingSpinner = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: solid 15px darkgrey;
+  border-top: 15px solid #B72C72;
+  animation: loading 1.5s linear infinite;
+  opacity: 0;
+  @keyframes loading {
+  from {
+    opacity: 1;
+    transform:rotate(0deg)}
+  to {
+    opacity: 1;
+    transform:rotate(360deg)}
+}
+`

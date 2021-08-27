@@ -8,7 +8,9 @@ import {
   BigTitle,
   Title,
   SubTitle,
-  Text 
+  Text,
+  LoadingWrapper,
+  LoadingSpinner
 } from 'Styling'
 
 export const SingleArtist = () => {
@@ -16,16 +18,18 @@ export const SingleArtist = () => {
   const { artistId } = useParams()
   const [singleArtist, setSingleArtist] = useState({})
   const [art, setArt] = useState([{}])
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch()
 
     const fetchArtistInfo = useCallback(() => {
+      setLoading(true)
       fetch(`https://artists-webshop.herokuapp.com/artists/${artistId}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         if (data.success) {
-            setSingleArtist(data.artistById)
-            setArt(data.artByArtist)
+          setLoading(false)
+          setSingleArtist(data.artistById)
+          setArt(data.artByArtist)
         } else {
           dispatch(artists.actions.setErrors(data))
         }
@@ -41,29 +45,36 @@ export const SingleArtist = () => {
   return (
     <>
       <PageWrapper>
-        <ArtistWrapper>
-          <ProfilePic src={singleArtist.photo} />
-          <TextWrapper>
-            <BigTitle tabIndex='0'>{singleArtist.artistName}.</BigTitle>
-            <Text>{singleArtist.presentation}</Text>
-            <Line />
-            <ProductsWrapper>
-              <Title>{singleArtist.artistName}s art for sale</Title>
-                <CardsWrapper>
-                  {art.map((product, index) => (
-                      <ProductCard key={index}>
-                        <StyledLink to={`/products/${product._id}`}>
-                          <ProductImage src={product.photo} alt='Product photo'/>
-                          <ProductTextWrapper>
-                            <SubTitle tabIndex='0'>{product.productName} </SubTitle>
-                          </ProductTextWrapper>
-                        </StyledLink>
-                      </ProductCard>
-                  ))}
-                </CardsWrapper>
-            </ProductsWrapper>
-          </TextWrapper>
-        </ArtistWrapper>
+        {loading &&
+          <LoadingWrapper>
+            <LoadingSpinner />
+          </LoadingWrapper>
+        }
+        {!loading && 
+          <ArtistWrapper>
+            <ProfilePic src={singleArtist.photo} />
+            <TextWrapper>
+              <BigTitle tabIndex='0'>{singleArtist.artistName}.</BigTitle>
+              <Text>{singleArtist.presentation}</Text>
+              <Line />
+              <ProductsWrapper>
+                <Title>{singleArtist.artistName}s art for sale</Title>
+                  <CardsWrapper>
+                    {art.map((product, index) => (
+                        <ProductCard key={index}>
+                          <StyledLink to={`/products/${product._id}`}>
+                            <ProductImage src={product.photo} alt='Product photo'/>
+                            <ProductTextWrapper>
+                              <SubTitle tabIndex='0'>{product.productName} </SubTitle>
+                            </ProductTextWrapper>
+                          </StyledLink>
+                        </ProductCard>
+                    ))}
+                  </CardsWrapper>
+              </ProductsWrapper>
+            </TextWrapper>
+          </ArtistWrapper>
+        }
       </PageWrapper>
     </>
   ) 

@@ -1,53 +1,64 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { artists } from 'reducers/artists'
 import { 
   StyledLink,
   Title,
-  Text 
+  Text,
+  LoadingWrapper,
+  LoadingSpinner
 } from 'Styling'
 
 export const Products = () => {
 
   const dispatch = useDispatch()
   const products = useSelector(store => store.artists.productList)
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-      fetch('https://artists-webshop.herokuapp.com/products')
-        .then(res => res.json())
-        .then(data => {
-          console.log(data)
-          if (data.success) {
-              dispatch(artists.actions.setProductList(data.products))
-          } else {
-            dispatch(artists.actions.setErrors(data))
-          }
-        })
-        .catch((err) => console.error(err))
+    setLoading(true)
+    fetch('https://artists-webshop.herokuapp.com/products')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
+          setLoading(false)
+          dispatch(artists.actions.setProductList(data.products))
+        } else {
+          dispatch(artists.actions.setErrors(data))
+        }
+      })
+      .catch((err) => console.error(err))
   }, [dispatch])
 
   
   return (
     <>
       <PageWrapper>
-        <ProductsWrapper>
-          <InnerWrapper>
-            {products.slice(0, 12).map((product) => (
-              <ProductCard key={product._id}>
-                <StyledLink to={`/products/${product._id}`}>
-                  <LinkWrapper>
-                    <ProductImage src={product.photo} alt='Product photo'/>
-                    <Title tabIndex='0'>{product.productName} </Title>
-                    <SmallTextWrapper>
-                      <Text tabIndex='0'>{product.price} €</Text>
-                    </SmallTextWrapper>
-                  </LinkWrapper>
-                </StyledLink>
-              </ProductCard>
-            ))}
-          </InnerWrapper>
-        </ProductsWrapper>
+        {loading &&
+          <LoadingWrapper>
+            <LoadingSpinner />
+          </LoadingWrapper>
+        }
+        {!loading && 
+          <ProductsWrapper>
+            <InnerWrapper>
+              {products.slice(0, 12).map((product) => (
+                <ProductCard key={product._id}>
+                  <StyledLink to={`/products/${product._id}`}>
+                    <LinkWrapper>
+                      <ProductImage src={product.photo} alt='Product photo'/>
+                      <Title tabIndex='0'>{product.productName} </Title>
+                      <SmallTextWrapper>
+                        <Text tabIndex='0'>{product.price} €</Text>
+                      </SmallTextWrapper>
+                    </LinkWrapper>
+                  </StyledLink>
+                </ProductCard>
+              ))}
+            </InnerWrapper>
+          </ProductsWrapper>
+        }
       </PageWrapper>
     </>
   ) 
