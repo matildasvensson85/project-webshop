@@ -1,6 +1,6 @@
 # Webshop - Technigo final project
 
-For this project, I created a webshop where you can buy art directly from artists. Artists can register, create a profile and upload their art to the market.
+For this project, I created a web shop where artists can register, create a profile and upload their art to the market.
 
 The project is created in React with backend in Mongoose.
 
